@@ -1,0 +1,124 @@
+ABSENSISISWASMKIKHBARFADILLAH/
+│
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Auth/
+│   │   │   │   ├── ControllerAuthUser.php
+│   │   │   │   ├── ControllerAuthmasyarakat.php
+│   │   │   │   └──  ControllerRegistermasyarakat.php
+│   │   │   ├── Dashboard/
+│   │   │   │   ├── ControllerDashboardAdmin.php
+│   │   │   │   └── ControllerDashboardmasyarakat.php
+│   │   │   ├── Master/
+│   │   │   │   ├── ControllerUser.php
+│   │   │   │   └── ControllerPengumuman.php  
+│   │   │   │
+│   │   │   ├── Transaksi/
+│   │   │   │   └──ControllerAbsensi.php
+│   │   │   │
+│   │   │   │
+│   │   │   ├── Laporan/
+│   │   │   │   └── ControllerLaporan.php
+│   │   │   │
+│   │   │   │
+│   │   │   ├── Zonamasyarakat/
+│   │   │   │   └── ControllerZonaMasyarakat.php
+│   │   │   │
+│   │   │   │
+│   │   │   └── Landing/
+│   │   │       └── ControllerLanding.php
+│   │   └── Middleware/
+│   │       ├── MiddlewareSiswa.php
+│   │       └── RoleMiddleware.php
+│   │
+│   ├── Models/
+│   │   ├── ModelUser.php
+│   │   ├── Model.php
+│   │   ├── ModelJurusan.php
+│   │   ├── ModelKelas.php
+│   │   ├── ModelSiswa.php
+│   │   ├── ModelTahunAjaran.php
+│   │   ├── ModelSemester.php
+│   │   └── ModelAbsensi.php
+│   │   └── ModelRegisterSiswa.php
+│   │   
+│   └── Providers/ ...
+│
+├── database/
+│   ├── migrations/
+│   │   └── kuamigrasi.php
+│   └── seeders/
+│       └── kuaseeder.php
+│       └── DatabaseSeeder.php
+│
+├── public/
+│   ├── dist/ (AdminLTE)
+│   ├── plugins
+│   └── index.php
+│
+├── resources/
+│   ├── views/
+│   │   ├── layouts/
+│   │   │   ├── admin/
+│   │   │   │   ├── footer.blade.php
+│   │   │   │   ├── sidebar.blade.php
+│   │   │   │   └── navbar.blade.php
+│   │   │   ├── landing/
+│   │   │   │   ├── footer.blade.php
+│   │   │   │   └── navbar.blade.php
+│   │   │   ├── masyarakat/
+│   │   │   │   ├── footer.blade.php
+│   │   │   │   ├── sidebar.blade.php
+│   │   │   │   └── navbar.blade.php
+│   │   │   │
+│   │   │   ├── appadmin.blade.php
+│   │   │   ├── appmasyarakat.blade.php
+│   │   │   └── applanding.blade.php
+│   │   │ 
+│   │   │ 
+│   │   │     
+│   │   ├── admin/
+│   │   │   ├── dashboard/
+│   │   │   │   ├── admin.blade.php
+│   │   │   │
+│   │   │   ├── semester/
+│   │   │   │   ├── index.blade.php
+│   │   │   │   ├── create.blade.php
+│   │   │   │   ├── edit.blade.php
+│   │   │   │   └── show.blade.php
+│   │   │   │
+│   │   │   │
+│   │   │   │
+│   │   │   └── rekapan data absen/ 
+│   │   │       └── index.blade.php
+│   │   │       └── cetakpdf.blade.php
+│   │   │     
+│   │   │
+│   │   ├── Zonamasyarakat/
+│   │   │   ├── dashboard/
+│   │   │       └── dashboardmasyarakat.blade.php
+│   │   │
+│   │   │
+│   │   ├── landing/
+│   │   │   ├── home.blade.php
+│   │   │   ├── tentang.blade.php
+│   │   │   ├── kontak.blade.php
+│   │   │   ├── berita.blade.php
+│   │   │   └── layanan.blade.php
+│   │   │
+│   │   ├── auth/
+│   │   │   ├── loginuser.blade.php
+│   │   │   ├── loginsiswa.blade.php
+│   │   │   └── registersiswa.blade.php
+│   │   └── errors/
+│   │       ├── 404.blade.php
+│   │       ├── 403.blade.php
+│           └── 500.blade.php
+│
+├── routes/
+│   └── web.php
+│
+├── storage/
+├── tests/
+└── .env
