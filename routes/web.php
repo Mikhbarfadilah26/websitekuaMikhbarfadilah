@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\Landing\ControllerLanding;
 use App\Http\Controllers\ControllerLayanan;
-
+use App\Http\Controllers\Admin\ControllerSaran;
 /*
 |--------------------------------------------------------------------------
 | CONTROLLER AUTH
@@ -142,12 +142,44 @@ Route::post('/logout', [ControllerAuthUser::class, 'logout'])
 |
 */
 
+/*
+|--------------------------------------------------------------------------
+| DASHBOARD ADMIN
+|--------------------------------------------------------------------------
+*/
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin/dashboard', [ControllerDashboardAdmin::class, 'index'])
         ->name('admin.dashboard');
-});
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | SARAN ADMIN
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/admin/saran', [
+        ControllerSaran::class,
+        'index'
+    ])->name('admin.saran.index');
+
+    Route::get('/admin/saran/{id}', [
+        ControllerSaran::class,
+        'show'
+    ])->name('admin.saran.show');
+
+    Route::post('/admin/saran/{id}/balas', [
+        ControllerSaran::class,
+        'balas'
+    ])->name('admin.saran.balas');
+
+    Route::delete('/admin/saran/{id}', [
+        ControllerSaran::class,
+        'destroy'
+    ])->name('admin.saran.destroy');
+});
 
 /*
 |--------------------------------------------------------------------------

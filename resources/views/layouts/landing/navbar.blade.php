@@ -3,11 +3,11 @@ NAVBAR KUA KARANG BARU
 ========================================================= --}}
 
 @php
-    use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
-    $dataLayananNavbar = DB::table('layanan')
-        ->orderBy('id', 'asc')
-        ->get();
+$dataLayananNavbar = DB::table('layanan')
+->orderBy('id', 'asc')
+->get();
 @endphp
 {{-- =========================================================
 CEK HALAMAN BERANDA
@@ -280,74 +280,74 @@ NAVBAR UTAMA
 
                 </li>
 
-{{-- =================================================
+                {{-- =================================================
      LAYANAN
 ================================================== --}}
 
-<li class="nav-item dropdown layanan-dropdown">
+                <li class="nav-item dropdown layanan-dropdown">
 
-    <a
-        class="nav-link dropdown-toggle"
-        href="#"
-        id="navbarDropdownLayanan"
-        role="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="navbarDropdownLayanan"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
 
-        <i class="fas fa-concierge-bell me-1"></i>
+                        <i class="fas fa-concierge-bell me-1"></i>
 
-        Layanan
+                        Layanan
 
-    </a>
+                    </a>
 
 
-    {{-- =================================================
+                    {{-- =================================================
          DROPDOWN LAYANAN
     ================================================== --}}
 
-    <div
-        class="dropdown-menu layanan-menu shadow-lg border-0"
-        aria-labelledby="navbarDropdownLayanan">
+                    <div
+                        class="dropdown-menu layanan-menu shadow-lg border-0"
+                        aria-labelledby="navbarDropdownLayanan">
 
 
-        {{-- JUDUL / HEADER --}}
+                        {{-- JUDUL / HEADER --}}
 
-        <div class="layanan-title">
+                        <div class="layanan-title">
 
-            <i class="fas fa-concierge-bell me-2"></i>
+                            <i class="fas fa-concierge-bell me-2"></i>
 
-            LAYANAN KUA
+                            LAYANAN KUA
 
-        </div>
-
-
-        {{-- DIVIDER --}}
-
-        <div class="dropdown-divider border-secondary opacity-25 my-1"></div>
+                        </div>
 
 
-        {{-- =================================================
+                        {{-- DIVIDER --}}
+
+                        <div class="dropdown-divider border-secondary opacity-25 my-1"></div>
+
+
+                        {{-- =================================================
              DATA LAYANAN DARI DATABASE
         ================================================== --}}
 
-        @foreach ($dataLayananNavbar as $item)
+                        @foreach ($dataLayananNavbar as $item)
 
-            <a
-                class="layanan-item"
-                href="{{ route('layanan.show', $item->id) }}">
+                        <a
+                            class="layanan-item"
+                            href="{{ route('layanan.show', $item->id) }}">
 
-                <i class="fas fa-chevron-right"></i>
+                            <i class="fas fa-chevron-right"></i>
 
-                {{ $item->judul }}
+                            {{ $item->judul }}
 
-            </a>
+                        </a>
 
-        @endforeach
+                        @endforeach
 
 
-    </div>
+                    </div>
 
-</li>
+                </li>
                 {{-- =================================================
                 BERITA
                 ================================================== --}}
@@ -397,7 +397,23 @@ PENCARIAN
                 </form>
 
             </li>
+            {{-- =================================================
+     SARAN & PENGADUAN
+================================================== --}}
 
+            <li class="nav-item">
+
+                <a
+                    href="#"
+                    class="nav-link">
+
+                    <i class="fas fa-comment-dots me-1"></i>
+
+                    Saran
+
+                </a>
+
+            </li>
             {{-- =================================================
             BUTTON NAVBAR
             ================================================== --}}
@@ -408,14 +424,14 @@ PENCARIAN
 
 
 
-{{-- =================================================
+                {{-- =================================================
      LOGIN ADMIN
 ================================================== --}}
 
-<a href="{{ route('login') }}" class="btn btn-login-admin btn-sm rounded-pill px-3 mx-2">
-    <i class="fas fa-user-shield me-1"></i>
-    Login Role
-</a>
+                <a href="{{ route('login') }}" class="btn btn-login-admin btn-sm rounded-pill px-3 mx-2">
+                    <i class="fas fa-user-shield me-1"></i>
+                    Login Role
+                </a>
 
 
                 {{-- =================================================
@@ -445,6 +461,7 @@ PENCARIAN
     </div>
 
 </nav>
+
 
 
 {{-- =========================================================
