@@ -404,8 +404,8 @@ PENCARIAN
             <li class="nav-item">
 
                 <a
-                    href="#"
-                    class="nav-link">
+                    href="{{ route('landing.saran.create') }}"
+                    class="nav-link {{ request()->routeIs('landing.saran.*') ? 'active' : '' }}">
 
                     <i class="fas fa-comment-dots me-1"></i>
 

@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -8,31 +7,46 @@ use Illuminate\Support\Facades\Route;
 | CONTROLLER LANDING
 |--------------------------------------------------------------------------
 */
+use App\Http\Controllers\Admin\ControllerAkun;
 use App\Http\Controllers\Landing\ControllerLanding;
 use App\Http\Controllers\ControllerLayanan;
+
+/*
+|--------------------------------------------------------------------------
+| CONTROLLER SARAN
+|--------------------------------------------------------------------------
+*/
+
 use App\Http\Controllers\Admin\ControllerSaran;
+use App\Http\Controllers\Saran\SaranController;
+
 /*
 |--------------------------------------------------------------------------
 | CONTROLLER AUTH
 |--------------------------------------------------------------------------
 */
+
 use App\Http\Controllers\Auth\ControllerAuthUser;
+use App\Http\Controllers\Auth\ControllerRegisterUser;
 
 /*
 |--------------------------------------------------------------------------
 | CONTROLLER DASHBOARD
 |--------------------------------------------------------------------------
 */
+
 use App\Http\Controllers\Dashboard\ControllerDashboardAdmin;
 use App\Http\Controllers\Dashboard\ControllerDashboardmasyarakat;
 
-
 /*
 |--------------------------------------------------------------------------
-| CONTROLLER REGISTRASI
+| CONTROLLER ADMIN
 |--------------------------------------------------------------------------
 */
-use App\Http\Controllers\Auth\ControllerRegisterUser;
+
+use App\Http\Controllers\Admin\ControllerBerita;
+use App\Http\Controllers\Admin\ControllerLayanan as AdminControllerLayanan;
+use App\Http\Controllers\Admin\ControllerLaporan;
 
 
 /*
@@ -41,24 +55,32 @@ use App\Http\Controllers\Auth\ControllerRegisterUser;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [ControllerLanding::class, 'index'])
-    ->name('landing');
+Route::get('/', [
+    ControllerLanding::class,
+    'index'
+])->name('landing');
 
-Route::get('/beranda', [ControllerLanding::class, 'index'])
-    ->name('landing.beranda');
+Route::get('/beranda', [
+    ControllerLanding::class,
+    'index'
+])->name('landing.beranda');
 
 
 /*
 |--------------------------------------------------------------------------
-| LAYANAN
+| LAYANAN LANDING
 |--------------------------------------------------------------------------
 */
 
-Route::get('/layanan', [ControllerLanding::class, 'layanan'])
-    ->name('landing.layanan');
+Route::get('/layanan', [
+    ControllerLanding::class,
+    'layanan'
+])->name('landing.layanan');
 
-Route::get('/layanan/{id}', [ControllerLayanan::class, 'show'])
-    ->name('layanan.show');
+Route::get('/layanan/{id}', [
+    ControllerLayanan::class,
+    'show'
+])->name('layanan.show');
 
 
 /*
@@ -67,11 +89,15 @@ Route::get('/layanan/{id}', [ControllerLayanan::class, 'show'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/tentang', [ControllerLanding::class, 'tentang'])
-    ->name('landing.tentang');
+Route::get('/tentang', [
+    ControllerLanding::class,
+    'tentang'
+])->name('landing.tentang');
 
-Route::get('/visi-misi', [ControllerLanding::class, 'visimisi'])
-    ->name('landing.visimisi');
+Route::get('/visi-misi', [
+    ControllerLanding::class,
+    'visimisi'
+])->name('landing.visimisi');
 
 Route::view('/sejarah', 'landing.sejarah')
     ->name('landing.sejarah');
@@ -82,15 +108,19 @@ Route::view('/struktur-organisasi', 'landing.struktur-organisasi')
 
 /*
 |--------------------------------------------------------------------------
-| BERITA
+| BERITA LANDING
 |--------------------------------------------------------------------------
 */
 
-Route::get('/berita', [ControllerLanding::class, 'berita'])
-    ->name('landing.berita');
+Route::get('/berita', [
+    ControllerLanding::class,
+    'berita'
+])->name('landing.berita');
 
-Route::get('/berita/{slug}', [ControllerLanding::class, 'detailBerita'])
-    ->name('berita.detail');
+Route::get('/berita/{slug}', [
+    ControllerLanding::class,
+    'detailBerita'
+])->name('berita.detail');
 
 
 /*
@@ -99,8 +129,10 @@ Route::get('/berita/{slug}', [ControllerLanding::class, 'detailBerita'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/kontak', [ControllerLanding::class, 'kontak'])
-    ->name('landing.kontak');
+Route::get('/kontak', [
+    ControllerLanding::class,
+    'kontak'
+])->name('landing.kontak');
 
 
 /*
@@ -109,8 +141,27 @@ Route::get('/kontak', [ControllerLanding::class, 'kontak'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/pencarian', [ControllerLanding::class, 'pencarian'])
-    ->name('landing.pencarian');
+Route::get('/pencarian', [
+    ControllerLanding::class,
+    'pencarian'
+])->name('landing.pencarian');
+
+
+/*
+|--------------------------------------------------------------------------
+| SARAN & PENGADUAN - PUBLIC
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/saran', [
+    SaranController::class,
+    'create'
+])->name('landing.saran.create');
+
+Route::post('/saran', [
+    SaranController::class,
+    'store'
+])->name('landing.saran.store');
 
 
 /*
@@ -119,45 +170,148 @@ Route::get('/pencarian', [ControllerLanding::class, 'pencarian'])
 |--------------------------------------------------------------------------
 */
 
-// Halaman login
-Route::get('/login', [ControllerAuthUser::class, 'index'])
-    ->name('login');
+/*
+|--------------------------------------------------------------------------
+| LOGIN
+|--------------------------------------------------------------------------
+*/
 
-// Proses login
-Route::post('/login', [ControllerAuthUser::class, 'login'])
-    ->name('login.proses');
+Route::get('/login', [
+    ControllerAuthUser::class,
+    'index'
+])->name('login');
 
-// Logout
-Route::post('/logout', [ControllerAuthUser::class, 'logout'])
-    ->name('logout');
+Route::post('/login', [
+    ControllerAuthUser::class,
+    'login'
+])->name('login.proses');
 
 
 /*
 |--------------------------------------------------------------------------
-| DASHBOARD ADMIN
+| LOGOUT
+|--------------------------------------------------------------------------
+*/
+
+Route::post('/logout', [
+    ControllerAuthUser::class,
+    'logout'
+])->name('logout');
+
+
+/*
+|--------------------------------------------------------------------------
+| REGISTER MASYARAKAT
 |--------------------------------------------------------------------------
 |
-| Setelah login dengan role "admin", ControllerAuthUser akan
-| mengarahkan ke route: admin.dashboard
+| Register dapat diakses sebelum login.
 |
 */
 
+Route::get('/register', [
+    ControllerRegisterUser::class,
+    'index'
+])->name('register');
+
+Route::post('/register', [
+    ControllerRegisterUser::class,
+    'register'
+])->name('register.proses');
+
+
 /*
 |--------------------------------------------------------------------------
-| DASHBOARD ADMIN
+| ROUTE ADMIN
 |--------------------------------------------------------------------------
+|
+| Semua route admin membutuhkan autentikasi.
+|
 */
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/admin/dashboard', [ControllerDashboardAdmin::class, 'index'])
-        ->name('admin.dashboard');
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD ADMIN
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/admin/dashboard', [
+        ControllerDashboardAdmin::class,
+        'index'
+    ])->name('admin.dashboard');
+
+    // =====================================================
+    // AKUN SAYA
+    // =====================================================
+
+    Route::get('/admin/akun', [
+        ControllerAkun::class,
+        'index'
+    ])->name('admin.akun.index');
+
+    Route::put('/admin/akun', [
+        ControllerAkun::class,
+        'update'
+    ])->name('admin.akun.update');
+Route::get('/admin/laporan', [ControllerLaporan::class, 'index'])
+->name('admin.laporan.index');
+
+    /*
+    |--------------------------------------------------------------------------
+    | CRUD BERITA ADMIN
+    |--------------------------------------------------------------------------
+    |
+    | URL:
+    | /admin/berita
+    |
+    */
+
+    Route::prefix('admin')
+        ->name('admin.')
+        ->group(function () {
+
+            Route::resource(
+                'berita',
+                ControllerBerita::class
+            )->except(['show']);
+        });
 
 
     /*
     |--------------------------------------------------------------------------
-    | SARAN ADMIN
+    | CRUD LAYANAN ADMIN
     |--------------------------------------------------------------------------
+    |
+    | URL:
+    | /admin/layanan
+    |
+    | Menggunakan alias AdminControllerLayanan
+    | agar tidak bentrok dengan ControllerLayanan
+    | milik landing.
+    |
+    */
+
+    Route::prefix('admin')
+        ->name('admin.')
+        ->group(function () {
+
+            Route::resource(
+                'layanan',
+                AdminControllerLayanan::class
+            )->except(['show']);
+        });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | SARAN & PENGADUAN ADMIN
+    |--------------------------------------------------------------------------
+    */
+
+
+    /*
+    | Daftar saran
     */
 
     Route::get('/admin/saran', [
@@ -165,15 +319,30 @@ Route::middleware(['auth'])->group(function () {
         'index'
     ])->name('admin.saran.index');
 
+
+    /*
+    | Detail saran
+    */
+
     Route::get('/admin/saran/{id}', [
         ControllerSaran::class,
         'show'
     ])->name('admin.saran.show');
 
+
+    /*
+    | Balas saran
+    */
+
     Route::post('/admin/saran/{id}/balas', [
         ControllerSaran::class,
         'balas'
     ])->name('admin.saran.balas');
+
+
+    /*
+    | Hapus saran
+    */
 
     Route::delete('/admin/saran/{id}', [
         ControllerSaran::class,
@@ -181,31 +350,29 @@ Route::middleware(['auth'])->group(function () {
     ])->name('admin.saran.destroy');
 });
 
+
 /*
 |--------------------------------------------------------------------------
 | DASHBOARD MASYARAKAT
 |--------------------------------------------------------------------------
 |
-| Setelah login dengan role "masyarakat", ControllerAuthUser akan
-| mengarahkan ke route: masyarakat.dashboard
+| Setelah login sebagai masyarakat,
+| ControllerAuthUser mengarahkan ke:
+|
+| masyarakat.dashboard
 |
 */
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/masyarakat/dashboard', [ControllerDashboardmasyarakat::class, 'index'])
-        ->name('masyarakat.dashboard');
-
-
     /*
-|--------------------------------------------------------------------------
-| REGISTRASI MASYARKAT
-|--------------------------------------------------------------------------
-*/
+    |--------------------------------------------------------------------------
+    | DASHBOARD MASYARAKAT
+    |--------------------------------------------------------------------------
+    */
 
-    Route::get('/register', [ControllerRegisterUser::class, 'index'])
-        ->name('register');
-
-    Route::post('/register', [ControllerRegisterUser::class, 'register'])
-        ->name('register.proses');
+    Route::get('/masyarakat/dashboard', [
+        ControllerDashboardmasyarakat::class,
+        'index'
+    ])->name('masyarakat.dashboard');
 });

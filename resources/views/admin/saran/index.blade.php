@@ -1,557 +1,328 @@
 @extends('layouts.appadmin')
 
-@section('title', 'Saran Masyarakat')
+@section('title', 'Saran & Pengaduan')
 
 @section('content')
 
 <div class="container-fluid">
 
-    {{-- =====================================================
-         HEADER
-    ====================================================== --}}
-    <div class="card border-0 shadow-sm mb-4"
-         style="
-            border-radius: 18px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0f172a, #1e3a8a);
-         ">
+{{-- =====================================================
+     HEADER
+====================================================== --}}
+<div class="saran-header shadow-sm">
 
-        <div class="card-body text-white p-4">
+    <div>
+        <div class="saran-header-title">
+            <i class="bi bi-chat-dots-fill me-2"></i>
+            Saran & Pengaduan
+        </div>
 
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
-
-                <div>
-                    <div class="d-flex align-items-center mb-2">
-                        <div
-                            style="
-                                width: 45px;
-                                height: 45px;
-                                border-radius: 12px;
-                                background: rgba(255,255,255,.15);
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                margin-right: 12px;
-                            "
-                        >
-                            <i class="fas fa-comments fa-lg"></i>
-                        </div>
-
-                        <div>
-                            <h4 class="mb-0 font-weight-bold">
-                                Saran Masyarakat
-                            </h4>
-
-                            <small style="opacity:.8;">
-                                Kelola saran dan masukan dari masyarakat
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-3 mt-md-0">
-
-                    <span
-                        class="badge badge-light px-3 py-2"
-                        style="border-radius:10px; font-size:13px;"
-                    >
-                        <i class="fas fa-database mr-1"></i>
-                        {{ $saran->total() }} Saran
-                    </span>
-
-                </div>
-
-            </div>
-
+        <div class="saran-header-subtitle">
+            Kelola saran dan pengaduan yang disampaikan masyarakat
         </div>
     </div>
 
+</div>
 
-    {{-- =====================================================
-         ALERT SUCCESS
-    ====================================================== --}}
-    @if(session('success'))
 
-        <div class="alert alert-success alert-dismissible fade show shadow-sm"
-             style="border-radius:12px;">
+{{-- =====================================================
+     SUCCESS POPUP
+====================================================== --}}
+@if(session('success'))
 
-            <i class="fas fa-check-circle mr-2"></i>
+    <div class="success-popup" id="successPopup">
 
-            {{ session('success') }}
-
-            <button type="button"
-                    class="close"
-                    data-dismiss="alert">
-
-                <span>&times;</span>
-
-            </button>
-
+        <div class="success-icon">
+            <i class="bi bi-check-lg"></i>
         </div>
 
-    @endif
+        <div>
+            <div class="success-title">
+                Berhasil
+            </div>
+
+            <div class="success-text">
+                {{ session('success') }}
+            </div>
+        </div>
+
+    </div>
+
+@endif
 
 
-    {{-- =====================================================
-         FILTER
-    ====================================================== --}}
-    <div class="card border-0 shadow-sm mb-4"
-         style="border-radius:16px;">
+{{-- =====================================================
+     CARD TABLE
+====================================================== --}}
+<div class="card saran-card shadow-sm border-0 mt-4">
 
-        <div class="card-body">
+    <div class="card-body p-0">
 
-            <form method="GET"
-                  action="{{ route('admin.saran.index') }}">
+        <div class="table-responsive">
 
-                <div class="row align-items-end">
+            <table class="table saran-table align-middle mb-0">
 
-                    {{-- SEARCH --}}
-                    <div class="col-md-7 mb-3 mb-md-0">
+                <thead>
 
-                        <label class="font-weight-bold">
-                            <i class="fas fa-search mr-1"></i>
-                            Cari Saran
-                        </label>
+                    <tr>
 
-                        <div class="input-group">
+                        <th width="70" class="text-center">
+                            No
+                        </th>
 
-                            <input
-                                type="text"
-                                name="search"
-                                class="form-control"
-                                value="{{ request('search') }}"
-                                placeholder="Cari nama, email, isi saran..."
-                                style="
-                                    height:45px;
-                                    border-radius:10px 0 0 10px;
-                                "
-                            >
+                        <th>
+                            Pengirim
+                        </th>
 
-                            <div class="input-group-append">
+                        <th>
+                            Isi Saran / Pengaduan
+                        </th>
 
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary"
-                                    style="
-                                        border-radius:0 10px 10px 0;
-                                        padding-left:20px;
-                                        padding-right:20px;
-                                    "
-                                >
-                                    <i class="fas fa-search mr-1"></i>
-                                    Cari
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- STATUS --}}
-                    <div class="col-md-3 mb-3 mb-md-0">
-
-                        <label class="font-weight-bold">
-                            <i class="fas fa-filter mr-1"></i>
+                        <th width="150" class="text-center">
                             Status
-                        </label>
+                        </th>
 
-                        <select
-                            name="status"
-                            class="form-control"
-                            style="
-                                height:45px;
-                                border-radius:10px;
-                            "
-                        >
+                        <th width="180" class="text-center">
+                            Tanggal
+                        </th>
 
-                            <option value="">
-                                Semua Status
-                            </option>
+                        <th width="150" class="text-center">
+                            Aksi
+                        </th>
 
-                            <option
-                                value="baru"
-                                {{ request('status') == 'baru' ? 'selected' : '' }}
-                            >
-                                Baru
-                            </option>
+                    </tr>
 
-                            <option
-                                value="dibaca"
-                                {{ request('status') == 'dibaca' ? 'selected' : '' }}
-                            >
-                                Dibaca
-                            </option>
-
-                            <option
-                                value="dibalas"
-                                {{ request('status') == 'dibalas' ? 'selected' : '' }}
-                            >
-                                Dibalas
-                            </option>
-
-                        </select>
-
-                    </div>
+                </thead>
 
 
-                    {{-- RESET --}}
-                    <div class="col-md-2">
+                <tbody>
 
-                        <a
-                            href="{{ route('admin.saran.index') }}"
-                            class="btn btn-outline-secondary btn-block"
-                            style="
-                                height:45px;
-                                border-radius:10px;
-                                padding-top:10px;
-                            "
-                        >
-                            <i class="fas fa-sync-alt mr-1"></i>
-                            Reset
-                        </a>
+                    @forelse($saran as $item)
 
-                    </div>
+                        <tr>
 
-                </div>
+                            {{-- NO --}}
+                            <td class="text-center">
 
-            </form>
+                                <span class="number-badge">
+                                    {{ $saran->firstItem() + $loop->index }}
+                                </span>
 
-        </div>
-    </div>
+                            </td>
 
 
-    {{-- =====================================================
-         DATA SARAN
-    ====================================================== --}}
-    <div class="card border-0 shadow-sm"
-         style="border-radius:16px;">
+                            {{-- PENGIRIM --}}
+                            <td>
 
-        <div class="card-header bg-white border-0 p-4">
+                                <div class="sender-box">
 
-            <div class="d-flex justify-content-between align-items-center">
+                                    <div class="sender-avatar">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
 
-                <div>
-                    <h5 class="mb-1 font-weight-bold">
-                        <i class="fas fa-inbox mr-2 text-primary"></i>
-                        Daftar Saran
-                    </h5>
+                                    <div>
 
-                    <small class="text-muted">
-                        Saran yang masuk dari masyarakat
-                    </small>
-                </div>
+                                        <div class="sender-name">
 
-                <span class="badge badge-primary px-3 py-2"
-                      style="border-radius:10px;">
-
-                    {{ $saran->count() }} data
-
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="card-body p-0">
-
-            @if($saran->count() > 0)
-
-                <div class="table-responsive">
-
-                    <table class="table table-hover mb-0">
-
-                        <thead style="background:#f8fafc;">
-
-                            <tr>
-
-                                <th class="px-4 py-3">
-                                    #
-                                </th>
-
-                                <th class="py-3">
-                                    Masyarakat
-                                </th>
-
-                                <th class="py-3">
-                                    Isi Saran
-                                </th>
-
-                                <th class="py-3">
-                                    Tanggal
-                                </th>
-
-                                <th class="py-3 text-center">
-                                    Status
-                                </th>
-
-                                <th class="py-3 text-center">
-                                    Aksi
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            @foreach($saran as $item)
-
-                                <tr>
-
-                                    {{-- NOMOR --}}
-                                    <td class="px-4 align-middle">
-
-                                        <span class="text-muted">
-                                            {{ $saran->firstItem() + $loop->index }}
-                                        </span>
-
-                                    </td>
-
-
-                                    {{-- USER --}}
-                                    <td class="align-middle">
-
-                                        <div class="d-flex align-items-center">
-
-                                            <div
-                                                style="
-                                                    width:40px;
-                                                    height:40px;
-                                                    border-radius:50%;
-                                                    background:#e0f2fe;
-                                                    color:#0369a1;
-                                                    display:flex;
-                                                    align-items:center;
-                                                    justify-content:center;
-                                                    margin-right:10px;
-                                                    flex-shrink:0;
-                                                "
-                                            >
-
-                                                <i class="fas fa-user"></i>
-
-                                            </div>
-
-                                            <div>
-
-                                                <div class="font-weight-bold">
-
-                                                    {{ $item->user->nama ?? 'Pengguna' }}
-
-                                                </div>
-
-                                                <small class="text-muted">
-
-                                                    {{ $item->user->email ?? '-' }}
-
-                                                </small>
-
-                                            </div>
+                                            {{ optional($item->user)->nama
+                                                ?? optional($item->user)->name
+                                                ?? 'Pengguna' }}
 
                                         </div>
 
-                                    </td>
+                                        <div class="sender-email">
 
-
-                                    {{-- ISI --}}
-                                    <td class="align-middle"
-                                        style="min-width:280px; max-width:400px;">
-
-                                        <div style="
-                                            white-space:nowrap;
-                                            overflow:hidden;
-                                            text-overflow:ellipsis;
-                                            max-width:380px;
-                                        ">
-
-                                            {{ $item->isi_saran }}
+                                            {{ optional($item->user)->email ?? '-' }}
 
                                         </div>
 
-                                        @if($item->tanggapan)
+                                    </div>
 
-                                            <small class="text-success">
+                                </div>
 
-                                                <i class="fas fa-reply mr-1"></i>
-                                                Sudah dibalas
-
-                                            </small>
-
-                                        @else
-
-                                            <small class="text-muted">
-
-                                                <i class="far fa-comment mr-1"></i>
-                                                Belum dibalas
-
-                                            </small>
-
-                                        @endif
-
-                                    </td>
+                            </td>
 
 
-                                    {{-- TANGGAL --}}
-                                    <td class="align-middle">
+                            {{-- ISI --}}
+                            <td>
 
-                                        <div class="font-weight-semibold">
+                                <div class="message-preview">
 
-                                            {{ $item->created_at->format('d/m/Y') }}
+                                    {{ \Illuminate\Support\Str::limit(
+                                        strip_tags($item->isi_saran),
+                                        100
+                                    ) }}
 
-                                        </div>
+                                </div>
 
-                                        <small class="text-muted">
-
-                                            {{ $item->created_at->format('H:i') }}
-
-                                        </small>
-
-                                    </td>
+                            </td>
 
 
-                                    {{-- STATUS --}}
-                                    <td class="align-middle text-center">
+                            {{-- STATUS --}}
+                            <td class="text-center">
 
-                                        @if($item->status === 'baru')
+                                @if($item->status === 'belum_dibaca')
 
-                                            <span
-                                                class="badge badge-warning px-3 py-2"
-                                                style="border-radius:8px;"
-                                            >
-                                                <i class="fas fa-envelope mr-1"></i>
-                                                Baru
-                                            </span>
+                                    <span class="status-badge status-unread">
 
-                                        @elseif($item->status === 'dibaca')
+                                        <i class="bi bi-envelope-fill me-1"></i>
 
-                                            <span
-                                                class="badge badge-info px-3 py-2"
-                                                style="border-radius:8px;"
-                                            >
-                                                <i class="fas fa-eye mr-1"></i>
-                                                Dibaca
-                                            </span>
+                                        Belum Dibaca
 
-                                        @elseif($item->status === 'dibalas')
+                                    </span>
 
-                                            <span
-                                                class="badge badge-success px-3 py-2"
-                                                style="border-radius:8px;"
-                                            >
-                                                <i class="fas fa-reply mr-1"></i>
-                                                Dibalas
-                                            </span>
+                                @elseif($item->status === 'dibaca')
 
-                                        @else
+                                    <span class="status-badge status-read">
 
-                                            <span
-                                                class="badge badge-secondary px-3 py-2"
-                                                style="border-radius:8px;"
-                                            >
-                                                {{ ucfirst($item->status) }}
-                                            </span>
+                                        <i class="bi bi-envelope-open-fill me-1"></i>
 
-                                        @endif
+                                        Dibaca
 
-                                    </td>
+                                    </span>
 
+                                @elseif($item->status === 'dibalas')
 
-                                    {{-- AKSI --}}
-                                    <td class="align-middle text-center">
+                                    <span class="status-badge status-replied">
 
-                                        <div class="btn-group">
+                                        <i class="bi bi-reply-fill me-1"></i>
 
-                                            {{-- DETAIL --}}
-                                            <a
-                                                href="{{ route('admin.saran.show', $item->id) }}"
-                                                class="btn btn-sm btn-primary"
-                                                title="Lihat Detail"
-                                            >
-                                                <i class="fas fa-eye"></i>
-                                            </a>
+                                        Dibalas
+
+                                    </span>
+
+                                @else
+
+                                    <span class="status-badge status-default">
+
+                                        {{ ucfirst(
+                                            str_replace(
+                                                '_',
+                                                ' ',
+                                                $item->status ?? '-'
+                                            )
+                                        ) }}
+
+                                    </span>
+
+                                @endif
+
+                            </td>
 
 
-                                            {{-- HAPUS --}}
-                                            <form
-                                                action="{{ route('admin.saran.destroy', $item->id) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('Yakin ingin menghapus saran ini?');"
-                                                style="display:inline;"
-                                            >
+                            {{-- TANGGAL --}}
+                            <td class="text-center">
 
-                                                @csrf
-                                                @method('DELETE')
+                                <div class="date-main">
 
-                                                <button
-                                                    type="submit"
-                                                    class="btn btn-sm btn-danger"
-                                                    title="Hapus"
-                                                >
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
+                                    <i class="bi bi-calendar3 me-1"></i>
 
-                                            </form>
+                                    {{ $item->created_at
+                                        ? $item->created_at->format('d/m/Y')
+                                        : '-' }}
 
-                                        </div>
+                                </div>
 
-                                    </td>
+                                <div class="date-time">
 
-                                </tr>
+                                    {{ $item->created_at
+                                        ? $item->created_at->format('H:i')
+                                        : '' }}
 
-                            @endforeach
+                                </div>
 
-                        </tbody>
+                            </td>
 
-                    </table>
 
-                </div>
+                            {{-- =================================================
+                                 AKSI
+                            ================================================== --}}
+                            <td>
 
-            @else
+                                <div class="action-buttons">
 
-                {{-- EMPTY --}}
-                <div class="text-center py-5">
+                                    {{-- LIHAT --}}
+                                    <a
+                                        href="{{ route('admin.saran.show', $item->id) }}"
+                                        class="action-btn action-view"
+                                        title="Lihat Detail"
+                                        aria-label="Lihat Detail">
 
-                    <div
-                        style="
-                            width:80px;
-                            height:80px;
-                            border-radius:50%;
-                            background:#f1f5f9;
-                            display:flex;
-                            align-items:center;
-                            justify-content:center;
-                            margin:0 auto 20px;
-                        "
-                    >
+                                        <i class="bi bi-eye-fill"></i>
 
-                        <i class="fas fa-comments fa-2x text-muted"></i>
+                                    </a>
 
-                    </div>
 
-                    <h5 class="font-weight-bold">
-                        Belum Ada Saran
-                    </h5>
+                                    {{-- HAPUS --}}
+                                    <form
+                                        action="{{ route('admin.saran.destroy', $item->id) }}"
+                                        method="POST"
+                                        class="delete-form">
 
-                    <p class="text-muted mb-0">
-                        Belum ada saran yang masuk dari masyarakat.
-                    </p>
+                                        @csrf
+                                        @method('DELETE')
 
-                </div>
+                                        <button
+                                            type="submit"
+                                            class="action-btn action-delete"
+                                            title="Hapus"
+                                            aria-label="Hapus">
 
-            @endif
+                                            <i class="bi bi-trash3-fill"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+
+                            <td colspan="6">
+
+                                <div class="empty-state">
+
+                                    <div class="empty-icon">
+
+                                        <i class="bi bi-chat-square-text"></i>
+
+                                    </div>
+
+                                    <div class="empty-title">
+                                        Belum Ada Saran
+                                    </div>
+
+                                    <div class="empty-text">
+                                        Belum ada saran atau pengaduan dari masyarakat.
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
 
         </div>
 
 
-        {{-- =================================================
+        {{-- =====================================================
              PAGINATION
-        ================================================== --}}
+        ====================================================== --}}
         @if($saran->hasPages())
 
-            <div class="card-footer bg-white border-0 px-4 py-3">
+            <div class="pagination-wrapper">
 
                 {{ $saran->links() }}
 
@@ -563,37 +334,682 @@
 
 </div>
 
+</div>
 
-{{-- =====================================================
-     CUSTOM STYLE
-====================================================== --}}
+{{-- =========================================================
+STYLE
+========================================================= --}}
+
 <style>
 
-    .table td,
-    .table th {
-        vertical-align: middle;
+    /* =====================================================
+       HEADER
+    ====================================================== */
+
+    .saran-header {
+
+        background: linear-gradient(
+            135deg,
+            #0f172a 0%,
+            #1e3a8a 55%,
+            #2563eb 100%
+        );
+
+        border-radius: 16px;
+
+        padding: 22px 26px;
+
+        color: #fff;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
     }
 
-    .table tbody tr {
-        transition: .2s ease;
+    .saran-header-title {
+
+        font-size: 23px;
+        font-weight: 700;
+
     }
 
-    .table tbody tr:hover {
-        background-color: #f8fafc;
+    .saran-header-subtitle {
+
+        margin-top: 5px;
+
+        font-size: 14px;
+
+        opacity: .85;
+
     }
 
-    .font-weight-semibold {
+
+    /* =====================================================
+       SUCCESS POPUP
+    ====================================================== */
+
+    .success-popup {
+
+        position: fixed;
+
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+        z-index: 9999;
+
+        min-width: 330px;
+
+        max-width: 90%;
+
+        padding: 18px 22px;
+
+        background: #fff;
+
+        border-radius: 14px;
+
+        box-shadow:
+            0 15px 50px rgba(15, 23, 42, .22);
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 14px;
+
+        animation: popupShow .25s ease;
+
+    }
+
+    .success-icon {
+
+        width: 43px;
+        height: 43px;
+
+        min-width: 43px;
+
+        border-radius: 50%;
+
+        background: #dcfce7;
+
+        color: #16a34a;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        font-size: 20px;
+
+    }
+
+    .success-title {
+
+        font-weight: 700;
+
+        color: #166534;
+
+    }
+
+    .success-text {
+
+        color: #64748b;
+
+        font-size: 13px;
+
+        margin-top: 2px;
+
+    }
+
+    @keyframes popupShow {
+
+        from {
+
+            opacity: 0;
+
+            transform: translate(-50%, -46%);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform: translate(-50%, -50%);
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CARD
+    ====================================================== */
+
+    .saran-card {
+
+        border-radius: 16px;
+
+        overflow: hidden;
+
+    }
+
+
+    /* =====================================================
+       TABLE
+    ====================================================== */
+
+    .saran-table {
+
+        min-width: 950px;
+
+    }
+
+    .saran-table thead th {
+
+        background: #f8fafc;
+
+        color: #475569;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: .4px;
+
+        padding: 16px 14px;
+
+        border-bottom: 1px solid #e2e8f0;
+
+        white-space: nowrap;
+
+    }
+
+    .saran-table tbody td {
+
+        padding: 15px 14px;
+
+        border-bottom: 1px solid #eef2f7;
+
+        color: #334155;
+
+    }
+
+    .saran-table tbody tr:last-child td {
+
+        border-bottom: none;
+
+    }
+
+    .saran-table tbody tr {
+
+        transition: background .2s ease;
+
+    }
+
+    .saran-table tbody tr:hover {
+
+        background: #f8fafc;
+
+    }
+
+
+    /* =====================================================
+       NUMBER
+    ====================================================== */
+
+    .number-badge {
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 31px;
+        height: 31px;
+
+        border-radius: 9px;
+
+        background: #eff6ff;
+
+        color: #2563eb;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+    }
+
+
+    /* =====================================================
+       SENDER
+    ====================================================== */
+
+    .sender-box {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 11px;
+
+        min-width: 190px;
+
+    }
+
+    .sender-avatar {
+
+        width: 40px;
+        height: 40px;
+
+        min-width: 40px;
+
+        border-radius: 50%;
+
+        background: #e0ecff;
+
+        color: #2563eb;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        font-size: 17px;
+
+    }
+
+    .sender-name {
+
+        font-weight: 700;
+
+        color: #1e293b;
+
+        font-size: 14px;
+
+        margin-bottom: 2px;
+
+    }
+
+    .sender-email {
+
+        color: #94a3b8;
+
+        font-size: 12px;
+
+        max-width: 190px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+    }
+
+
+    /* =====================================================
+       MESSAGE
+    ====================================================== */
+
+    .message-preview {
+
+        max-width: 330px;
+
+        line-height: 1.5;
+
+        color: #64748b;
+
+        font-size: 13px;
+
+    }
+
+
+    /* =====================================================
+       STATUS
+    ====================================================== */
+
+    .status-badge {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        padding: 7px 10px;
+
+        border-radius: 20px;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        white-space: nowrap;
+
+    }
+
+    .status-unread {
+
+        background: #fee2e2;
+
+        color: #dc2626;
+
+    }
+
+    .status-read {
+
+        background: #fef3c7;
+
+        color: #b45309;
+
+    }
+
+    .status-replied {
+
+        background: #dcfce7;
+
+        color: #15803d;
+
+    }
+
+    .status-default {
+
+        background: #e2e8f0;
+
+        color: #475569;
+
+    }
+
+
+    /* =====================================================
+       DATE
+    ====================================================== */
+
+    .date-main {
+
+        color: #334155;
+
+        font-size: 13px;
+
         font-weight: 600;
+
+        white-space: nowrap;
+
     }
+
+    .date-time {
+
+        color: #94a3b8;
+
+        font-size: 11px;
+
+        margin-top: 3px;
+
+    }
+
+
+    /* =====================================================
+       ACTION BUTTONS
+    ====================================================== */
+
+    .action-buttons {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+    }
+
+    .action-btn {
+
+        width: 38px;
+
+        height: 38px;
+
+        min-width: 38px;
+
+        padding: 0;
+
+        border: none;
+
+        border-radius: 9px;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        text-decoration: none;
+
+        cursor: pointer;
+
+        transition:
+            transform .18s ease,
+            box-shadow .18s ease,
+            background .18s ease;
+
+    }
+
+    .action-btn i {
+
+        font-size: 17px;
+
+        line-height: 1;
+
+        display: block;
+
+    }
+
+    /* Mata */
+    .action-view {
+
+        background: #dbeafe;
+
+        color: #2563eb;
+
+    }
+
+    .action-view:hover {
+
+        background: #2563eb;
+
+        color: #fff;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 5px 12px rgba(37, 99, 235, .25);
+
+    }
+
+    /* Tong Sampah */
+    .action-delete {
+
+        background: #fee2e2;
+
+        color: #dc2626;
+
+    }
+
+    .action-delete:hover {
+
+        background: #dc2626;
+
+        color: #fff;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 5px 12px rgba(220, 38, 38, .25);
+
+    }
+
+    .delete-form {
+
+        margin: 0;
+
+        padding: 0;
+
+        display: inline-flex;
+
+    }
+
+
+    /* =====================================================
+       EMPTY STATE
+    ====================================================== */
+
+    .empty-state {
+
+        padding: 65px 20px;
+
+        text-align: center;
+
+    }
+
+    .empty-icon {
+
+        width: 65px;
+        height: 65px;
+
+        margin: 0 auto 15px;
+
+        border-radius: 18px;
+
+        background: #f1f5f9;
+
+        color: #94a3b8;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        font-size: 29px;
+
+    }
+
+    .empty-title {
+
+        color: #334155;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+    }
+
+    .empty-text {
+
+        color: #94a3b8;
+
+        font-size: 13px;
+
+        margin-top: 5px;
+
+    }
+
+
+    /* =====================================================
+       PAGINATION
+    ====================================================== */
+
+    .pagination-wrapper {
+
+        padding: 18px 20px;
+
+        border-top: 1px solid #eef2f7;
+
+        display: flex;
+
+        justify-content: flex-end;
+
+    }
+
+    .pagination-wrapper .pagination {
+
+        margin-bottom: 0;
+
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ====================================================== */
 
     @media (max-width: 768px) {
 
-        .calendar-header-title {
-            font-size: 20px;
+        .saran-header {
+
+            padding: 18px;
+
+        }
+
+        .saran-header-title {
+
+            font-size: 19px;
+
+        }
+
+        .success-popup {
+
+            width: calc(100% - 30px);
+
+            min-width: auto;
+
         }
 
     }
 
 </style>
+
+{{-- =========================================================
+JAVASCRIPT POPUP
+========================================================= --}}
+@if(session('success'))
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const popup = document.getElementById('successPopup');
+
+    if (popup) {
+
+        setTimeout(function () {
+
+            popup.style.opacity = '0';
+
+            popup.style.transform =
+                'translate(-50%, -55%)';
+
+            popup.style.transition =
+                'opacity .3s ease, transform .3s ease';
+
+            setTimeout(function () {
+
+                popup.remove();
+
+            }, 300);
+
+        }, 2500);
+
+    }
+
+});
+
+</script>
+
+@endif
 
 @endsection

@@ -7,14 +7,14 @@
 
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
-<title>
-    @yield('title', config('app.name'))
-</title>
+    <title>
+        @yield('title', config('app.name'))
+    </title>
 
-{{-- FAVICON --}}
-<link rel="icon"
-      type="image/png"
-      href="{{ asset('7.png') }}">
+    {{-- FAVICON --}}
+    <link rel="icon"
+        type="image/png"
+        href="{{ asset('7.png') }}">
 
     {{-- =====================================================
          BOOTSTRAP

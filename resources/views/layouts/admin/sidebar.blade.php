@@ -1,25 +1,30 @@
 <aside class="app-sidebar bg-dark shadow"
-       data-bs-theme="dark">
+    data-bs-theme="dark">
 
     {{-- =================================================
          BRAND
     ================================================== --}}
     <div class="sidebar-brand">
 
-        <a href="{{ url('/admin') }}"
-           class="brand-link">
+        <a href="{{ route('admin.dashboard') }}"
+            class="brand-link">
 
             <span class="brand-image opacity-75">
-                <i class="bi bi-grid-1x2-fill fs-4"></i>
+
+                <i class="bi bi-building-fill fs-4"></i>
+
             </span>
 
             <span class="brand-text fw-semibold">
-                ADMIN PANEL
+
+                ADMIN KUA
+
             </span>
 
         </a>
 
     </div>
+
 
     {{-- =================================================
          SIDEBAR MENU
@@ -32,11 +37,16 @@
                 data-lte-toggle="treeview"
                 role="menu">
 
-                {{-- DASHBOARD --}}
+
+                {{-- =================================================
+                     DASHBOARD
+                ================================================== --}}
+
                 <li class="nav-item">
 
-                    <a href="{{ url('/admin') }}"
-                       class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="nav-link
+                       {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-speedometer2"></i>
 
@@ -48,147 +58,30 @@
 
                 </li>
 
+
                 {{-- =================================================
-                     MASTER DATA
+                     KELOLA DATA
                 ================================================== --}}
+
                 <li class="nav-header">
-                    MASTER DATA
-                </li>
 
-                {{-- USER --}}
-                <li class="nav-item">
-
-                    <a href="#"
-                       class="nav-link">
-
-                        <i class="nav-icon bi bi-people"></i>
-
-                        <p>
-                            Data User
-                        </p>
-
-                    </a>
-
-                </li>
-
-                {{-- KATEGORI --}}
-                <li class="nav-item">
-
-                    <a href="#"
-                       class="nav-link">
-
-                        <i class="nav-icon bi bi-tags"></i>
-
-                        <p>
-                            Kategori
-                        </p>
-
-                    </a>
-
-                </li>
-
-                {{-- ALAT --}}
-                <li class="nav-item">
-
-                    <a href="#"
-                       class="nav-link">
-
-                        <i class="nav-icon bi bi-tools"></i>
-
-                        <p>
-                            Data Alat
-                        </p>
-
-                    </a>
+                    KELOLA DATA
 
                 </li>
 
                 {{-- =================================================
-                     TRANSAKSI
-                ================================================== --}}
-                <li class="nav-header">
-                    TRANSAKSI
-                </li>
-
-                {{-- PEMINJAMAN --}}
-                <li class="nav-item">
-
-                    <a href="#"
-                       class="nav-link">
-
-                        <i class="nav-icon bi bi-journal-text"></i>
-
-                        <p>
-                            Peminjaman
-                        </p>
-
-                    </a>
-
-                </li>
-
-                {{-- PENGEMBALIAN --}}
-                <li class="nav-item">
-
-                    <a href="#"
-                       class="nav-link">
-
-                        <i class="nav-icon bi bi-arrow-return-left"></i>
-
-                        <p>
-                            Pengembalian
-                        </p>
-
-                    </a>
-
-                </li>
-
-                {{-- DENDA --}}
-                <li class="nav-item">
-
-                    <a href="#"
-                       class="nav-link">
-
-                        <i class="nav-icon bi bi-cash-coin"></i>
-
-                        <p>
-                            Denda
-                        </p>
-
-                    </a>
-
-                </li>
-
-                {{-- =================================================
-                     KONTEN
-                ================================================== --}}
-                <li class="nav-header">
-                    KONTEN
-                </li>
+     KELOLA BERITA
+================================================== --}}
 
                 <li class="nav-item">
 
-                    <a href="#"
-                       class="nav-link">
+                    <a href="{{ route('admin.berita.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-newspaper"></i>
 
                         <p>
-                            Artikel
-                        </p>
-
-                    </a>
-
-                </li>
-
-                <li class="nav-item">
-
-                    <a href="#"
-                       class="nav-link">
-
-                        <i class="nav-icon bi bi-chat-dots"></i>
-
-                        <p>
-                            Komentar
+                            Kelola Berita
                         </p>
 
                     </a>
@@ -196,18 +89,95 @@
                 </li>
 
                 {{-- =================================================
-                     LAPORAN
-                ================================================== --}}
-                <li class="nav-header">
-                    LAPORAN
-                </li>
+KELOLA LAYANAN
+================================================== --}}
 
                 <li class="nav-item">
 
-                    <a href="#"
-                       class="nav-link">
+                    <a
+                        href="{{ route('admin.layanan.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
 
-                        <i class="nav-icon bi bi-bar-chart"></i>
+                        <i class="nav-icon bi bi-grid-fill"></i>
+
+                        <p>
+                            Kelola Layanan
+                        </p>
+
+                    </a>
+                </li>
+
+                {{-- =================================================
+                     PELAYANAN
+                ================================================== --}}
+
+                <li class="nav-header">
+
+                    PELAYANAN
+
+                </li>
+
+
+                {{-- =================================================
+                     SARAN & PENGADUAN
+                ================================================== --}}
+
+                <li class="nav-item">
+
+                    <a href="{{ route('admin.saran.index') }}"
+                        class="nav-link
+                       {{ request()->routeIs('admin.saran.*') ? 'active' : '' }}">
+
+                        <i class="nav-icon bi bi-chat-dots-fill"></i>
+
+                        <p>
+                            Saran & Pengaduan
+                        </p>
+
+
+                        {{-- BADGE SARAN --}}
+
+                        @php
+
+                        try {
+
+                        $jumlahSaran =
+                        \App\Models\Saran::where(
+                        'status',
+                        'belum_dibaca'
+                        )->count();
+
+                        } catch (\Throwable $e) {
+
+                        $jumlahSaran = 0;
+
+                        }
+
+                        @endphp
+
+
+                        @if($jumlahSaran > 0)
+
+                        <span class="badge bg-danger rounded-pill ms-auto">
+
+                            {{ $jumlahSaran }}
+
+                        </span>
+
+                        @endif
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+
+                    <a href="{{ route('admin.laporan.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}">
+
+                        <i class="nav-icon bi bi-bar-chart-fill"></i>
 
                         <p>
                             Laporan
@@ -215,29 +185,61 @@
 
                     </a>
 
+
                 </li>
 
+
+
                 {{-- =================================================
-                     PENGATURAN
+                     SISTEM
                 ================================================== --}}
+
                 <li class="nav-header">
+
                     SISTEM
+
                 </li>
 
                 <li class="nav-item">
 
-                    <a href="#"
-                       class="nav-link">
+                    ```
+                    <a href="{{ route('admin.akun.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.akun.*') ? 'active' : '' }}">
 
-                        <i class="nav-icon bi bi-gear"></i>
+                        <i class="nav-icon bi bi-person-circle"></i>
 
                         <p>
-                            Pengaturan
+                            Akun Saya
+                        </p>
+
+                    </a>
+                    ```
+
+                </li>
+
+                {{-- =================================================
+                     LOGOUT
+                ================================================== --}}
+
+                <li class="nav-item">
+
+                    <a href="{{ route('logout') }}"
+                        class="nav-link"
+                        onclick="
+                           event.preventDefault();
+                           document.getElementById('logout-form').submit();
+                       ">
+
+                        <i class="nav-icon bi bi-box-arrow-right"></i>
+
+                        <p>
+                            Logout
                         </p>
 
                     </a>
 
                 </li>
+
 
             </ul>
 
@@ -246,3 +248,17 @@
     </div>
 
 </aside>
+
+
+{{-- =================================================
+     FORM LOGOUT
+================================================== --}}
+
+<form id="logout-form"
+    action="{{ route('logout') }}"
+    method="POST"
+    class="d-none">
+
+    @csrf
+
+</form>
