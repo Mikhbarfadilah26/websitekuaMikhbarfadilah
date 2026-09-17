@@ -28,7 +28,7 @@ use App\Http\Controllers\Saran\SaranController;
 
 use App\Http\Controllers\Auth\ControllerAuthUser;
 use App\Http\Controllers\Auth\ControllerRegisterUser;
-
+use App\Http\Controllers\Admin\ControllerMasyarakat;
 /*
 |--------------------------------------------------------------------------
 | CONTROLLER DASHBOARD
@@ -147,22 +147,6 @@ Route::get('/pencarian', [
 ])->name('landing.pencarian');
 
 
-/*
-|--------------------------------------------------------------------------
-| SARAN & PENGADUAN - PUBLIC
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/saran', [
-    SaranController::class,
-    'create'
-])->name('landing.saran.create');
-
-Route::post('/saran', [
-    SaranController::class,
-    'store'
-])->name('landing.saran.store');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -254,8 +238,54 @@ Route::middleware(['auth'])->group(function () {
         ControllerAkun::class,
         'update'
     ])->name('admin.akun.update');
-Route::get('/admin/laporan', [ControllerLaporan::class, 'index'])
-->name('admin.laporan.index');
+    Route::get('/admin/laporan', [ControllerLaporan::class, 'index'])
+        ->name('admin.laporan.index');
+
+    /*
+|--------------------------------------------------------------------------
+| SARAN & PENGADUAN - PUBLIC
+|--------------------------------------------------------------------------
+*/
+    Route::get(
+        '/saran',
+        [
+            SaranController::class,
+            'create'
+        ]
+    )->name('landing.saran.create');
+    Route::post(
+        '/saran',
+        [
+            SaranController::class,
+            'store'
+        ]
+    )->name('landing.saran.store');
+
+
+    Route::get('/masyarakat', [ControllerMasyarakat::class, 'index'])
+        ->name('admin.masyarakat.index');
+
+    Route::get('/masyarakat/create', [ControllerMasyarakat::class, 'create'])
+        ->name('admin.masyarakat.create');
+
+    Route::post('/masyarakat', [ControllerMasyarakat::class, 'store'])
+        ->name('admin.masyarakat.store');
+
+    Route::get('/masyarakat/{masyarakat}/edit', [ControllerMasyarakat::class, 'edit'])
+        ->name('admin.masyarakat.edit');
+
+    Route::put('/masyarakat/{masyarakat}', [ControllerMasyarakat::class, 'update'])
+        ->name('admin.masyarakat.update');
+
+    Route::delete('/masyarakat/{masyarakat}', [ControllerMasyarakat::class, 'destroy'])
+        ->name('admin.masyarakat.destroy');
+
+    Route::patch('/masyarakat/{masyarakat}/setujui', [ControllerMasyarakat::class, 'setujui'])
+        ->name('admin.masyarakat.setujui');
+
+    Route::patch('/masyarakat/{masyarakat}/tolak', [ControllerMasyarakat::class, 'tolak'])
+        ->name('admin.masyarakat.tolak');
+
 
     /*
     |--------------------------------------------------------------------------

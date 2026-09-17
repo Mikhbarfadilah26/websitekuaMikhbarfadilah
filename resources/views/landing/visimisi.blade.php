@@ -3,123 +3,734 @@
 @section('title', 'Visi, Misi & Motto - Kantor Urusan Agama Karang Baru')
 
 @section('content')
-<div class="container py-5 mt-5">
-    {{-- HEADER SECTION --}}
-    <div class="row justify-content-center text-center mb-5">
-        <div class="col-lg-8" data-aos="fade-up">
-            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-semibold mb-3 border border-success border-opacity-25">
-                <i class="fas fa-mosque me-1"></i> Kantor Urusan Agama Kecamatan Karang Baru
+
+{{-- =========================================================
+     VISI, MISI & MOTTO
+========================================================= --}}
+
+<section class="visi-section">
+
+    <div class="container">
+
+        {{-- =====================================================
+             HEADER
+        ====================================================== --}}
+        <div class="visi-header text-center">
+
+            <span class="instansi-badge">
+                <i class="fas fa-building me-2"></i>
+                Kantor Urusan Agama Kecamatan Karang Baru
             </span>
-            <h1 class="fw-bold text-white mb-2 display-5">Visi, Misi & Motto</h1>
-            <p class="text-white-50">Pedoman Pelayanan Prima dan Keagamaan Berbasis Nilai-Nilai Religius</p>
-        </div>
-    </div>
 
-    {{-- VISI & MOTTO SECTION --}}
-    <div class="row g-4 justify-content-center mb-4">
-        {{-- VISI --}}
-        <div class="col-lg-7">
-            <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100 position-relative" style="background: linear-gradient(135deg, rgba(10, 40, 25, 0.95), rgba(15, 30, 20, 0.9)); backdrop-filter: blur(16px); border: 1px solid rgba(40, 167, 69, 0.2) !important;">
-                {{-- Background Watermark Logo Kemenag --}}
-                <div class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center" style="pointer-events: none; z-index: 0;">
-                    <img src="{{ asset('dist/img/7.png') }}" alt="Watermark Kemenag" style="width: 280px; height: 280px; opacity: 0.07; object-fit: contain;">
-                </div>
-                <div class="card-body p-4 p-md-5 text-center d-flex flex-column justify-content-center position-relative" style="z-index: 1;">
-                    <div class="mb-3">
-                        <span class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle p-3 mb-2 shadow-sm" style="width: 65px; height: 65px; border: 1px solid rgba(40, 167, 69, 0.3);">
-                            <i class="fas fa-eye fa-2x text-success"></i>
+            <h1>
+                Visi, Misi &amp; Motto
+            </h1>
+
+            <p>
+                Pedoman Pelayanan Prima dan Keagamaan Berbasis Nilai-Nilai Religius
+            </p>
+
+        </div>
+
+
+        {{-- =====================================================
+             VISI & MOTTO
+        ====================================================== --}}
+        <div class="row g-4 justify-content-center mb-4">
+
+            {{-- =================================================
+                 VISI
+            ================================================== --}}
+            <div class="col-lg-7">
+
+                <div class="info-card visi-card h-100">
+
+                    <div class="card-inner">
+
+                        <div class="icon-box">
+                            <i class="fas fa-eye"></i>
+                        </div>
+
+                        <span class="card-label">
+                            VISI
                         </span>
-                        <h3 class="fw-bold text-success h4 tracking-wide text-uppercase">Visi</h3>
-                    </div>
-                    <blockquote class="blockquote mb-0">
-                        <p class="text-light fst-italic fs-5 lh-base fw-bold px-md-3">
-                            "TERWUJUDNYA MASYARAKAT KARANG BARU YANG TAAT BERAGAMA, SEJAHTERA DAN BAHAGIA."
+
+                        <h2>
+                            Terwujudnya Masyarakat Karang Baru
+                            yang Taat Beragama, Sejahtera
+                            dan Bahagia.
+                        </h2>
+
+                        <div class="card-line"></div>
+
+                        <p>
+                            Menjadi pedoman dalam mewujudkan pelayanan
+                            keagamaan yang berkualitas serta kehidupan
+                            masyarakat yang harmonis.
                         </p>
-                    </blockquote>
-                </div>
-            </div>
-        </div>
 
-        {{-- MOTTO --}}
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100 position-relative" style="background: linear-gradient(135deg, rgba(10, 40, 25, 0.95), rgba(15, 30, 20, 0.9)); backdrop-filter: blur(16px); border: 1px solid rgba(40, 167, 69, 0.2) !important;">
-                {{-- Background Watermark Logo Kemenag --}}
-                <div class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center" style="pointer-events: none; z-index: 0;">
-                    <img src="{{ asset('dist/img/7.png') }}" alt="Watermark Kemenag" style="width: 220px; height: 220px; opacity: 0.07; object-fit: contain;">
-                </div>
-                <div class="card-body p-4 p-md-5 text-center d-flex flex-column justify-content-center position-relative" style="z-index: 1;">
-                    <div class="mb-3">
-                        <span class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle p-3 mb-2 shadow-sm" style="width: 65px; height: 65px; border: 1px solid rgba(40, 167, 69, 0.3);">
-                            <i class="fas fa-hand-holding-heart fa-2x text-success"></i>
-                        </span>
-                        <h3 class="fw-bold text-success h4 tracking-wide text-uppercase">Motto</h3>
                     </div>
-                    <blockquote class="blockquote mb-0">
-                        <p class="text-light fst-italic fs-5 lh-base fw-bold">
-                            "MELAYANI DENGAN IKHLAS"
+
+                </div>
+
+            </div>
+
+
+            {{-- =================================================
+                 MOTTO
+            ================================================== --}}
+            <div class="col-lg-4">
+
+                <div class="info-card motto-card h-100">
+
+                    <div class="card-inner">
+
+                        <div class="icon-box">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+
+                        <span class="card-label">
+                            MOTTO
+                        </span>
+
+                        <h2>
+                            "Melayani dengan Ikhlas"
+                        </h2>
+
+                        <div class="card-line"></div>
+
+                        <p>
+                            Memberikan pelayanan kepada masyarakat
+                            dengan tulus, ramah, dan penuh tanggung jawab.
                         </p>
-                    </blockquote>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    {{-- MISI SECTION --}}
-    <div class="row justify-content-center">
-        <div class="col-lg-11">
-            <div class="card border-0 shadow-lg rounded-4 overflow-hidden position-relative" style="background: linear-gradient(135deg, rgba(10, 40, 25, 0.95), rgba(15, 30, 20, 0.9)); backdrop-filter: blur(16px); border: 1px solid rgba(40, 167, 69, 0.2) !important;">
-                {{-- Background Watermark Logo Kemenag --}}
-                <div class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center" style="pointer-events: none; z-index: 0;">
-                    <img src="{{ asset('dist/img/7.png') }}" alt="Watermark Kemenag" style="width: 450px; height: 450px; opacity: 0.05; object-fit: contain;">
-                </div>
-                <div class="card-body p-4 p-md-5 position-relative" style="z-index: 1;">
-                    <div class="text-center mb-4">
-                        <span class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle p-3 mb-2 shadow-sm" style="width: 65px; height: 65px; border: 1px solid rgba(40, 167, 69, 0.3);">
-                            <i class="fas fa-tasks fa-2x text-success"></i>
-                        </span>
-                        <h3 class="fw-bold text-success h4 tracking-wide text-uppercase">Misi</h3>
                     </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {{-- =====================================================
+             MISI
+        ====================================================== --}}
+        <div class="row justify-content-center">
+
+            <div class="col-lg-11">
+
+                <div class="misi-card">
+
+                    <div class="misi-header text-center">
+
+                        <div class="icon-box">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+
+                        <span class="card-label">
+                            MISI
+                        </span>
+
+                        <h2>
+                            Misi KUA Kecamatan Karang Baru
+                        </h2>
+
+                        <p>
+                            Komitmen dalam meningkatkan kualitas pelayanan
+                            keagamaan dan pemberdayaan masyarakat.
+                        </p>
+
+                    </div>
+
+
+                    {{-- =================================================
+                         LIST MISI
+                    ================================================== --}}
                     <div class="row g-3">
+
+                        {{-- MISI 1 --}}
                         <div class="col-md-6">
-                            <div class="d-flex align-items-start h-100 p-3 rounded-3 shadow-sm" style="background: rgba(20, 50, 30, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
-                                <span class="badge bg-success text-white rounded-pill me-3 mt-1 px-2 py-1 fw-bold shadow-sm">1</span>
-                                <p class="text-light mb-0 small lh-base">Meningkatkan kualitas pemahaman dan pengamalan ajaran Islam.</p>
+
+                            <div class="misi-item">
+
+                                <span class="nomor">
+                                    1
+                                </span>
+
+                                <p>
+                                    Meningkatkan kualitas pemahaman dan
+                                    pengamalan ajaran Islam.
+                                </p>
+
                             </div>
+
                         </div>
+
+
+                        {{-- MISI 2 --}}
                         <div class="col-md-6">
-                            <div class="d-flex align-items-start h-100 p-3 rounded-3 shadow-sm" style="background: rgba(20, 50, 30, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
-                                <span class="badge bg-success text-white rounded-pill me-3 mt-1 px-2 py-1 fw-bold shadow-sm">2</span>
-                                <p class="text-light mb-0 small lh-base">Meningkatkan kerjasama lintas sektoral dan kemitraan umat.</p>
+
+                            <div class="misi-item">
+
+                                <span class="nomor">
+                                    2
+                                </span>
+
+                                <p>
+                                    Meningkatkan kerjasama lintas sektoral
+                                    dan kemitraan umat.
+                                </p>
+
                             </div>
+
                         </div>
+
+
+                        {{-- MISI 3 --}}
                         <div class="col-md-6">
-                            <div class="d-flex align-items-start h-100 p-3 rounded-3 shadow-sm" style="background: rgba(20, 50, 30, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
-                                <span class="badge bg-success text-white rounded-pill me-3 mt-1 px-2 py-1 fw-bold shadow-sm">3</span>
-                                <p class="text-light mb-0 small lh-base">Meningkatkan kualitas pelayanan kepenghuluan dan keluarga sakinah.</p>
+
+                            <div class="misi-item">
+
+                                <span class="nomor">
+                                    3
+                                </span>
+
+                                <p>
+                                    Meningkatkan kualitas pelayanan
+                                    kepenghuluan dan keluarga sakinah.
+                                </p>
+
                             </div>
+
                         </div>
+
+
+                        {{-- MISI 4 --}}
                         <div class="col-md-6">
-                            <div class="d-flex align-items-start h-100 p-3 rounded-3 shadow-sm" style="background: rgba(20, 50, 30, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
-                                <span class="badge bg-success text-white rounded-pill me-3 mt-1 px-2 py-1 fw-bold shadow-sm">4</span>
-                                <p class="text-light mb-0 small lh-base">Meningkatkan kualitas pelayanan zakat, wakaf, produk halal dan kemasjidan.</p>
+
+                            <div class="misi-item">
+
+                                <span class="nomor">
+                                    4
+                                </span>
+
+                                <p>
+                                    Meningkatkan kualitas pelayanan zakat,
+                                    wakaf, produk halal dan kemasjidan.
+                                </p>
+
                             </div>
+
                         </div>
+
+
+                        {{-- MISI 5 --}}
                         <div class="col-md-6">
-                            <div class="d-flex align-items-start h-100 p-3 rounded-3 shadow-sm" style="background: rgba(20, 50, 30, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
-                                <span class="badge bg-success text-white rounded-pill me-3 mt-1 px-2 py-1 fw-bold shadow-sm">5</span>
-                                <p class="text-light mb-0 small lh-base">Meningkatkan kualitas pelayanan manasik haji, hisab, rukyat dan pembinaan syariah.</p>
+
+                            <div class="misi-item">
+
+                                <span class="nomor">
+                                    5
+                                </span>
+
+                                <p>
+                                    Meningkatkan kualitas pelayanan manasik
+                                    haji, hisab, rukyat dan pembinaan syariah.
+                                </p>
+
                             </div>
+
                         </div>
+
+
+                        {{-- MISI 6 --}}
                         <div class="col-md-6">
-                            <div class="d-flex align-items-start h-100 p-3 rounded-3 shadow-sm" style="background: rgba(20, 50, 30, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
-                                <span class="badge bg-success text-white rounded-pill me-3 mt-1 px-2 py-1 fw-bold shadow-sm">6</span>
-                                <p class="text-light mb-0 small lh-base">Meningkatkan kualitas SDM dan data KUA.</p>
+
+                            <div class="misi-item">
+
+                                <span class="nomor">
+                                    6
+                                </span>
+
+                                <p>
+                                    Meningkatkan kualitas SDM dan data KUA.
+                                </p>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
-</div>
+
+</section>
+
+
+{{-- =========================================================
+     STYLE
+========================================================= --}}
+
+<style>
+
+    /* =========================================================
+       SECTION
+    ========================================================= */
+
+    .visi-section {
+        padding: 115px 0 80px;
+        min-height: 100vh;
+
+        background:
+            linear-gradient(
+                180deg,
+                #f8fafc 0%,
+                #ffffff 100%
+            );
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    .visi-header {
+        margin-bottom: 48px;
+    }
+
+
+    .instansi-badge {
+        display: inline-flex;
+        align-items: center;
+
+        padding: 10px 20px;
+
+        border-radius: 50px;
+
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+
+        color: #047857;
+
+        font-size: 15px;
+        font-weight: 700;
+
+        box-shadow: 0 4px 15px rgba(4, 120, 87, 0.08);
+    }
+
+
+    .visi-header h1 {
+        margin: 20px 0 10px;
+
+        color: #064e3b;
+
+        font-size: 42px;
+        line-height: 1.2;
+
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+
+    .visi-header p {
+        margin: 0;
+
+        color: #64748b;
+
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       CARD VISI & MOTTO
+    ========================================================= */
+
+    .info-card {
+        position: relative;
+
+        overflow: hidden;
+
+        border-radius: 22px;
+
+        background: #ffffff;
+
+        border: 1px solid #e2e8f0;
+
+        box-shadow:
+            0 12px 35px rgba(15, 23, 42, 0.07);
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
+    }
+
+
+    .info-card:hover {
+        transform: translateY(-4px);
+
+        box-shadow:
+            0 18px 45px rgba(15, 23, 42, 0.11);
+    }
+
+
+    .info-card::before {
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 5px;
+
+        background: linear-gradient(
+            90deg,
+            #047857,
+            #10b981
+        );
+    }
+
+
+    .card-inner {
+        min-height: 350px;
+
+        padding: 45px 40px;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+    }
+
+
+    /* =========================================================
+       ICON
+    ========================================================= */
+
+    .icon-box {
+        width: 68px;
+        height: 68px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 18px;
+
+        border-radius: 50%;
+
+        background: #ecfdf5;
+
+        color: #047857;
+
+        border: 1px solid #a7f3d0;
+
+        font-size: 27px;
+
+        box-shadow:
+            0 6px 18px rgba(4, 120, 87, 0.10);
+    }
+
+
+    /* =========================================================
+       LABEL
+    ========================================================= */
+
+    .card-label {
+        color: #059669;
+
+        font-size: 13px;
+        font-weight: 800;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 14px;
+    }
+
+
+    /* =========================================================
+       JUDUL CARD
+    ========================================================= */
+
+    .info-card h2 {
+        max-width: 650px;
+
+        margin: 0;
+
+        color: #1f2937;
+
+        font-size: 24px;
+        line-height: 1.55;
+
+        font-weight: 750;
+    }
+
+
+    .motto-card h2 {
+        font-size: 25px;
+
+        color: #065f46;
+    }
+
+
+    /* =========================================================
+       GARIS
+    ========================================================= */
+
+    .card-line {
+        width: 60px;
+        height: 4px;
+
+        margin: 20px auto;
+
+        border-radius: 20px;
+
+        background: #10b981;
+    }
+
+
+    .info-card p {
+        max-width: 600px;
+
+        margin: 0;
+
+        color: #64748b;
+
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+
+    /* =========================================================
+       MISI CARD
+    ========================================================= */
+
+    .misi-card {
+        padding: 45px;
+
+        border-radius: 22px;
+
+        background: #ffffff;
+
+        border: 1px solid #e2e8f0;
+
+        box-shadow:
+            0 12px 35px rgba(15, 23, 42, 0.07);
+    }
+
+
+    .misi-header {
+        margin-bottom: 30px;
+    }
+
+
+    .misi-header .icon-box {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    .misi-header h2 {
+        margin: 0 0 8px;
+
+        color: #064e3b;
+
+        font-size: 25px;
+        font-weight: 800;
+    }
+
+
+    .misi-header p {
+        margin: 0;
+
+        color: #64748b;
+
+        font-size: 14px;
+    }
+
+
+    /* =========================================================
+       ITEM MISI
+    ========================================================= */
+
+    .misi-item {
+        height: 100%;
+
+        display: flex;
+        align-items: flex-start;
+
+        gap: 15px;
+
+        padding: 20px;
+
+        border-radius: 15px;
+
+        background: #f8fafc;
+
+        border: 1px solid #e2e8f0;
+
+        transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+
+    .misi-item:hover {
+        background: #ecfdf5;
+
+        border-color: #a7f3d0;
+
+        transform: translateY(-2px);
+    }
+
+
+    .nomor {
+        width: 35px;
+        height: 35px;
+
+        min-width: 35px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #059669;
+
+        color: #ffffff;
+
+        font-size: 14px;
+        font-weight: 800;
+
+        box-shadow:
+            0 4px 10px rgba(5, 150, 105, 0.20);
+    }
+
+
+    .misi-item p {
+        margin: 0;
+
+        color: #475569;
+
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+
+    /* =========================================================
+       TABLET
+    ========================================================= */
+
+    @media (max-width: 991.98px) {
+
+        .visi-section {
+            padding-top: 100px;
+        }
+
+        .visi-header h1 {
+            font-size: 36px;
+        }
+
+        .card-inner {
+            min-height: 320px;
+        }
+
+        .misi-card {
+            padding: 35px;
+        }
+
+    }
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 767.98px) {
+
+        .visi-section {
+            padding: 90px 15px 60px;
+        }
+
+
+        .visi-header {
+            margin-bottom: 35px;
+        }
+
+
+        .instansi-badge {
+            padding: 8px 14px;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        .visi-header h1 {
+            margin-top: 17px;
+
+            font-size: 30px;
+        }
+
+
+        .visi-header p {
+            font-size: 14px;
+        }
+
+
+        .card-inner {
+            min-height: auto;
+
+            padding: 38px 25px;
+        }
+
+
+        .info-card h2 {
+            font-size: 21px;
+        }
+
+
+        .motto-card h2 {
+            font-size: 22px;
+        }
+
+
+        .misi-card {
+            padding: 30px 20px;
+        }
+
+
+        .misi-header h2 {
+            font-size: 21px;
+        }
+
+
+        .misi-item {
+            padding: 17px;
+        }
+
+
+        .misi-item p {
+            font-size: 13px;
+        }
+
+    }
+
+</style>
+
 @endsection

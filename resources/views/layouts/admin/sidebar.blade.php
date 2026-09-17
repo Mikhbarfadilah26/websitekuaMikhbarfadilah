@@ -5,24 +5,18 @@
          BRAND
     ================================================== --}}
     <div class="sidebar-brand">
-
         <a href="{{ route('admin.dashboard') }}"
             class="brand-link">
 
             <span class="brand-image opacity-75">
-
                 <i class="bi bi-building-fill fs-4"></i>
-
             </span>
 
             <span class="brand-text fw-semibold">
-
                 ADMIN KUA
-
             </span>
 
         </a>
-
     </div>
 
 
@@ -41,12 +35,10 @@
                 {{-- =================================================
                      DASHBOARD
                 ================================================== --}}
-
                 <li class="nav-item">
 
                     <a href="{{ route('admin.dashboard') }}"
-                        class="nav-link
-                       {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                        class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-speedometer2"></i>
 
@@ -62,17 +54,14 @@
                 {{-- =================================================
                      KELOLA DATA
                 ================================================== --}}
-
                 <li class="nav-header">
-
                     KELOLA DATA
-
                 </li>
 
-                {{-- =================================================
-     KELOLA BERITA
-================================================== --}}
 
+                {{-- =================================================
+                     KELOLA BERITA
+                ================================================== --}}
                 <li class="nav-item">
 
                     <a href="{{ route('admin.berita.index') }}"
@@ -89,13 +78,30 @@
                 </li>
 
                 {{-- =================================================
-KELOLA LAYANAN
+     KELOLA MASYARAKAT
 ================================================== --}}
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.masyarakat.index') }}"
+                        class="nav-link {{ request()->is('admin/masyarakat*') ? 'active' : '' }}">
 
-                    <a
-                        href="{{ route('admin.layanan.index') }}"
+                        <i class="nav-icon bi bi-people-fill"></i>
+
+                        <p>
+                            Kelola Masyarakat
+                        </p>
+
+                    </a>
+                </li>
+
+
+
+                {{-- =================================================
+                     KELOLA LAYANAN
+                ================================================== --}}
+                <li class="nav-item">
+
+                    <a href="{{ route('admin.layanan.index') }}"
                         class="nav-link {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-grid-fill"></i>
@@ -105,28 +111,25 @@ KELOLA LAYANAN
                         </p>
 
                     </a>
+
                 </li>
+
 
                 {{-- =================================================
                      PELAYANAN
                 ================================================== --}}
-
                 <li class="nav-header">
-
                     PELAYANAN
-
                 </li>
 
 
                 {{-- =================================================
                      SARAN & PENGADUAN
                 ================================================== --}}
-
                 <li class="nav-item">
 
                     <a href="{{ route('admin.saran.index') }}"
-                        class="nav-link
-                       {{ request()->routeIs('admin.saran.*') ? 'active' : '' }}">
+                        class="nav-link {{ request()->routeIs('admin.saran.*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-chat-dots-fill"></i>
 
@@ -134,34 +137,21 @@ KELOLA LAYANAN
                             Saran & Pengaduan
                         </p>
 
-
-                        {{-- BADGE SARAN --}}
-
                         @php
-
                         try {
-
-                        $jumlahSaran =
-                        \App\Models\Saran::where(
+                        $jumlahSaran = \App\Models\Saran::where(
                         'status',
                         'belum_dibaca'
                         )->count();
-
                         } catch (\Throwable $e) {
-
                         $jumlahSaran = 0;
-
                         }
-
                         @endphp
-
 
                         @if($jumlahSaran > 0)
 
                         <span class="badge bg-danger rounded-pill ms-auto">
-
                             {{ $jumlahSaran }}
-
                         </span>
 
                         @endif
@@ -171,8 +161,10 @@ KELOLA LAYANAN
                 </li>
 
 
+                {{-- =================================================
+                     LAPORAN
+                ================================================== --}}
                 <li class="nav-item">
-
 
                     <a href="{{ route('admin.laporan.index') }}"
                         class="nav-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}">
@@ -185,24 +177,22 @@ KELOLA LAYANAN
 
                     </a>
 
-
                 </li>
-
 
 
                 {{-- =================================================
                      SISTEM
                 ================================================== --}}
-
                 <li class="nav-header">
-
                     SISTEM
-
                 </li>
 
+
+                {{-- =================================================
+                     AKUN SAYA
+                ================================================== --}}
                 <li class="nav-item">
 
-                    ```
                     <a href="{{ route('admin.akun.index') }}"
                         class="nav-link {{ request()->routeIs('admin.akun.*') ? 'active' : '' }}">
 
@@ -213,22 +203,21 @@ KELOLA LAYANAN
                         </p>
 
                     </a>
-                    ```
 
                 </li>
+
 
                 {{-- =================================================
                      LOGOUT
                 ================================================== --}}
-
                 <li class="nav-item">
 
                     <a href="{{ route('logout') }}"
                         class="nav-link"
                         onclick="
-                           event.preventDefault();
-                           document.getElementById('logout-form').submit();
-                       ">
+                            event.preventDefault();
+                            document.getElementById('logout-form').submit();
+                        ">
 
                         <i class="nav-icon bi bi-box-arrow-right"></i>
 
@@ -239,7 +228,6 @@ KELOLA LAYANAN
                     </a>
 
                 </li>
-
 
             </ul>
 
@@ -253,7 +241,6 @@ KELOLA LAYANAN
 {{-- =================================================
      FORM LOGOUT
 ================================================== --}}
-
 <form id="logout-form"
     action="{{ route('logout') }}"
     method="POST"

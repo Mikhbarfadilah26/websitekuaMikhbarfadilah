@@ -200,23 +200,6 @@ NAVBAR UTAMA
                         ">
 
 
-                        {{-- TENTANG KAMI --}}
-
-                        <li>
-
-                            <a
-                                class="dropdown-item py-2 px-3 rounded-2 mb-1 text-light"
-                                href="{{ route('landing.tentang') }}">
-
-                                <i class="fas fa-info-circle text-info me-2 small"></i>
-
-                                Tentang Kami
-
-                            </a>
-
-                        </li>
-
-
                         {{-- SEJARAH --}}
 
                         <li>
@@ -245,6 +228,21 @@ NAVBAR UTAMA
                                 <i class="fas fa-bullseye text-info me-2 small"></i>
 
                                 Visi & Misi
+
+                            </a>
+
+                        </li>
+               {{-- TENTANG KAMI --}}
+
+                        <li>
+
+                            <a
+                                class="dropdown-item py-2 px-3 rounded-2 mb-1 text-light"
+                                href="{{ route('landing.tentang') }}">
+
+                                <i class="fas fa-info-circle text-info me-2 small"></i>
+
+                                Tentang Kami
 
                             </a>
 

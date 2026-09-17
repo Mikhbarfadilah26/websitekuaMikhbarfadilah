@@ -5,14 +5,15 @@
 @section('content')
 
 {{-- =========================================================
-    HERO / HEADER
+    HERO / HEADER (Ditambah margin-top agar tidak tertutup navbar fixed)
 ========================================================= --}}
-<section class="py-5"
+<section class="py-5" 
     style="
         background: linear-gradient(135deg, #064e3b, #0f766e);
         min-height: 280px;
         display: flex;
         align-items: center;
+        margin-top: 76px; /* Menyesuaikan tinggi navbar */
     ">
 
     <div class="container text-center text-white">
@@ -24,7 +25,7 @@
         </h1>
 
         <p class="mb-0 opacity-75">
-            Struktur Organisasi Kantor Urusan Agama (KUA) Kecamatan Karang Baru
+            Struktur Organisasi dan Daftar Personil Kantor Urusan Agama (KUA) Kecamatan Karang Baru
         </p>
 
     </div>
@@ -33,7 +34,7 @@
 
 
 {{-- =========================================================
-    STRUKTUR ORGANISASI
+    STRUKTUR ORGANISASI & PERSONil (Total 17 Orang)
 ========================================================= --}}
 <section class="py-5 bg-light">
 
@@ -43,7 +44,7 @@
 
             <span class="badge rounded-pill bg-success px-3 py-2 mb-3">
                 <i class="fas fa-users me-1"></i>
-                Organisasi KUA
+                Total Personil: 17 Orang
             </span>
 
             <h2 class="fw-bold text-dark">
@@ -51,43 +52,34 @@
             </h2>
 
             <p class="text-muted">
-                Susunan organisasi dan unsur pelayanan
-                Kantor Urusan Agama Kecamatan Karang Baru.
+                Susunan pimpinan, pejabat fungsional, dan staf pelaksana Kantor Urusan Agama Kecamatan Karang Baru.
             </p>
 
         </div>
 
 
         {{-- =================================================
-             KEPALA KUA
+            1. KEPALA KUA (1 Orang)
         ================================================== --}}
         <div class="row justify-content-center mb-4">
 
-            <div class="col-md-5 col-lg-4">
+            <div class="col-md-6 col-lg-4">
 
-                <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+                <div class="card border-0 shadow-sm rounded-4 text-center h-100 border-top border-success border-4">
 
                     <div class="card-body p-4">
 
                         <div class="mb-3">
-
-                            <div class="rounded-circle bg-success bg-opacity-10
-                                        d-inline-flex align-items-center
-                                        justify-content-center"
-                                style="width: 80px; height: 80px;">
-
-                                <i class="fas fa-user-tie fa-2x text-success"></i>
-
-                            </div>
-
+                            {{-- Foto Dummy Kepala KUA --}}
+                            <img src="https://via.placeholder.com/100" alt="Kepala KUA" class="rounded-circle shadow-sm mb-3" style="width: 90px; height: 90px; object-fit: cover;">
                         </div>
 
+                        <span class="badge bg-success bg-opacity-15 text-success mb-2 px-3 py-1 rounded-pill fw-semibold">Kepala KUA (1 Orang)</span>
                         <h5 class="fw-bold mb-1">
-                            Kepala KUA
+                            Nama Kepala KUA, S.Ag., M.Sy.
                         </h5>
-
-                        <p class="text-muted mb-0">
-                            Kecamatan Karang Baru
+                        <p class="text-muted small mb-0">
+                            NIP. 19xxxxxxxxxxxxxxxxx
                         </p>
 
                     </div>
@@ -99,48 +91,41 @@
         </div>
 
 
-        {{-- GARIS --}}
+        {{-- GARIS PENGHUBUNG --}}
         <div class="text-center mb-4">
-
             <div style="
                 width: 2px;
                 height: 40px;
                 background: #198754;
                 margin: auto;
             "></div>
-
         </div>
 
 
         {{-- =================================================
-             BAGIAN ORGANISASI
+            2. UNIT / FORMASI LAINNYA (Total 16 Orang)
         ================================================== --}}
         <div class="row g-4 justify-content-center">
 
 
-            {{-- PENYULUH AGAMA --}}
+            {{-- PENGHULU (Contoh: 3 Orang) --}}
             <div class="col-md-6 col-lg-4">
 
                 <div class="card border-0 shadow-sm rounded-4 h-100">
 
                     <div class="card-body text-center p-4">
 
-                        <div class="rounded-circle bg-info bg-opacity-10
-                                    d-inline-flex align-items-center
-                                    justify-content-center mb-3"
-                            style="width: 70px; height: 70px;">
-
-                            <i class="fas fa-mosque fa-xl text-info"></i>
-
+                        <div class="mb-3">
+                            <img src="https://via.placeholder.com/80" alt="Penghulu" class="rounded-circle shadow-sm mb-2" style="width: 75px; height: 75px; object-fit: cover;">
                         </div>
 
+                        <span class="badge bg-warning bg-opacity-20 text-dark mb-2 px-3 py-1 rounded-pill fw-semibold">Penghulu (3 Orang)</span>
                         <h5 class="fw-bold">
-                            Penyuluh Agama
+                            Jabatan Fungsional Penghulu
                         </h5>
 
                         <p class="text-muted small mb-0">
-                            Memberikan bimbingan dan penyuluhan
-                            keagamaan kepada masyarakat.
+                            Melaksanakan pelayanan akad nikah, rujuk, bimbingan keluarga sakinah, dan penyuluhan syariat.
                         </p>
 
                     </div>
@@ -150,29 +135,24 @@
             </div>
 
 
-            {{-- PENGHULU --}}
+            {{-- PENYULUH AGAMA (Contoh: 5 Orang) --}}
             <div class="col-md-6 col-lg-4">
 
                 <div class="card border-0 shadow-sm rounded-4 h-100">
 
                     <div class="card-body text-center p-4">
 
-                        <div class="rounded-circle bg-warning bg-opacity-10
-                                    d-inline-flex align-items-center
-                                    justify-content-center mb-3"
-                            style="width: 70px; height: 70px;">
-
-                            <i class="fas fa-ring fa-xl text-warning"></i>
-
+                        <div class="mb-3">
+                            <img src="https://via.placeholder.com/80" alt="Penyuluh Agama" class="rounded-circle shadow-sm mb-2" style="width: 75px; height: 75px; object-fit: cover;">
                         </div>
 
+                        <span class="badge bg-info bg-opacity-20 text-dark mb-2 px-3 py-1 rounded-pill fw-semibold">Penyuluh Agama (5 Orang)</span>
                         <h5 class="fw-bold">
-                            Penghulu
+                            Penyuluh Agama Islam
                         </h5>
 
                         <p class="text-muted small mb-0">
-                            Melaksanakan pelayanan dan pencatatan
-                            pernikahan sesuai ketentuan.
+                            Memberikan bimbingan, penyuluhan keagamaan, serta edukasi moderasi beragama kepada masyarakat.
                         </p>
 
                     </div>
@@ -182,97 +162,24 @@
             </div>
 
 
-            {{-- TATA USAHA --}}
+            {{-- PENATA LAYANAN & ADMINISTRASI / STAF (Contoh: 8 Orang) --}}
             <div class="col-md-6 col-lg-4">
 
                 <div class="card border-0 shadow-sm rounded-4 h-100">
 
                     <div class="card-body text-center p-4">
 
-                        <div class="rounded-circle bg-primary bg-opacity-10
-                                    d-inline-flex align-items-center
-                                    justify-content-center mb-3"
-                            style="width: 70px; height: 70px;">
-
-                            <i class="fas fa-file-alt fa-xl text-primary"></i>
-
+                        <div class="mb-3">
+                            <img src="https://via.placeholder.com/80" alt="Staf dan Penata Layanan" class="rounded-circle shadow-sm mb-2" style="width: 75px; height: 75px; object-fit: cover;">
                         </div>
 
+                        <span class="badge bg-primary bg-opacity-20 text-dark mb-2 px-3 py-1 rounded-pill fw-semibold">Penata Layanan & Staf (8 Orang)</span>
                         <h5 class="fw-bold">
-                            Tata Usaha
+                            Administrasi & Umum
                         </h5>
 
                         <p class="text-muted small mb-0">
-                            Mengelola administrasi dan pelayanan
-                            umum KUA.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            {{-- =================================================
-                 STAF
-            ================================================== --}}
-            <div class="col-md-6 col-lg-4">
-
-                <div class="card border-0 shadow-sm rounded-4 h-100">
-
-                    <div class="card-body text-center p-4">
-
-                        <div class="rounded-circle bg-danger bg-opacity-10
-                                    d-inline-flex align-items-center
-                                    justify-content-center mb-3"
-                            style="width: 70px; height: 70px;">
-
-                            <i class="fas fa-users fa-xl text-danger"></i>
-
-                        </div>
-
-                        <h5 class="fw-bold">
-                            Staf Pelaksana
-                        </h5>
-
-                        <p class="text-muted small mb-0">
-                            Mendukung pelaksanaan administrasi
-                            dan pelayanan KUA.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            {{-- =================================================
-                 PETUGAS LAYANAN
-            ================================================== --}}
-            <div class="col-md-6 col-lg-4">
-
-                <div class="card border-0 shadow-sm rounded-4 h-100">
-
-                    <div class="card-body text-center p-4">
-
-                        <div class="rounded-circle bg-secondary bg-opacity-10
-                                    d-inline-flex align-items-center
-                                    justify-content-center mb-3"
-                            style="width: 70px; height: 70px;">
-
-                            <i class="fas fa-hands-helping fa-xl text-secondary"></i>
-
-                        </div>
-
-                        <h5 class="fw-bold">
-                            Petugas Pelayanan
-                        </h5>
-
-                        <p class="text-muted small mb-0">
-                            Membantu masyarakat dalam memperoleh
-                            informasi dan layanan KUA.
+                            Mengelola data sistem layanan (SIMKAH, SIMAS), arsip surat-menyurat, serta pelayanan umum kantor.
                         </p>
 
                     </div>
@@ -289,7 +196,7 @@
 
 
 {{-- =========================================================
-    INFORMASI
+    INFORMASI TAMBAHAN
 ========================================================= --}}
 <section class="py-5">
 
@@ -310,15 +217,11 @@
                     <div class="col-md-10">
 
                         <h4 class="fw-bold">
-                            Tentang Struktur Organisasi
+                            Tentang Formasi Personil KUA Karang Baru
                         </h4>
 
                         <p class="text-muted mb-0">
-                            Struktur organisasi KUA Kecamatan Karang Baru
-                            disusun untuk mendukung pelaksanaan tugas,
-                            pelayanan masyarakat, administrasi keagamaan,
-                            serta pelayanan nikah dan rujuk secara tertib,
-                            efektif, dan sesuai dengan ketentuan yang berlaku.
+                            Kantor Urusan Agama (KUA) Kecamatan Karang Baru didukung oleh total 17 orang personil yang terdiri dari 1 Kepala KUA, 3 orang Penghulu, 5 orang Penyuluh Agama, serta 8 orang Penata Layanan dan Staf Administrasi guna mengoptimalkan pelayanan prima kepada masyarakat.
                         </p>
 
                     </div>

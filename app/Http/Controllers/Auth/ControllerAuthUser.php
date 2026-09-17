@@ -34,6 +34,12 @@ class ControllerAuthUser
             'password' => $request->password,
         ];
 
+        /*
+        |--------------------------------------------------------------------------
+        | CEK LOGIN
+        |--------------------------------------------------------------------------
+        */
+
         if (!Auth::attempt($credentials)) {
             return back()
                 ->withErrors([
@@ -42,7 +48,12 @@ class ControllerAuthUser
                 ->onlyInput('email');
         }
 
-        // Regenerasi session setelah berhasil login
+        /*
+        |--------------------------------------------------------------------------
+        | REGENERASI SESSION
+        |--------------------------------------------------------------------------
+        */
+
         $request->session()->regenerate();
 
         $user = Auth::user();
@@ -52,10 +63,17 @@ class ControllerAuthUser
         | ADMIN
         |--------------------------------------------------------------------------
         */
+
         if ($user->role === 'admin') {
+
             return redirect()
-                ->route('admin.dashboard')
-                ->with('success', 'Selamat datang, ' . $user->nama . '!');
+                ->intended(
+                    route('admin.dashboard')
+                )
+                ->with(
+                    'success',
+                    'Selamat datang, ' . $user->nama . '!'
+                );
         }
 
         /*
@@ -63,10 +81,87 @@ class ControllerAuthUser
         | MASYARAKAT
         |--------------------------------------------------------------------------
         */
+
         if ($user->role === 'masyarakat') {
+
+            /*
+            |--------------------------------------------------------------------------
+            | CEK STATUS AKUN MASYARAKAT
+            |--------------------------------------------------------------------------
+            |
+            | Hanya masyarakat dengan status "disetujui"
+            | yang diperbolehkan masuk ke sistem.
+            |
+            */
+
+            if ($user->status !== 'disetujui') {
+
+                Auth::logout();
+
+                $request->session()->invalidate();
+
+                $request->session()->regenerateToken();
+
+                if ($user->status === 'pending') {
+
+                    return back()
+                        ->withErrors([
+                            'email' =>
+                                'Akun Anda masih menunggu persetujuan admin.',
+                        ])
+                        ->onlyInput('email');
+                }
+
+                if ($user->status === 'ditolak') {
+
+                    return back()
+                        ->withErrors([
+                            'email' =>
+                                'Pendaftaran akun Anda ditolak oleh admin.',
+                        ])
+                        ->onlyInput('email');
+                }
+
+                return back()
+                    ->withErrors([
+                        'email' =>
+                            'Akun Anda belum dapat digunakan.',
+                    ])
+                    ->onlyInput('email');
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | LOGIN BERHASIL
+            |--------------------------------------------------------------------------
+            |
+            | redirect()->intended() sangat penting.
+            |
+            | Contoh:
+            |
+            | Masyarakat membuka /saran
+            |        ↓
+            | Belum login
+            |        ↓
+            | Dialihkan ke /login
+            |        ↓
+            | Login berhasil
+            |        ↓
+            | Kembali ke /saran
+            |
+            | Jika login dilakukan langsung dari halaman login,
+            | maka diarahkan ke dashboard masyarakat.
+            |
+            */
+
             return redirect()
-                ->route('masyarakat.dashboard')
-                ->with('success', 'Selamat datang, ' . $user->nama . '!');
+                ->intended(
+                    route('masyarakat.dashboard')
+                )
+                ->with(
+                    'success',
+                    'Selamat datang, ' . $user->nama . '!'
+                );
         }
 
         /*
@@ -74,11 +169,18 @@ class ControllerAuthUser
         | ROLE TIDAK DIKENALI
         |--------------------------------------------------------------------------
         */
+
         Auth::logout();
 
-        return back()->withErrors([
-            'email' => 'Role akun tidak dikenali.',
-        ]);
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return back()
+            ->withErrors([
+                'email' => 'Role akun tidak dikenali.',
+            ])
+            ->onlyInput('email');
     }
 
     /**
@@ -89,10 +191,14 @@ class ControllerAuthUser
         Auth::logout();
 
         $request->session()->invalidate();
+
         $request->session()->regenerateToken();
 
         return redirect()
             ->route('login')
-            ->with('success', 'Berhasil keluar dari akun.');
+            ->with(
+                'success',
+                'Berhasil keluar dari akun.'
+            );
     }
 }
