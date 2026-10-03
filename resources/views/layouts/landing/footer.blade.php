@@ -1,133 +1,190 @@
 <footer class="footer-section" id="kontak">
 
-    <div class="container">
+    <div class="footer-main">
 
-        <div class="row g-4">
+        <div class="container">
 
-            {{-- Tentang --}}
-            <div class="col-lg-4 col-md-6">
+            <div class="row">
 
-                <div class="d-flex align-items-center mb-3">
+                {{-- =====================================================
+                     LOKASI
+                ====================================================== --}}
+                <div class="col-lg-4 col-md-6 mb-4">
 
-                    <div class="logo-kua me-2">
-                        <i class="fas fa-mosque"></i>
-                    </div>
+                    <h5 class="footer-heading">
+                        LOKASI
+                    </h5>
 
-                    <div>
-                        <h5 class="mb-0 fw-bold">KUA Karang Baru</h5>
-                        <small>Kabupaten Aceh Tamiang</small>
+                    <div class="footer-map">
+
+                        <iframe
+                            src="https://www.google.com/maps?q=KUA+Karang+Baru+Aceh+Tamiang&output=embed"
+                            width="100%"
+                            height="430"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+
                     </div>
 
                 </div>
 
-                <p class="footer-text">
-                    Website pelayanan Kantor Urusan Agama Kecamatan Karang Baru
-                    untuk memberikan informasi dan pelayanan kepada masyarakat
-                    secara lebih mudah, cepat, dan transparan.
-                </p>
 
-            </div>
+                {{-- =====================================================
+                     FANSPAGE
+                ====================================================== --}}
+                <div class="col-lg-4 col-md-6 mb-4">
 
+                    <h5 class="footer-heading">
+                        FANSPAGE
+                    </h5>
 
-            {{-- Menu --}}
-            <div class="col-lg-2 col-md-6">
+                    <div class="fanspage-box">
 
-                <h5 class="footer-title">
-                    Menu
-                </h5>
+                        <div class="fanspage-content">
 
-                <ul class="footer-menu">
-                    <li>
-                        <a href="#beranda">Beranda</a>
-                    </li>
+                            <i class="fas fa-mosque"></i>
 
-                    <li>
-                        <a href="#layanan">Layanan</a>
-                    </li>
+                            <h5>
+                                KUA Karang Baru
+                            </h5>
 
-                    <li>
-                        <a href="#tentang">Tentang</a>
-                    </li>
+                            <p>
+                                Kabupaten Aceh Tamiang
+                            </p>
 
-                    <li>
-                        <a href="#kontak">Kontak</a>
-                    </li>
-                </ul>
+                            <div class="social-icons">
 
-            </div>
+                                <a href="#" title="Facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
 
+                                <a href="#" title="Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
 
-            {{-- Layanan --}}
-            <div class="col-lg-3 col-md-6">
+                                <a href="#" title="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
 
-                <h5 class="footer-title">
-                    Layanan
-                </h5>
+                                <a href="#" title="YouTube">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
 
-                <ul class="footer-menu">
+                            </div>
 
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-ring me-2"></i>
-                            Pernikahan
-                        </a>
-                    </li>
+                        </div>
 
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-file-alt me-2"></i>
-                            Administrasi
-                        </a>
-                    </li>
+                    </div>
 
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-info-circle me-2"></i>
-                            Informasi KUA
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
+                </div>
 
 
-            {{-- Kontak --}}
-            <div class="col-lg-3 col-md-6">
+                {{-- =====================================================
+                     CONTACT US
+                ====================================================== --}}
+                <div class="col-lg-4 col-md-12 mb-4">
 
-                <h5 class="footer-title">
-                    Hubungi Kami
-                </h5>
+                    <h5 class="footer-heading">
+                        CONTACT US
+                    </h5>
 
-                <p>
-                    <i class="fas fa-map-marker-alt me-2"></i>
-                    Kecamatan Karang Baru, Kabupaten Aceh Tamiang
-                </p>
+                    <div class="contact-content">
 
-                <p>
-                    <i class="fas fa-phone me-2"></i>
-                    -
-                </p>
+                        <p class="contact-title">
+                            KANTOR URUSAN AGAMA KECAMATAN KARANG BARU
+                        </p>
 
-                <p>
-                    <i class="fas fa-envelope me-2"></i>
-                    -
-                </p>
+                        <p>
+                            <strong>Alamat Kantor :</strong>
+                            Jl. Medan–Banda Aceh, Medang Ara,
+                            Kec. Karang Baru, Kab. Aceh Tamiang
+                        </p>
+
+                        <p>
+                            <strong>Telepon :</strong>
+                            -
+                        </p>
+
+                        <p>
+                            <strong>Email :</strong>
+                            -
+                        </p>
+
+                        <p>
+                            <strong>Website :</strong>
+                            -
+                        </p>
+
+                        <p class="wa-layanan">
+                            WA Layanan KUA Karang Baru
+                            <br>
+                            <strong>-</strong>
+                        </p>
+
+
+                        {{-- SOCIAL MEDIA --}}
+
+                        <div class="contact-social">
+
+                            <a href="#" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+
+                            <a href="#" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+
+                            <a href="#" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+
+                            <a href="#" title="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
+    </div>
 
-        <hr class="footer-line">
 
+    {{-- =====================================================
+         COPYRIGHT
+    ====================================================== --}}
 
-        <div class="text-center">
+    <div class="footer-bottom">
 
-            <p class="mb-0">
-                © {{ date('Y') }} KUA Karang Baru.
-                Semua Hak Dilindungi.
-            </p>
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6">
+
+                    <p class="copyright mb-0">
+                        © {{ date('Y') }} KUA Karang Baru
+                    </p>
+
+                </div>
+
+                <div class="col-md-6 text-md-end">
+
+                    <p class="copyright mb-0">
+                        Kabupaten Aceh Tamiang
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 

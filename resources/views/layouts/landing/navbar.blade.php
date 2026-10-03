@@ -358,77 +358,103 @@ NAVBAR UTAMA
 
                         <i class="fas fa-newspaper me-1"></i>
 
-                        Berita
+                        <span>Berita</span>
+
+                    </a>
+
+                </li>
+
+
+{{-- =================================================
+PERSYARATAN
+================================================== --}}
+
+<li class="nav-item">
+
+    <a
+        href="{{ route('landing.persyaratan') }}"
+        class="nav-link">
+
+        <i class="fas fa-clipboard-check me-1"></i>
+
+        <span>Persyaratan</span>
+
+    </a>
+
+</li>
+
+
+                {{-- =================================================
+                PENCARIAN
+                ================================================== --}}
+
+                <li class="nav-item search-nav-item">
+
+                    <form
+                        action="{{ route('landing.pencarian') }}"
+                        method="GET"
+                        class="search-navbar">
+
+                        <input
+                            type="text"
+                            name="search"
+                            class="search-input"
+                            placeholder="Cari apa saja..."
+                            value="{{ request('search') }}">
+
+                        <button
+                            type="submit"
+                            class="search-button"
+                            title="Cari">
+
+                            <i class="fas fa-search"></i>
+
+                        </button>
+
+                    </form>
+
+                </li>
+
+
+                {{-- =================================================
+                SARAN & PENGADUAN
+                ================================================== --}}
+
+                <li class="nav-item">
+
+                    <a
+                        href="{{ route('landing.saran.create') }}"
+                        class="nav-link {{ request()->routeIs('landing.saran.*') ? 'active' : '' }}">
+
+                        <i class="fas fa-comment-dots me-1"></i>
+
+                        <span>Saran</span>
 
                     </a>
 
                 </li>
 
             </ul>
-            {{-- =================================================
-PENCARIAN
-================================================== --}}
 
-            <li class="nav-item d-flex align-items-center ms-2">
 
-                <form
-                    action="{{ route('landing.pencarian') }}"
-                    method="GET"
-                    class="search-navbar">
-
-                    <input
-                        type="text"
-                        name="search"
-                        class="search-input"
-                        placeholder="Cari layanan atau berita..."
-                        value="{{ request('search') }}">
-
-                    <button
-                        type="submit"
-                        class="search-button"
-                        title="Cari">
-
-                        <i class="fas fa-search"></i>
-
-                    </button>
-
-                </form>
-
-            </li>
-            {{-- =================================================
-     SARAN & PENGADUAN
-================================================== --}}
-
-            <li class="nav-item">
-
-                <a
-                    href="{{ route('landing.saran.create') }}"
-                    class="nav-link {{ request()->routeIs('landing.saran.*') ? 'active' : '' }}">
-
-                    <i class="fas fa-comment-dots me-1"></i>
-
-                    Saran
-
-                </a>
-
-            </li>
             {{-- =================================================
             BUTTON NAVBAR
             ================================================== --}}
 
-            <div class="d-flex align-items-center gap-2 navbar-buttons flex-wrap">
-
-
-
-
+            <div class="d-flex align-items-center gap-2 navbar-buttons flex-nowrap">
 
                 {{-- =================================================
-     LOGIN ADMIN
-================================================== --}}
+                LOGIN ADMIN
+                ================================================== --}}
 
-                <a href="{{ route('login') }}" class="btn btn-login-admin btn-sm rounded-pill px-3 mx-2">
+                <a
+                    href="{{ route('login') }}"
+                    class="btn btn-login-admin btn-sm rounded-pill px-3">
+
                     <i class="fas fa-user-shield me-1"></i>
-                    Login Role
+
+                    <span>Login Role</span>
+
                 </a>
 
 
@@ -445,9 +471,7 @@ PENCARIAN
                     <i class="fas fa-map-marker-alt text-danger"></i>
 
                     <span class="location-text">
-
                         Lokasi
-
                     </span>
 
                 </a>
@@ -513,6 +537,87 @@ NAVBAR CSS
     .search-button:hover {
         color: #159a8c;
         background: rgba(21, 154, 140, 0.1);
+    }
+
+
+    /* =========================================================
+       MENU NAVBAR RAPI DAN SAMA RATA
+    ========================================================= */
+
+    .navbar-kua .navbar-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        flex-wrap: nowrap;
+    }
+
+    .navbar-kua .navbar-nav > .nav-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-kua .navbar-nav > .nav-item > .nav-link {
+        min-width: 105px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 9px 10px !important;
+        margin: 0 1px;
+        border-radius: 10px;
+        white-space: nowrap;
+        transform: none !important;
+    }
+
+    .navbar-kua .navbar-nav > .nav-item > .nav-link i {
+        width: 18px;
+        min-width: 18px;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    /* Search dibuat stabil agar tidak mendorong menu lain */
+    .navbar-kua .navbar-nav .search-nav-item {
+        margin-left: 5px;
+    }
+
+    .navbar-kua .navbar-nav .search-navbar {
+        width: 165px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+
+    /* Tombol kanan tidak boleh turun / berubah ukuran */
+    .navbar-kua .navbar-buttons {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .navbar-kua .navbar-buttons .btn {
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        margin: 0 !important;
+    }
+
+    .navbar-kua .btn-login-admin {
+        min-width: 125px;
+    }
+
+    .navbar-kua .btn-location {
+        min-width: 95px;
+    }
+
+    @media (min-width: 992px) {
+
+        .navbar-kua .navbar-collapse > .navbar-nav {
+            flex: 1 1 auto;
+        }
+
     }
 
     /* =========================================================
@@ -1352,6 +1457,32 @@ NAVBAR CSS
     ========================================================= */
 
     @media (max-width: 991px) {
+
+        .navbar-kua .navbar-nav {
+            display: block;
+        }
+
+        .navbar-kua .navbar-nav > .nav-item {
+            display: block;
+            width: 100%;
+        }
+
+        .navbar-kua .navbar-nav > .nav-item > .nav-link {
+            width: 100%;
+            min-width: 0;
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .navbar-kua .navbar-nav .search-nav-item {
+            margin: 8px 0;
+        }
+
+        .navbar-kua .navbar-nav .search-navbar {
+            width: 100%;
+            height: 42px;
+        }
+
 
         .navbar-kua {
 

@@ -113,44 +113,238 @@
             min-height: 70vh;
         }
 
-        /* =====================================================
-           FOOTER
-        ===================================================== */
+/* =========================================================
+   FOOTER
+========================================================= */
 
-        .footer-section {
-            background: #0f172a;
-            color: #cbd5e1;
-            padding: 70px 0 25px;
-        }
+.footer-section {
+    width: 100%;
+    background: #343b45;
+    color: #ffffff;
+    margin-top: 0;
+}
 
-        .footer-section .logo-kua {
-            background: #2563eb;
-        }
 
-        .footer-title {
-            color: #ffffff;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
+/* =========================================================
+   FOOTER MAIN
+========================================================= */
 
-        .footer-text {
-            line-height: 1.8;
-        }
+.footer-main {
+    padding: 35px 0 30px;
+}
 
-        .footer-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+.footer-heading {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
 
-        .footer-menu li {
-            margin-bottom: 12px;
-        }
 
-        .footer-menu a {
-            color: #cbd5e1;
-            transition: .2s;
-        }
+/* =========================================================
+   MAP
+========================================================= */
+
+.footer-map {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.footer-map iframe {
+    width: 100%;
+    height: 260px;
+    display: block;
+    border: 0;
+}
+
+
+/* =========================================================
+   FANSPAGE
+========================================================= */
+
+.fanspage-box {
+    min-height: 260px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.fanspage-content > i {
+    font-size: 45px;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.fanspage-content h5 {
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.fanspage-content p {
+    color: #d9dde2;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+
+/* =========================================================
+   SOCIAL ICON
+========================================================= */
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.social-icons a {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+    color: #343b45;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-content {
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.contact-content p {
+    margin-bottom: 8px;
+}
+
+.contact-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 8px !important;
+}
+
+.contact-content strong {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.wa-layanan {
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   CONTACT SOCIAL
+========================================================= */
+
+.contact-social {
+    display: flex;
+    gap: 7px;
+    margin-top: 18px;
+}
+
+.contact-social a {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+    color: #343b45;
+
+    text-decoration: none;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   FOOTER BOTTOM
+========================================================= */
+
+.footer-bottom {
+    background: #2c323a;
+    padding: 16px 0;
+}
+
+.copyright {
+    color: #ffffff;
+    font-size: 13px;
+    margin: 0;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .footer-main {
+        padding: 30px 0;
+    }
+
+    .footer-map,
+    .footer-map iframe,
+    .fanspage-box {
+        height: 230px;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .footer-main {
+        padding: 30px 0;
+    }
+
+    .footer-map,
+    .footer-map iframe {
+        height: 220px;
+    }
+
+    .fanspage-box {
+        min-height: 220px;
+    }
+
+    .footer-heading {
+        margin-top: 10px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+    }
+
+    .footer-bottom .text-md-end {
+        text-align: center !important;
+        margin-top: 5px;
+    }
+
+}
 
         .footer-menu a:hover {
             color: #ffffff;

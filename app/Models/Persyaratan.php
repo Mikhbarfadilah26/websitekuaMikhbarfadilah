@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Layanan extends Model
+class Persyaratan extends Model
 {
     use HasFactory;
 
@@ -14,12 +14,9 @@ class Layanan extends Model
     |--------------------------------------------------------------------------
     | NAMA TABLE
     |--------------------------------------------------------------------------
-    |
-    | Nama tabel di database adalah "layanan".
-    |
     */
 
-    protected $table = 'layanan';
+    protected $table = 'persyaratan';
 
 
     /*
@@ -29,24 +26,23 @@ class Layanan extends Model
     */
 
     protected $fillable = [
-        'judul',
-        'slug',
-        'isi',
-        'foto',
+        'layanan_id',
+        'nama_persyaratan',
+        'keterangan',
     ];
 
 
     /*
     |--------------------------------------------------------------------------
-    | RELASI KE PERSYARATAN
+    | RELASI KE LAYANAN
     |--------------------------------------------------------------------------
     |
-    | Satu layanan dapat memiliki banyak persyaratan.
+    | Setiap persyaratan dimiliki oleh satu layanan.
     |
     */
 
-    public function persyaratan(): HasMany
+    public function layanan(): BelongsTo
     {
-        return $this->hasMany(Persyaratan::class, 'layanan_id');
+        return $this->belongsTo(Layanan::class, 'layanan_id');
     }
 }

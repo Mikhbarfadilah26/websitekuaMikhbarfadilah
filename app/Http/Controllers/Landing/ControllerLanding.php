@@ -103,8 +103,8 @@ class ControllerLanding
         | BERITA TERBARU
         |--------------------------------------------------------------------------
         |
-        | Mengambil 4 berita terbaru dari database.
-        | Berita yang sedang dibuka tidak ditampilkan lagi.
+        | Mengambil 4 berita terbaru dan tidak menampilkan
+        | berita yang sedang dibuka.
         |
         */
 
@@ -126,7 +126,7 @@ class ControllerLanding
 
         /*
         |--------------------------------------------------------------------------
-        | KIRIM DATA KE HALAMAN DETAIL BERITA
+        | HALAMAN DETAIL BERITA
         |--------------------------------------------------------------------------
         */
 
@@ -156,6 +156,57 @@ class ControllerLanding
 
     /**
      * =========================================================
+     * HALAMAN PERSYARATAN
+     * =========================================================
+     */
+    public function persyaratan()
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | AMBIL LAYANAN PENCATATAN NIKAH DAN RUJUK
+        |--------------------------------------------------------------------------
+        |
+        | Berdasarkan database:
+        | ID 1 = Pencatatan Nikah dan Rujuk
+        |
+        | Sekaligus mengambil seluruh persyaratan
+        | yang mempunyai layanan_id = 1.
+        |
+        */
+
+        $layanan = Layanan::with('persyaratan')
+            ->findOrFail(1);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DATA LAYANAN
+        |--------------------------------------------------------------------------
+        |
+        | Data ini tetap dikirim apabila navbar/layout kamu
+        | membutuhkan daftar layanan.
+        |
+        */
+
+        $dataLayanan = Layanan::orderBy('id')
+            ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | HALAMAN PERSYARATAN
+        |--------------------------------------------------------------------------
+        */
+
+        return view('landing.persyaratan', compact(
+            'layanan',
+            'dataLayanan'
+        ));
+    }
+
+
+    /**
+     * =========================================================
      * HALAMAN KONTAK
      * =========================================================
      */
@@ -172,12 +223,18 @@ class ControllerLanding
 
     /**
      * =========================================================
-     * PENCARIAN
+     * PENCARIAN UNIVERSAL
      * =========================================================
      */
     public function pencarian(Request $request)
     {
-        $keyword = trim($request->search);
+        /*
+        |--------------------------------------------------------------------------
+        | AMBIL KATA KUNCI
+        |--------------------------------------------------------------------------
+        */
+
+        $keyword = trim($request->get('search', ''));
 
 
         /*
@@ -188,7 +245,7 @@ class ControllerLanding
 
         if ($keyword === '') {
 
-            return redirect()->route('landing.berita');
+            return redirect()->route('landing.index');
 
         }
 
@@ -197,10 +254,19 @@ class ControllerLanding
         |--------------------------------------------------------------------------
         | CARI LAYANAN
         |--------------------------------------------------------------------------
+        |
+        | Pencarian dilakukan pada:
+        | - judul
+        | - isi
+        |
         */
 
-        $layanan = Layanan::where('judul', 'like', '%' . $keyword . '%')
-            ->orWhere('isi', 'like', '%' . $keyword . '%')
+        $layanan = Layanan::where(function ($query) use ($keyword) {
+
+                $query->where('judul', 'like', '%' . $keyword . '%')
+                    ->orWhere('isi', 'like', '%' . $keyword . '%');
+
+            })
             ->orderBy('id')
             ->get();
 
@@ -209,10 +275,19 @@ class ControllerLanding
         |--------------------------------------------------------------------------
         | CARI BERITA
         |--------------------------------------------------------------------------
+        |
+        | Pencarian dilakukan pada:
+        | - judul
+        | - isi
+        |
         */
 
-        $berita = Berita::where('judul', 'like', '%' . $keyword . '%')
-            ->orWhere('isi', 'like', '%' . $keyword . '%')
+        $berita = Berita::where(function ($query) use ($keyword) {
+
+                $query->where('judul', 'like', '%' . $keyword . '%')
+                    ->orWhere('isi', 'like', '%' . $keyword . '%');
+
+            })
             ->latest()
             ->get();
 
@@ -229,7 +304,16 @@ class ControllerLanding
 
         /*
         |--------------------------------------------------------------------------
-        | HASIL PENCARIAN
+        | TOTAL HASIL PENCARIAN
+        |--------------------------------------------------------------------------
+        */
+
+        $totalHasil = $layanan->count() + $berita->count();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | KIRIM HASIL KE VIEW
         |--------------------------------------------------------------------------
         */
 
@@ -237,7 +321,8 @@ class ControllerLanding
             'keyword',
             'layanan',
             'berita',
-            'dataLayanan'
+            'dataLayanan',
+            'totalHasil'
         ));
     }
 }

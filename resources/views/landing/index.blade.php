@@ -23,7 +23,7 @@
                     <div class="position-absolute inset-0 w-100 h-100" style="background: linear-gradient(90deg, rgba(2, 6, 23, 0.96) 0%, rgba(2, 6, 23, 0.82) 55%, rgba(2, 6, 23, 0.45) 100%);"></div>
                 </div>
                 <div class="carousel-item h-100">
-                    <img src="{{ asset('ud.png') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan KUA">
+                    <img src="{{ asset('pegawaikua.jpeg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan KUA">
                     <div class="position-absolute inset-0 w-100 h-100" style="background: linear-gradient(90deg, rgba(2, 6, 23, 0.96) 0%, rgba(2, 6, 23, 0.82) 55%, rgba(2, 6, 23, 0.45) 100%);"></div>
                 </div>
             </div>

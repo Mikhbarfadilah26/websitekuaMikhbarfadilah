@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Layanan;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,16 @@ Route::get('/layanan/{id}', [
 ])->name('layanan.show');
 
 
+/*
+|--------------------------------------------------------------------------
+| PERSYARATAN LANDING
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/persyaratan', [
+    ControllerLanding::class,
+    'persyaratan'
+])->name('landing.persyaratan');
 /*
 |--------------------------------------------------------------------------
 | PROFIL

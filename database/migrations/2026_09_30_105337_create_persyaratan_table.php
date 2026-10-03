@@ -8,20 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('saran', function (Blueprint $table) {
+        Schema::create('persyaratan', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')
-                ->constrained('users')
+            // Foreign key ke tabel layanan
+            $table->foreignId('layanan_id')
+                ->constrained('layanan')
                 ->cascadeOnDelete();
 
-            $table->text('isi_saran');
-
-            $table->string('status')
-                ->default('baru');
-
-            $table->text('tanggapan')
-                ->nullable();
+            $table->string('nama_persyaratan');
+            $table->text('keterangan')->nullable();
 
             $table->timestamps();
         });
@@ -29,8 +25,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('saran');
+        Schema::dropIfExists('persyaratan');
     }
 };
-
-
