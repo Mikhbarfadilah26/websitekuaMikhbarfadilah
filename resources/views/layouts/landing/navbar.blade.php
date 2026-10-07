@@ -428,7 +428,7 @@ PERSYARATAN
 
                         <i class="fas fa-comment-dots me-1"></i>
 
-                        <span>Saran</span>
+                        <span>Tanya</span>
 
                     </a>
 

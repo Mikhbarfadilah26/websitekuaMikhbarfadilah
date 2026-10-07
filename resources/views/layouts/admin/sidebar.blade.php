@@ -113,6 +113,21 @@
                     </a>
 
                 </li>
+                <li class="nav-item">
+
+                    <a href="{{ route('admin.persyaratan.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.persyaratan.*') ? 'active' : '' }}">
+
+                        <i class="nav-icon bi bi-card-checklist"></i>
+
+                        <p>
+                            Kelola Persyaratan
+                        </p>
+
+                    </a>
+
+                </li>
+
 
 
                 {{-- =================================================
@@ -134,7 +149,7 @@
                         <i class="nav-icon bi bi-chat-dots-fill"></i>
 
                         <p>
-                            Saran & Pengaduan
+                            Pertanyaan
                         </p>
 
                         @php
