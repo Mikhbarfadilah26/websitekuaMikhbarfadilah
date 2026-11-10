@@ -44,8 +44,14 @@ use App\Http\Controllers\Admin\ControllerMasyarakat;
 
 use App\Http\Controllers\Dashboard\ControllerDashboardAdmin;
 use App\Http\Controllers\Dashboard\ControllerDashboardmasyarakat;
+/*
+|--------------------------------------------------------------------------
+| BAGIAN MASYARAKAT
+|--------------------------------------------------------------------------
+*/
 
-
+use App\Http\Controllers\Masyarakat\ControllerProfilMasyarakat;
+use App\Http\Controllers\Masyarakat\ControllerBeritaMasyarakat;
 /*
 |--------------------------------------------------------------------------
 | CONTROLLER ADMIN
@@ -382,7 +388,6 @@ Route::middleware(['auth'])->group(function () {
                 'persyaratan',
                 ControllerPersyaratan::class
             )->except(['show']);
-
         });
 
 
@@ -435,7 +440,6 @@ Route::middleware(['auth'])->group(function () {
         ControllerSaran::class,
         'destroy'
     ])->name('admin.saran.destroy');
-
 });
 
 
@@ -451,5 +455,30 @@ Route::middleware(['auth'])->group(function () {
         ControllerDashboardmasyarakat::class,
         'index'
     ])->name('masyarakat.dashboard');
+    Route::get('/profil', [
+        ControllerProfilMasyarakat::class,
+        'index'
+    ])->name('masyarakat.profil');
 
+
+    Route::put('/profil', [
+        ControllerProfilMasyarakat::class,
+        'update'
+    ])->name('masyarakat.profil.update');
+
+
+    Route::put('/profil/password', [
+        ControllerProfilMasyarakat::class,
+        'password'
+    ])->name('masyarakat.profil.password');
+        Route::get(
+        '/masyarakat/berita',
+        [ControllerBeritaMasyarakat::class, 'index']
+    )->name('masyarakat.berita');
+
+
+    Route::get(
+        '/masyarakat/berita/{slug}',
+        [ControllerBeritaMasyarakat::class, 'show']
+    )->name('masyarakat.berita.show');
 });

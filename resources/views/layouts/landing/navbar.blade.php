@@ -6,9 +6,11 @@ NAVBAR KUA KARANG BARU
 use Illuminate\Support\Facades\DB;
 
 $dataLayananNavbar = DB::table('layanan')
-->orderBy('id', 'asc')
-->get();
+    ->orderBy('id', 'asc')
+    ->get();
 @endphp
+
+
 {{-- =========================================================
 CEK HALAMAN BERANDA
 TOP NAVBAR HANYA TAMPIL DI BERANDA
@@ -17,8 +19,8 @@ TOP NAVBAR HANYA TAMPIL DI BERANDA
 @php
 
 $tampilkanTopbar =
-request()->routeIs('landing') ||
-request()->routeIs('landing.beranda');
+    request()->routeIs('landing') ||
+    request()->routeIs('landing.beranda');
 
 @endphp
 
@@ -34,7 +36,7 @@ HANYA UNTUK BERANDA LANDING
 
     {{-- =================================================
         RUNNING TEXT
-        ================================================== --}}
+    ================================================== --}}
 
     <div class="top-marquee">
 
@@ -57,7 +59,7 @@ HANYA UNTUK BERANDA LANDING
 
     {{-- =================================================
         TANGGAL
-        ================================================== --}}
+    ================================================== --}}
 
     <div class="top-date-kua">
 
@@ -70,6 +72,7 @@ HANYA UNTUK BERANDA LANDING
 </div>
 
 @endif
+
 
 
 {{-- =========================================================
@@ -90,15 +93,11 @@ NAVBAR UTAMA
             class="navbar-brand d-flex align-items-center fw-bold"
             href="{{ route('landing') }}">
 
-            {{-- LOGO --}}
-
             <img
                 src="{{ asset('7.png') }}"
                 alt="Logo KUA Karang Baru"
                 class="logo-kua me-2">
 
-
-            {{-- BRAND TEXT --}}
 
             <div class="brand-text running-brand">
 
@@ -110,16 +109,14 @@ NAVBAR UTAMA
 
                 </div>
 
-
                 <small class="d-block">
-
                     Kantor Urusan Agama Kecamatan Karang Baru
-
                 </small>
 
             </div>
 
         </a>
+
 
 
         {{-- =================================================
@@ -138,6 +135,7 @@ NAVBAR UTAMA
             <span class="navbar-toggler-icon"></span>
 
         </button>
+
 
 
         {{-- =================================================
@@ -170,6 +168,7 @@ NAVBAR UTAMA
                 </li>
 
 
+
                 {{-- =================================================
                 PROFIL
                 ================================================== --}}
@@ -193,14 +192,7 @@ NAVBAR UTAMA
 
                     <ul
                         class="dropdown-menu dropdown-menu-dark shadow-lg border-0 rounded-3 mt-2"
-                        aria-labelledby="navbarDropdownProfil"
-                        style="
-                            background: rgba(15, 30, 50, 0.98);
-                            backdrop-filter: blur(18px);
-                        ">
-
-
-                        {{-- SEJARAH --}}
+                        aria-labelledby="navbarDropdownProfil">
 
                         <li>
 
@@ -217,8 +209,6 @@ NAVBAR UTAMA
                         </li>
 
 
-                        {{-- VISI MISI --}}
-
                         <li>
 
                             <a
@@ -232,7 +222,7 @@ NAVBAR UTAMA
                             </a>
 
                         </li>
-               {{-- TENTANG KAMI --}}
+
 
                         <li>
 
@@ -249,16 +239,12 @@ NAVBAR UTAMA
                         </li>
 
 
-                        {{-- PEMBATAS --}}
-
                         <li>
 
                             <hr class="dropdown-divider border-secondary opacity-25">
 
                         </li>
 
-
-                        {{-- STRUKTUR ORGANISASI --}}
 
                         <li>
 
@@ -278,9 +264,11 @@ NAVBAR UTAMA
 
                 </li>
 
+
+
                 {{-- =================================================
-     LAYANAN
-================================================== --}}
+                LAYANAN
+                ================================================== --}}
 
                 <li class="nav-item dropdown layanan-dropdown">
 
@@ -299,16 +287,10 @@ NAVBAR UTAMA
                     </a>
 
 
-                    {{-- =================================================
-         DROPDOWN LAYANAN
-    ================================================== --}}
-
                     <div
                         class="dropdown-menu layanan-menu shadow-lg border-0"
                         aria-labelledby="navbarDropdownLayanan">
 
-
-                        {{-- JUDUL / HEADER --}}
 
                         <div class="layanan-title">
 
@@ -319,14 +301,8 @@ NAVBAR UTAMA
                         </div>
 
 
-                        {{-- DIVIDER --}}
-
                         <div class="dropdown-divider border-secondary opacity-25 my-1"></div>
 
-
-                        {{-- =================================================
-             DATA LAYANAN DARI DATABASE
-        ================================================== --}}
 
                         @foreach ($dataLayananNavbar as $item)
 
@@ -342,10 +318,12 @@ NAVBAR UTAMA
 
                         @endforeach
 
-
                     </div>
 
                 </li>
+
+
+
                 {{-- =================================================
                 BERITA
                 ================================================== --}}
@@ -365,23 +343,25 @@ NAVBAR UTAMA
                 </li>
 
 
-{{-- =================================================
-PERSYARATAN
-================================================== --}}
 
-<li class="nav-item">
+                {{-- =================================================
+                PERSYARATAN
+                ================================================== --}}
 
-    <a
-        href="{{ route('landing.persyaratan') }}"
-        class="nav-link">
+                <li class="nav-item">
 
-        <i class="fas fa-clipboard-check me-1"></i>
+                    <a
+                        href="{{ route('landing.persyaratan') }}"
+                        class="nav-link">
 
-        <span>Persyaratan</span>
+                        <i class="fas fa-clipboard-check me-1"></i>
 
-    </a>
+                        <span>Persyaratan</span>
 
-</li>
+                    </a>
+
+                </li>
+
 
 
                 {{-- =================================================
@@ -416,6 +396,7 @@ PERSYARATAN
                 </li>
 
 
+
                 {{-- =================================================
                 SARAN & PENGADUAN
                 ================================================== --}}
@@ -437,15 +418,15 @@ PERSYARATAN
             </ul>
 
 
+
             {{-- =================================================
             BUTTON NAVBAR
             ================================================== --}}
 
             <div class="d-flex align-items-center gap-2 navbar-buttons flex-nowrap">
 
-                {{-- =================================================
-                LOGIN ADMIN
-                ================================================== --}}
+
+                {{-- LOGIN --}}
 
                 <a
                     href="{{ route('login') }}"
@@ -458,9 +439,8 @@ PERSYARATAN
                 </a>
 
 
-                {{-- =================================================
-                LOKASI
-                ================================================== --}}
+
+                {{-- LOKASI --}}
 
                 <a
                     href="https://maps.google.com/?q=KUA+Karang+Baru+Aceh+Tamiang"
@@ -491,348 +471,1136 @@ NAVBAR CSS
 ========================================================= --}}
 
 <style>
-    /* =========================================================
-   SEARCH NAVBAR
+
+/* =========================================================
+   SEARCH
 ========================================================= */
 
-    .search-navbar {
-        display: flex;
-        align-items: center;
-        width: 170px;
-        height: 40px;
-        background: #ffffff;
-        border-radius: 25px;
-        padding: 0 6px 0 15px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+.search-navbar {
+
+    display: flex;
+
+    align-items: center;
+
+    width: 170px;
+
+    height: 40px;
+
+    background: #ffffff;
+
+    border-radius: 25px;
+
+    padding: 0 6px 0 15px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.12);
+
+}
+
+.search-input {
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #333;
+
+    font-size: 14px;
+
+}
+
+.search-input::placeholder {
+
+    color: #777;
+
+}
+
+.search-button {
+
+    width: 32px;
+
+    height: 32px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #777;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    border-radius: 50%;
+
+    transition: .3s;
+
+}
+
+.search-button:hover {
+
+    color: #15803d;
+
+    background: rgba(22,163,74,.10);
+
+}
+
+
+
+/* =========================================================
+   MENU NAVBAR
+========================================================= */
+
+.navbar-kua .navbar-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 3px;
+
+    flex-wrap: nowrap;
+
+}
+
+.navbar-kua .navbar-nav > .nav-item {
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+.navbar-kua .navbar-nav > .nav-item > .nav-link {
+
+    min-width: 105px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 9px 10px !important;
+
+    margin: 0 1px;
+
+    border-radius: 10px;
+
+    white-space: nowrap;
+
+    transform: none !important;
+
+}
+
+.navbar-kua .navbar-nav > .nav-item > .nav-link i {
+
+    width: 18px;
+
+    min-width: 18px;
+
+    text-align: center;
+
+    flex-shrink: 0;
+
+}
+
+.navbar-kua .navbar-nav .search-nav-item {
+
+    margin-left: 5px;
+
+}
+
+.navbar-kua .navbar-nav .search-navbar {
+
+    width: 165px;
+
+    height: 40px;
+
+    flex-shrink: 0;
+
+}
+
+.navbar-kua .navbar-buttons {
+
+    flex-shrink: 0;
+
+    white-space: nowrap;
+
+}
+
+.navbar-kua .navbar-buttons .btn {
+
+    height: 40px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    white-space: nowrap;
+
+    margin: 0 !important;
+
+}
+
+.navbar-kua .btn-login-admin {
+
+    min-width: 125px;
+
+}
+
+.navbar-kua .btn-location {
+
+    min-width: 95px;
+
+}
+
+
+
+/* =========================================================
+   TOP RUNNING BAR
+   HIJAU TEMA LOGIN
+========================================================= */
+
+.top-navbar-kua {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 42px;
+
+    z-index: 1051;
+
+    background:
+        linear-gradient(
+            90deg,
+            #14532d 0%,
+            #166534 35%,
+            #15803d 65%,
+            #166534 100%
+        );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.20);
+
+    overflow: hidden;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.10);
+
+}
+
+
+
+/* =========================================================
+   RUNNING TEXT
+========================================================= */
+
+.top-marquee {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    padding-right: 210px;
+
+}
+
+.top-welcome {
+
+    position: absolute;
+
+    left: 100%;
+
+    width: max-content;
+
+    white-space: nowrap;
+
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    letter-spacing: .2px;
+
+    color: #ffffff;
+
+    animation:
+        topRunningText 35s linear infinite;
+
+}
+
+.top-welcome i {
+
+    color: #bbf7d0;
+
+}
+
+
+
+/* =========================================================
+   ANIMASI RUNNING TEXT
+========================================================= */
+
+@keyframes topRunningText {
+
+    from {
+
+        transform:
+            translateX(0);
+
     }
 
-    .search-input {
-        width: 100%;
-        height: 100%;
-        border: none;
-        outline: none;
-        background: transparent;
-        color: #333;
-        font-size: 14px;
-    }
+    to {
 
-    .search-input::placeholder {
-        color: #777;
-    }
-
-    .search-button {
-        width: 32px;
-        height: 32px;
-        border: none;
-        background: transparent;
-        color: #777;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-    }
-
-    .search-button:hover {
-        color: #159a8c;
-        background: rgba(21, 154, 140, 0.1);
-    }
-
-
-    /* =========================================================
-       MENU NAVBAR RAPI DAN SAMA RATA
-    ========================================================= */
-
-    .navbar-kua .navbar-nav {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 3px;
-        flex-wrap: nowrap;
-    }
-
-    .navbar-kua .navbar-nav > .nav-item {
-        display: flex;
-        align-items: center;
-    }
-
-    .navbar-kua .navbar-nav > .nav-item > .nav-link {
-        min-width: 105px;
-        height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 9px 10px !important;
-        margin: 0 1px;
-        border-radius: 10px;
-        white-space: nowrap;
-        transform: none !important;
-    }
-
-    .navbar-kua .navbar-nav > .nav-item > .nav-link i {
-        width: 18px;
-        min-width: 18px;
-        text-align: center;
-        flex-shrink: 0;
-    }
-
-    /* Search dibuat stabil agar tidak mendorong menu lain */
-    .navbar-kua .navbar-nav .search-nav-item {
-        margin-left: 5px;
-    }
-
-    .navbar-kua .navbar-nav .search-navbar {
-        width: 165px;
-        height: 40px;
-        flex-shrink: 0;
-    }
-
-    /* Tombol kanan tidak boleh turun / berubah ukuran */
-    .navbar-kua .navbar-buttons {
-        flex-shrink: 0;
-        white-space: nowrap;
-    }
-
-    .navbar-kua .navbar-buttons .btn {
-        height: 40px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        white-space: nowrap;
-        margin: 0 !important;
-    }
-
-    .navbar-kua .btn-login-admin {
-        min-width: 125px;
-    }
-
-    .navbar-kua .btn-location {
-        min-width: 95px;
-    }
-
-    @media (min-width: 992px) {
-
-        .navbar-kua .navbar-collapse > .navbar-nav {
-            flex: 1 1 auto;
-        }
+        transform:
+            translateX(-120%);
 
     }
 
-    /* =========================================================
-       TOP NAVBAR
-    ========================================================= */
+}
 
-    .top-navbar-kua {
 
-        position: fixed;
 
-        top: 0;
-        left: 0;
+/* =========================================================
+   TANGGAL
+========================================================= */
 
-        width: 100%;
+.top-date-kua {
 
-        height: 42px;
+    position: absolute;
 
-        z-index: 1051;
+    top: 0;
 
-        background:
-            linear-gradient(90deg,
-                #159a8c,
-                #20b2a5,
-                #159a8c);
+    right: 0;
 
-        color: #ffffff;
+    height: 42px;
 
-        box-shadow:
-            0 3px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
 
-        overflow: hidden;
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 18px;
+
+    min-width: 205px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: .2px;
+
+    color: #ffffff;
+
+    background:
+        rgba(5,46,22,.45);
+
+    border-left:
+        1px solid rgba(255,255,255,.18);
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+    white-space: nowrap;
+
+    z-index: 10;
+
+}
+
+.top-date-kua i {
+
+    color: #bbf7d0;
+
+    font-size: 13px;
+
+}
+
+
+
+/* =========================================================
+   NAVBAR UTAMA
+========================================================= */
+
+.navbar-kua {
+
+    position: fixed !important;
+
+    left: 0;
+
+    width: 100%;
+
+    background:
+        rgba(8,18,35,.96) !important;
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.25);
+
+    padding-top: 10px;
+
+    padding-bottom: 10px;
+
+    transition: all .3s ease;
+
+}
+
+
+
+/* TOPBAR ADA */
+
+.navbar-kua.with-topbar {
+
+    top: 42px !important;
+
+}
+
+
+
+/* TOPBAR TIDAK ADA */
+
+.navbar-kua.without-topbar {
+
+    top: 0 !important;
+
+}
+
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo-kua {
+
+    width: 48px;
+
+    height: 48px;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+    background: transparent !important;
+
+    padding: 0;
+
+    transition: all .3s ease;
+
+}
+
+.navbar-brand:hover .logo-kua {
+
+    transform: scale(1.05);
+
+}
+
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand-text {
+
+    min-width: 0;
+
+}
+
+.running-brand {
+
+    width: 190px;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    position: relative;
+
+}
+
+.running-wrapper {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+.running-wrapper span {
+
+    display: inline-block;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #bbf7d0
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    animation:
+        runningText 9s linear infinite;
+
+}
+
+@keyframes runningText {
+
+    0% {
+
+        transform:
+            translateX(100%);
 
     }
 
+    100% {
 
-    /* =========================================================
-       RUNNING TEXT
-    ========================================================= */
-
-    .top-marquee {
-
-        position: relative;
-
-        width: 100%;
-
-        height: 42px;
-
-        display: flex;
-
-        align-items: center;
-
-        overflow: hidden;
+        transform:
+            translateX(-100%);
 
     }
 
+}
 
-    .top-welcome {
+.brand-text small {
+
+    font-size: 9px;
+
+    font-weight: 500;
+
+    letter-spacing: .5px;
+
+    color: #94a3b8;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.navbar-kua .nav-link {
+
+    color: #cbd5e1 !important;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    padding: 9px 14px !important;
+
+    margin: 0 2px;
+
+    border-radius: 10px;
+
+    position: relative;
+
+    transition: all .3s ease;
+
+}
+
+.navbar-kua .nav-link i {
+
+    color: #64748b;
+
+    transition: all .3s ease;
+
+}
+
+.navbar-kua .nav-link:hover {
+
+    color: #ffffff !important;
+
+    background:
+        rgba(255,255,255,.07);
+
+    transform:
+        translateY(-1px);
+
+}
+
+.navbar-kua .nav-link:hover i {
+
+    color: #4ade80;
+
+}
+
+.navbar-kua .nav-link.active {
+
+    color: #ffffff !important;
+
+    background:
+        rgba(22,163,74,.15);
+
+}
+
+.navbar-kua .nav-link.active i {
+
+    color: #4ade80;
+
+}
+
+.navbar-kua .nav-link.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 3px;
+
+    width: 25px;
+
+    height: 2px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 20px;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 10px #22c55e;
+
+}
+
+
+
+/* =========================================================
+   DROPDOWN PROFIL
+========================================================= */
+
+.dropdown-menu .dropdown-item {
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    transition: all .2s ease;
+
+}
+
+.dropdown-menu .dropdown-item:hover {
+
+    background:
+        rgba(34,197,94,.15) !important;
+
+    color: #4ade80 !important;
+
+    transform:
+        translateX(4px);
+
+}
+
+.dropdown-menu .dropdown-item:hover i {
+
+    color: #4ade80 !important;
+
+}
+
+
+
+/* =========================================================
+   LAYANAN
+========================================================= */
+
+.layanan-dropdown {
+
+    position: relative;
+
+}
+
+.layanan-menu {
+
+    width: 270px;
+
+    padding: 10px;
+
+    margin-top: 10px !important;
+
+    background: #111c2e !important;
+
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.25) !important;
+
+    border-top:
+        3px solid #22c55e !important;
+
+}
+
+.layanan-title {
+
+    color: #ffffff;
+
+    font-weight: 600;
+
+    font-size: 14px;
+
+    padding: 9px 10px;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+.layanan-title i {
+
+    color: #4ade80;
+
+}
+
+.layanan-item {
+
+    color: #ffffff !important;
+
+    padding: 9px 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+
+    transition: all .2s ease;
+
+    font-size: 13px;
+
+}
+
+.layanan-item i {
+
+    margin-right: 10px;
+
+    font-size: 10px;
+
+    color: #4ade80;
+
+}
+
+.layanan-item:hover {
+
+    background:
+        rgba(34,197,94,.10);
+
+    color: #4ade80 !important;
+
+    transform:
+        translateX(4px);
+
+}
+
+.layanan-dropdown > .nav-link.show {
+
+    color: #4ade80 !important;
+
+    background:
+        rgba(34,197,94,.10) !important;
+
+}
+
+.layanan-dropdown > .nav-link.show i {
+
+    color: #4ade80 !important;
+
+}
+
+.layanan-dropdown .dropdown-toggle::after {
+
+    margin-left: 5px;
+
+    vertical-align: middle;
+
+    border-top-color: #22c55e;
+
+    transition: transform .25s ease;
+
+}
+
+.layanan-dropdown .dropdown-toggle.show::after {
+
+    transform:
+        rotate(180deg);
+
+}
+
+@media (min-width: 992px) {
+
+    .layanan-menu {
 
         position: absolute;
 
-        left: 100%;
+        left: 50%;
 
-        width: max-content;
+        transform:
+            translateX(-50%);
 
-        white-space: nowrap;
+    }
+
+}
+
+
+
+/* =========================================================
+   LOGIN ROLE
+========================================================= */
+
+.btn-login-admin {
+
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #22c55e
+        );
+
+    color: #ffffff !important;
+
+    border:
+        1px solid #22c55e !important;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 5px 18px rgba(22,163,74,.30);
+
+    transition: all .3s ease;
+
+}
+
+.btn-login-admin:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #166534,
+            #16a34a
+        );
+
+    color: #ffffff !important;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(34,197,94,.40);
+
+}
+
+
+
+/* =========================================================
+   LOKASI
+========================================================= */
+
+.btn-location {
+
+    border:
+        1px solid rgba(255,255,255,.2) !important;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: #e2e8f0 !important;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    transition: all .3s ease;
+
+}
+
+.btn-location:hover {
+
+    background:
+        rgba(220,53,69,.15);
+
+    border-color:
+        #dc3545 !important;
+
+    color: #ffffff !important;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 4px 15px rgba(220,53,69,.3);
+
+}
+
+
+
+/* =========================================================
+   MOBILE TOGGLER
+========================================================= */
+
+.navbar-toggler {
+
+    padding: 6px 8px;
+
+    border-radius: 8px;
+
+}
+
+.navbar-toggler:focus {
+
+    box-shadow:
+        0 0 0 3px rgba(34,197,94,.20);
+
+}
+
+
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .navbar-kua .navbar-nav {
 
         display: block;
 
-        font-size: 13px;
-
-        font-weight: 500;
-
-        letter-spacing: 0.2px;
-
-        color: #ffffff;
-
-        animation:
-            topRunningText 35s linear infinite;
-
     }
 
+    .navbar-kua .navbar-nav > .nav-item {
 
-    .top-welcome i {
-
-        color: #d1fae5;
-
-    }
-
-
-    @keyframes topRunningText {
-
-        from {
-
-            transform: translateX(0);
-
-        }
-
-        to {
-
-            transform: translateX(-120%);
-
-        }
-
-    }
-
-
-    /* =========================================================
-       TANGGAL
-    ========================================================= */
-
-    .top-date-kua {
-
-        position: absolute;
-
-        top: 0;
-
-        right: 0;
-
-        height: 42px;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        padding: 0 18px;
-
-        min-width: 205px;
-
-        font-size: 12px;
-
-        font-weight: 600;
-
-        letter-spacing: 0.2px;
-
-        color: #ffffff;
-
-        background:
-            rgba(0, 0, 0, 0.12);
-
-        border-left:
-            1px solid rgba(255, 255, 255, 0.18);
-
-        backdrop-filter: blur(8px);
-
-        -webkit-backdrop-filter: blur(8px);
-
-        white-space: nowrap;
-
-        z-index: 10;
-
-    }
-
-
-    .top-date-kua i {
-
-        color: #d1fae5;
-
-        font-size: 13px;
-
-    }
-
-
-    /* =========================================================
-       NAVBAR UTAMA
-    ========================================================= */
-
-    .navbar-kua {
-
-        position: fixed !important;
-
-        left: 0;
+        display: block;
 
         width: 100%;
 
-        background:
-            rgba(8, 18, 35, 0.95) !important;
+    }
 
-        backdrop-filter: blur(18px);
+    .navbar-kua .navbar-nav > .nav-item > .nav-link {
 
-        -webkit-backdrop-filter: blur(18px);
+        width: 100%;
 
-        border-bottom:
-            1px solid rgba(255, 255, 255, 0.08);
+        min-width: 0;
 
-        box-shadow:
-            0 8px 30px rgba(0, 0, 0, 0.25);
+        justify-content: flex-start;
 
-        padding-top: 10px;
-
-        padding-bottom: 10px;
-
-        transition:
-            all 0.3s ease;
+        text-align: left;
 
     }
 
+    .navbar-kua .navbar-nav .search-nav-item {
 
-    /* =========================================================
-       KALAU TOPBAR ADA
-       NAVBAR TURUN 42PX
-    ========================================================= */
+        margin: 8px 0;
+
+    }
+
+    .navbar-kua .navbar-nav .search-navbar {
+
+        width: 100%;
+
+        height: 42px;
+
+    }
+
+    .navbar-kua {
+
+        padding-top: 8px;
+
+        padding-bottom: 8px;
+
+    }
+
+    .navbar-kua .navbar-collapse {
+
+        margin-top: 15px;
+
+        padding: 15px;
+
+        border-radius: 15px;
+
+        background:
+            rgba(15,30,50,.98);
+
+        border:
+            1px solid rgba(255,255,255,.08);
+
+    }
+
+    .navbar-kua .nav-link {
+
+        margin-bottom: 4px;
+
+    }
+
+    .navbar-kua .nav-link.active::after {
+
+        display: none;
+
+    }
+
+    .navbar-buttons {
+
+        margin-top: 15px;
+
+    }
+
+    .navbar-buttons a {
+
+        flex: 1;
+
+        text-align: center;
+
+    }
+
+    .layanan-menu {
+
+        width: 100%;
+
+        margin-top: 5px !important;
+
+        padding: 10px;
+
+        border-radius: 12px !important;
+
+        border-top:
+            2px solid #22c55e !important;
+
+        background:
+            #111c2e !important;
+
+    }
+
+    .layanan-title {
+
+        font-size: 14px;
+
+        margin-bottom: 5px;
+
+    }
+
+    .layanan-item {
+
+        font-size: 14px;
+
+        padding: 8px 5px;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .top-navbar-kua {
+
+        height: 38px;
+
+    }
+
+    .top-marquee {
+
+        height: 38px;
+
+        padding-right: 160px;
+
+    }
+
+    .top-welcome {
+
+        font-size: 11px;
+
+        animation-duration: 28s;
+
+    }
+
+    .top-date-kua {
+
+        height: 38px;
+
+        min-width: 155px;
+
+        padding: 0 10px;
+
+        font-size: 10px;
+
+    }
+
+    .top-date-kua i {
+
+        font-size: 11px;
+
+    }
 
     .navbar-kua.with-topbar {
 
-        top: 42px !important;
+        top: 38px !important;
 
     }
-
-
-    /* =========================================================
-       KALAU TOPBAR TIDAK ADA
-       NAVBAR NAIK PALING ATAS
-    ========================================================= */
 
     .navbar-kua.without-topbar {
 
@@ -840,983 +1608,110 @@ NAVBAR CSS
 
     }
 
+}
 
-    /* =========================================================
-       LOGO
-    ========================================================= */
+
+
+/* =========================================================
+   MOBILE KECIL
+========================================================= */
+
+@media (max-width: 576px) {
 
     .logo-kua {
 
-        width: 48px;
+        width: 42px;
 
-        height: 48px;
-
-        object-fit: contain;
-
-        border-radius: 10px;
-
-        background: transparent !important;
-
-        padding: 0;
-
-        transition:
-            all 0.3s ease;
+        height: 42px;
 
     }
-
-
-    .navbar-brand:hover .logo-kua {
-
-        transform: scale(1.05);
-
-    }
-
-
-    /* =========================================================
-       BRAND TEXT
-    ========================================================= */
-
-    .brand-text {
-
-        min-width: 0;
-
-    }
-
 
     .running-brand {
 
-        width: 190px;
-
-        overflow: hidden;
-
-        white-space: nowrap;
-
-        position: relative;
+        width: 155px;
 
     }
-
-
-    .running-wrapper {
-
-        width: 100%;
-
-        overflow: hidden;
-
-        position: relative;
-
-    }
-
 
     .running-wrapper span {
 
-        display: inline-block;
-
-        font-size: 21px;
-
-        font-weight: 700;
-
-        letter-spacing: 1px;
-
-        background:
-            linear-gradient(90deg,
-                #ffffff,
-                #6dd5ff);
-
-        -webkit-background-clip: text;
-
-        -webkit-text-fill-color: transparent;
-
-        animation:
-            runningText 9s linear infinite;
+        font-size: 18px;
 
     }
-
-
-    @keyframes runningText {
-
-        0% {
-
-            transform:
-                translateX(100%);
-
-        }
-
-        100% {
-
-            transform:
-                translateX(-100%);
-
-        }
-
-    }
-
 
     .brand-text small {
 
+        font-size: 8px;
+
+    }
+
+    .navbar-buttons {
+
+        flex-direction: column;
+
+    }
+
+    .navbar-buttons a {
+
+        width: 100%;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   HP SANGAT KECIL
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .top-date-kua {
+
+        min-width: 135px;
+
+        padding: 0 7px;
+
         font-size: 9px;
 
-        font-weight: 500;
+    }
 
-        letter-spacing: 0.5px;
+    .top-date-kua i {
 
-        color: #94a3b8;
+        margin-right: 4px !important;
 
-        overflow: hidden;
-
-        text-overflow: ellipsis;
+        font-size: 10px;
 
     }
 
+}
 
-    /* =========================================================
-       MENU NAVBAR
-    ========================================================= */
 
-    .navbar-kua .nav-link {
 
-        color: #cbd5e1 !important;
+/* =========================================================
+   AKSESIBILITAS
+========================================================= */
 
-        font-size: 14px;
+@media (prefers-reduced-motion: reduce) {
 
-        font-weight: 500;
+    .top-welcome {
 
-        padding: 9px 14px !important;
+        animation: none;
 
-        margin: 0 2px;
-
-        border-radius: 10px;
-
-        position: relative;
-
-        transition:
-            all 0.3s ease;
+        left: 15px;
 
     }
 
+    .running-wrapper span {
 
-    .navbar-kua .nav-link i {
-
-        color: #64748b;
-
-        transition:
-            all 0.3s ease;
+        animation: none;
 
     }
 
+}
 
-    .navbar-kua .nav-link:hover {
-
-        color: #ffffff !important;
-
-        background:
-            rgba(255, 255, 255, 0.07);
-
-        transform:
-            translateY(-1px);
-
-    }
-
-
-    .navbar-kua .nav-link:hover i {
-
-        color: #38bdf8;
-
-    }
-
-
-    .navbar-kua .nav-link.active {
-
-        color: #ffffff !important;
-
-        background:
-            rgba(13, 110, 253, 0.15);
-
-    }
-
-
-    .navbar-kua .nav-link.active i {
-
-        color: #38bdf8;
-
-    }
-
-
-    .navbar-kua .nav-link.active::after {
-
-        content: "";
-
-        position: absolute;
-
-        left: 50%;
-
-        bottom: 3px;
-
-        width: 25px;
-
-        height: 2px;
-
-        transform:
-            translateX(-50%);
-
-        border-radius: 20px;
-
-        background: #38bdf8;
-
-        box-shadow:
-            0 0 10px #38bdf8;
-
-    }
-
-
-    /* =========================================================
-       DROPDOWN
-    ========================================================= */
-
-    .dropdown-menu .dropdown-item {
-
-        font-size: 13px;
-
-        font-weight: 500;
-
-        transition:
-            all 0.2s ease;
-
-    }
-
-
-    .dropdown-menu .dropdown-item:hover {
-
-        background:
-            rgba(56, 189, 248, 0.15) !important;
-
-        color: #38bdf8 !important;
-
-        transform:
-            translateX(4px);
-
-    }
-
-
-    .dropdown-menu .dropdown-item:hover i {
-
-        color: #38bdf8 !important;
-
-    }
-
-
-    /* =========================================================
-       LAYANAN
-    ========================================================= */
-
-    .layanan-dropdown {
-
-        position: relative;
-
-    }
-
-
-    .layanan-menu {
-
-        width: 270px;
-
-        padding: 25px 20px 22px;
-
-        margin-top: 10px !important;
-
-        background: #ffffff !important;
-
-        border-radius: 0 0 5px 5px !important;
-
-        box-shadow:
-            0 12px 35px rgba(0, 0, 0, 0.18) !important;
-
-        border-top:
-            3px solid #e53935 !important;
-
-    }
-
-
-    .layanan-title {
-
-        text-align: center;
-
-        font-size: 25px;
-
-        font-weight: 400;
-
-        color: #30343b;
-
-        margin-bottom: 20px;
-
-        letter-spacing: 0.3px;
-
-    }
-
-
-    .layanan-title i {
-
-        color: #777;
-
-        font-size: 20px;
-
-    }
-
-
-    .layanan-item {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 10px;
-
-        padding: 9px 5px;
-
-        color: #777 !important;
-
-        text-decoration: none;
-
-        font-size: 20px;
-
-        font-weight: 400;
-
-        transition:
-            all 0.25s ease;
-
-    }
-
-
-    .layanan-item i {
-
-        font-size: 17px;
-
-        color: #777;
-
-        transition:
-            all 0.25s ease;
-
-    }
-
-
-    .layanan-item:hover {
-
-        color: #e53935 !important;
-
-        background: transparent !important;
-
-        transform:
-            translateX(5px);
-
-    }
-
-
-    .layanan-item:hover i {
-
-        color: #e53935;
-
-        transform:
-            translateX(3px);
-
-    }
-
-
-    .layanan-dropdown>.nav-link.show {
-
-        color: #e53935 !important;
-
-        background: #ffffff !important;
-
-        border-radius:
-            5px 5px 0 0;
-
-    }
-
-
-    .layanan-dropdown>.nav-link.show i {
-
-        color: #e53935 !important;
-
-    }
-
-
-    .layanan-dropdown .dropdown-toggle::after {
-
-        margin-left: 5px;
-
-        vertical-align: middle;
-
-        border-top-color:
-            #e53935;
-
-        transition:
-            transform 0.25s ease;
-
-    }
-
-
-    .layanan-dropdown .dropdown-toggle.show::after {
-
-        transform:
-            rotate(180deg);
-
-    }
-
-
-    @media (min-width: 992px) {
-
-        .layanan-menu {
-
-            position: absolute;
-
-            left: 50%;
-
-            transform:
-                translateX(-50%);
-
-        }
-
-    }
-
-
-    /* =========================================================
-       LOGIN USER
-    ========================================================= */
-
-    .btn-login {
-
-        border: none;
-
-        color: #ffffff !important;
-
-        background:
-            linear-gradient(135deg,
-                #0d6efd,
-                #00a8ff);
-
-        font-weight: 600;
-
-        box-shadow:
-            0 5px 18px rgba(13,
-                110,
-                253,
-                0.35);
-
-        transition:
-            all 0.3s ease;
-
-    }
-
-
-    .btn-login:hover {
-
-        color: #ffffff !important;
-
-        transform:
-            translateY(-2px);
-
-        box-shadow:
-            0 8px 25px rgba(0,
-                174,
-                255,
-                0.5);
-
-    }
-
-
-    /* =========================================================
-       LOGIN ADMIN
-    ========================================================= */
-
-    .btn-login-admin {
-
-        border: none;
-
-        color: #ffffff !important;
-
-        background:
-            linear-gradient(135deg,
-                #7c3aed,
-                #a855f7);
-
-        font-weight: 600;
-
-        box-shadow:
-            0 5px 18px rgba(124,
-                58,
-                237,
-                0.35);
-
-        transition:
-            all 0.3s ease;
-
-    }
-
-
-    .btn-login-admin:hover {
-
-        color: #ffffff !important;
-
-        transform:
-            translateY(-2px);
-
-        background:
-            linear-gradient(135deg,
-                #6d28d9,
-                #9333ea);
-
-        box-shadow:
-            0 8px 25px rgba(168,
-                85,
-                247,
-                0.55);
-
-    }
-
-
-    /* =========================================================
-       LOKASI
-    ========================================================= */
-
-    .btn-location {
-
-        border:
-            1px solid rgba(255,
-                255,
-                255,
-                0.2) !important;
-
-        background:
-            rgba(255,
-                255,
-                255,
-                0.05);
-
-        color: #e2e8f0 !important;
-
-        font-size: 13px;
-
-        font-weight: 500;
-
-        transition:
-            all 0.3s ease;
-
-    }
-
-
-    .btn-location:hover {
-
-        background:
-            rgba(220,
-                53,
-                69,
-                0.15);
-
-        border-color:
-            #dc3545 !important;
-
-        color: #ffffff !important;
-
-        transform:
-            translateY(-2px);
-
-        box-shadow:
-            0 4px 15px rgba(220,
-                53,
-                69,
-                0.3);
-
-    }
-
-
-    /* =========================================================
-       MOBILE TOGGLER
-    ========================================================= */
-
-    .navbar-toggler {
-
-        padding: 6px 8px;
-
-        border-radius: 8px;
-
-    }
-
-
-    .navbar-toggler:focus {
-
-        box-shadow:
-            0 0 0 3px rgba(56,
-                189,
-                248,
-                0.2);
-
-    }
-
-
-    /* =========================================================
-       TABLET / MOBILE
-    ========================================================= */
-
-    @media (max-width: 991px) {
-
-        .navbar-kua .navbar-nav {
-            display: block;
-        }
-
-        .navbar-kua .navbar-nav > .nav-item {
-            display: block;
-            width: 100%;
-        }
-
-        .navbar-kua .navbar-nav > .nav-item > .nav-link {
-            width: 100%;
-            min-width: 0;
-            justify-content: flex-start;
-            text-align: left;
-        }
-
-        .navbar-kua .navbar-nav .search-nav-item {
-            margin: 8px 0;
-        }
-
-        .navbar-kua .navbar-nav .search-navbar {
-            width: 100%;
-            height: 42px;
-        }
-
-
-        .navbar-kua {
-
-            padding-top: 8px;
-
-            padding-bottom: 8px;
-
-        }
-
-
-        .navbar-kua .navbar-collapse {
-
-            margin-top: 15px;
-
-            padding: 15px;
-
-            border-radius: 15px;
-
-            background:
-                rgba(15,
-                    30,
-                    50,
-                    0.98);
-
-            border:
-                1px solid rgba(255,
-                    255,
-                    255,
-                    0.08);
-
-        }
-
-
-        .navbar-kua .nav-link {
-
-            margin-bottom: 4px;
-
-        }
-
-
-        .navbar-kua .nav-link.active::after {
-
-            display: none;
-
-        }
-
-
-        .navbar-buttons {
-
-            margin-top: 15px;
-
-        }
-
-
-        .navbar-buttons a {
-
-            flex: 1;
-
-            text-align: center;
-
-        }
-
-
-        .layanan-menu {
-
-            width: 100%;
-
-            margin-top: 5px !important;
-
-            padding: 18px 15px;
-
-            border-radius: 12px !important;
-
-            border-top:
-                2px solid #e53935 !important;
-
-            background:
-                #ffffff !important;
-
-        }
-
-
-        .layanan-title {
-
-            font-size: 21px;
-
-            margin-bottom: 12px;
-
-        }
-
-
-        .layanan-item {
-
-            font-size: 16px;
-
-            padding: 8px 5px;
-
-        }
-
-    }
-
-
-    /* =========================================================
-       MOBILE
-    ========================================================= */
-
-    @media (max-width: 768px) {
-
-        .top-navbar-kua {
-
-            height: 38px;
-
-        }
-
-
-        .top-marquee {
-
-            height: 38px;
-
-        }
-
-
-        .top-welcome {
-
-            font-size: 11px;
-
-            animation-duration: 28s;
-
-            padding-right: 180px;
-
-        }
-
-
-        .top-date-kua {
-
-            height: 38px;
-
-            min-width: 155px;
-
-            padding: 0 10px;
-
-            font-size: 10px;
-
-        }
-
-
-        .top-date-kua i {
-
-            font-size: 11px;
-
-        }
-
-
-        .navbar-kua.with-topbar {
-
-            top: 38px !important;
-
-        }
-
-
-        .navbar-kua.without-topbar {
-
-            top: 0 !important;
-
-        }
-
-
-        .login-page-kua {
-
-            padding-top: 40px;
-
-        }
-
-    }
-
-    /* Styling Dropdown Layanan Menyesuaikan Tema Profil */
-    .layanan-menu {
-        background-color: #111c2e !important;
-        /* Sesuaikan dengan warna background gelap profil */
-        border-radius: 0.5rem;
-        padding: 0.5rem;
-        min-width: 220px;
-    }
-
-    .layanan-title {
-        color: #ffffff;
-        font-weight: 600;
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-        display: flex;
-        align-items: center;
-    }
-
-    .layanan-item {
-        color: #ffffff !important;
-        padding: 0.5rem 1rem;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        border-radius: 0.35rem;
-        transition: background-color 0.2s ease;
-    }
-
-    .layanan-item i {
-        margin-right: 0.75rem;
-        font-size: 0.8rem;
-        color: #38bdf8;
-        /* Sesuaikan warna aksen ikon jika perlu */
-    }
-
-    .layanan-item:hover {
-        background-color: rgba(255, 255, 255, 0.08);
-        /* Efek hover senada */
-    }
-
-    /* =========================================================
-       MOBILE KECIL
-    ========================================================= */
-
-    @media (max-width: 576px) {
-
-        .logo-kua {
-
-            width: 42px;
-
-            height: 42px;
-
-        }
-
-
-        .running-brand {
-
-            width: 155px;
-
-        }
-
-
-        .running-wrapper span {
-
-            font-size: 18px;
-
-        }
-
-
-        .brand-text small {
-
-            font-size: 8px;
-
-        }
-
-
-        .navbar-buttons {
-
-            flex-direction: column;
-
-        }
-
-
-        .navbar-buttons a {
-
-            width: 100%;
-
-        }
-
-    }
-
-
-    /* =========================================================
-       HP SANGAT KECIL
-    ========================================================= */
-
-    @media (max-width: 400px) {
-
-        .top-date-kua {
-
-            min-width: 135px;
-
-            padding: 0 7px;
-
-            font-size: 9px;
-
-        }
-
-
-        .top-date-kua i {
-
-            margin-right: 4px !important;
-
-            font-size: 10px;
-
-        }
-
-    }
-
-    .btn-login-admin {
-        background: #0d6efd;
-        color: white !important;
-        border: 2px solid #0d6efd;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .btn-login-admin:hover {
-        background: #0b5ed7;
-        border-color: #0b5ed7;
-        color: white !important;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(13, 110, 253, 0.35);
-    }
-
-
-    /* =========================================================
-       AKSESIBILITAS
-    ========================================================= */
-
-    @media (prefers-reduced-motion: reduce) {
-
-        .top-welcome {
-
-            animation: none;
-
-            left: 15px;
-
-        }
-
-
-        .running-wrapper span {
-
-            animation: none;
-
-        }
-
-    }
 </style>
+
 
 
 {{-- =========================================================
@@ -1827,103 +1722,105 @@ HANYA DIJALANKAN KALAU TOPBAR ADA
 @if ($tampilkanTopbar)
 
 <script>
-    document.addEventListener(
-        'DOMContentLoaded',
-        function() {
 
-            const tanggalElement =
-                document.getElementById(
-                    'tanggalKua'
-                );
+document.addEventListener(
+    'DOMContentLoaded',
+    function() {
 
-
-            if (!tanggalElement) {
-
-                return;
-
-            }
-
-
-            function tampilkanTanggal() {
-
-                const sekarang =
-                    new Date();
-
-
-                const hari = [
-
-                    'Minggu',
-                    'Senin',
-                    'Selasa',
-                    'Rabu',
-                    'Kamis',
-                    'Jumat',
-                    'Sabtu'
-
-                ];
-
-
-                const bulan = [
-
-                    'Januari',
-                    'Februari',
-                    'Maret',
-                    'April',
-                    'Mei',
-                    'Juni',
-                    'Juli',
-                    'Agustus',
-                    'September',
-                    'Oktober',
-                    'November',
-                    'Desember'
-
-                ];
-
-
-                const namaHari =
-                    hari[
-                        sekarang.getDay()
-                    ];
-
-
-                const tanggal =
-                    sekarang.getDate();
-
-
-                const namaBulan =
-                    bulan[
-                        sekarang.getMonth()
-                    ];
-
-
-                const tahun =
-                    sekarang.getFullYear();
-
-
-                tanggalElement.textContent =
-
-                    namaHari +
-                    ', ' +
-                    tanggal +
-                    ' ' +
-                    namaBulan +
-                    ' ' +
-                    tahun;
-
-            }
-
-
-            tampilkanTanggal();
-
-
-            setInterval(
-                tampilkanTanggal,
-                60000
+        const tanggalElement =
+            document.getElementById(
+                'tanggalKua'
             );
 
+
+        if (!tanggalElement) {
+
+            return;
+
         }
-    );
+
+
+        function tampilkanTanggal() {
+
+            const sekarang =
+                new Date();
+
+
+            const hari = [
+
+                'Minggu',
+                'Senin',
+                'Selasa',
+                'Rabu',
+                'Kamis',
+                'Jumat',
+                'Sabtu'
+
+            ];
+
+
+            const bulan = [
+
+                'Januari',
+                'Februari',
+                'Maret',
+                'April',
+                'Mei',
+                'Juni',
+                'Juli',
+                'Agustus',
+                'September',
+                'Oktober',
+                'November',
+                'Desember'
+
+            ];
+
+
+            const namaHari =
+                hari[
+                    sekarang.getDay()
+                ];
+
+
+            const tanggal =
+                sekarang.getDate();
+
+
+            const namaBulan =
+                bulan[
+                    sekarang.getMonth()
+                ];
+
+
+            const tahun =
+                sekarang.getFullYear();
+
+
+            tanggalElement.textContent =
+
+                namaHari +
+                ', ' +
+                tanggal +
+                ' ' +
+                namaBulan +
+                ' ' +
+                tahun;
+
+        }
+
+
+        tampilkanTanggal();
+
+
+        setInterval(
+            tampilkanTanggal,
+            60000
+        );
+
+    }
+);
+
 </script>
 
 @endif
