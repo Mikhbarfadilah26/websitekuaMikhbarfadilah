@@ -11,468 +11,211 @@ use Illuminate\Support\Str;
 class ControllerLayanan 
 {
     /**
-     * =========================================================
      * DAFTAR LAYANAN
-     * =========================================================
      */
     public function index(Request $request)
     {
         $query = Layanan::query();
 
-        /*
-        |--------------------------------------------------------------------------
-        | PENCARIAN
-        |--------------------------------------------------------------------------
-        */
-
+        // PENCARIAN LAYANAN
         if ($request->filled('search')) {
-
             $search = $request->search;
 
             $query->where(function ($q) use ($search) {
-
                 $q->where('judul', 'like', '%' . $search . '%')
                   ->orWhere('isi', 'like', '%' . $search . '%');
-
             });
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | DATA LAYANAN
-        |--------------------------------------------------------------------------
-        */
-
+        // TAMPILKAN DATA
         $layanan = $query
             ->latest()
             ->paginate(10)
             ->withQueryString();
 
-
-        return view(
-            'admin.layanan.index',
-            compact('layanan')
-        );
+        return view('admin.layanan.index', compact('layanan'));
     }
 
-
     /**
-     * =========================================================
-     * FORM TAMBAH
-     * =========================================================
+     * FORM TAMBAH LAYANAN
      */
     public function create()
     {
         return view('admin.layanan.create');
     }
 
-
     /**
-     * =========================================================
      * SIMPAN LAYANAN
-     * =========================================================
      */
     public function store(Request $request)
     {
-        /*
-        |--------------------------------------------------------------------------
-        | VALIDASI
-        |--------------------------------------------------------------------------
-        */
-
+        // VALIDASI INPUT
         $request->validate([
-
-            'judul' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-
-            'isi' => [
-                'required',
-                'string'
-            ],
-
-            'foto' => [
-                'nullable',
-                'image',
-                'mimes:jpg,jpeg,png,webp',
-                'max:2048'
-            ],
-
+            'judul'  => 'required|string|max:255',
+            'isi'    => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | BUAT SLUG
-        |--------------------------------------------------------------------------
-        */
-
+        // MEMBUAT SLUG UNIK
         $slug = Str::slug($request->judul);
-
         $slugAwal = $slug;
-
         $counter = 1;
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | CEK SLUG DUPLIKAT
-        |--------------------------------------------------------------------------
-        */
-
-        while (
-            Layanan::where('slug', $slug)->exists()
-        ) {
-
+        while (Layanan::where('slug', $slug)->exists()) {
             $slug = $slugAwal . '-' . $counter;
-
             $counter++;
         }
 
+        // UPLOAD GAMBAR KE PUBLIC/FOTO/LAYANAN
+        $namaGambar = null;
 
-        /*
-        |--------------------------------------------------------------------------
-        | UPLOAD FOTO
-        |--------------------------------------------------------------------------
-        */
+        if ($request->hasFile('gambar')) {
 
-        $namaFoto = null;
+            $folder = public_path('foto/layanan');
 
-        if ($request->hasFile('foto')) {
-
-            $folder = public_path('layanan');
-
-
+            // BUAT FOLDER JIKA BELUM ADA
             if (!File::exists($folder)) {
-
-                File::makeDirectory(
-                    $folder,
-                    0755,
-                    true
-                );
-
+                File::makeDirectory($folder, 0755, true);
             }
 
+            $file = $request->file('gambar');
 
-            $file = $request->file('foto');
+            $namaGambar = time() . '_' .
+                Str::slug(pathinfo(
+                    $file->getClientOriginalName(),
+                    PATHINFO_FILENAME
+                )) . '.' .
+                strtolower($file->getClientOriginalExtension());
 
-
-            $namaFoto =
-                time() .
-                '_' .
-                Str::slug(
-                    pathinfo(
-                        $file->getClientOriginalName(),
-                        PATHINFO_FILENAME
-                    )
-                ) .
-                '.' .
-                $file->getClientOriginalExtension();
-
-
-            $file->move(
-                $folder,
-                $namaFoto
-            );
+            $file->move($folder, $namaGambar);
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | SIMPAN
-        |--------------------------------------------------------------------------
-        */
-
+        // SIMPAN KE DATABASE
         Layanan::create([
-
-            'judul' => $request->judul,
-
-            'slug' => $slug,
-
-            'isi' => $request->isi,
-
-            'foto' => $namaFoto,
-
+            'judul'  => $request->judul,
+            'slug'   => $slug,
+            'isi'    => $request->isi,
+            'gambar' => $namaGambar,
         ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | REDIRECT
-        |--------------------------------------------------------------------------
-        */
 
         return redirect()
             ->route('admin.layanan.index')
-            ->with(
-                'success',
-                'Layanan berhasil ditambahkan.'
-            );
+            ->with('success', 'Layanan berhasil ditambahkan.');
     }
 
-
     /**
-     * =========================================================
-     * FORM EDIT
-     * =========================================================
+     * FORM EDIT LAYANAN
      */
     public function edit($id)
     {
         $layanan = Layanan::findOrFail($id);
 
-
-        return view(
-            'admin.layanan.edit',
-            compact('layanan')
-        );
+        return view('admin.layanan.edit', compact('layanan'));
     }
 
-
     /**
-     * =========================================================
      * UPDATE LAYANAN
-     * =========================================================
      */
-    public function update(
-        Request $request,
-        $id
-    ) {
-
+    public function update(Request $request, $id)
+    {
         $layanan = Layanan::findOrFail($id);
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | VALIDASI
-        |--------------------------------------------------------------------------
-        */
-
+        // VALIDASI INPUT
         $request->validate([
-
-            'judul' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-
-            'isi' => [
-                'required',
-                'string'
-            ],
-
-            'foto' => [
-                'nullable',
-                'image',
-                'mimes:jpg,jpeg,png,webp',
-                'max:2048'
-            ],
-
+            'judul'  => 'required|string|max:255',
+            'isi'    => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | BUAT SLUG
-        |--------------------------------------------------------------------------
-        */
-
+        // MEMBUAT SLUG UNIK
         $slug = Str::slug($request->judul);
-
         $slugAwal = $slug;
-
         $counter = 1;
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | CEK SLUG
-        |--------------------------------------------------------------------------
-        */
-
         while (
-
             Layanan::where('slug', $slug)
                 ->where('id', '!=', $layanan->id)
                 ->exists()
-
         ) {
-
             $slug = $slugAwal . '-' . $counter;
-
             $counter++;
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | DATA UPDATE
-        |--------------------------------------------------------------------------
-        */
-
+        // DATA YANG DIPERBARUI
         $data = [
-
             'judul' => $request->judul,
-
-            'slug' => $slug,
-
-            'isi' => $request->isi,
-
+            'slug'  => $slug,
+            'isi'   => $request->isi,
         ];
 
+        // JIKA ADMIN MENGUNGGAH GAMBAR BARU
+        if ($request->hasFile('gambar')) {
 
-        /*
-        |--------------------------------------------------------------------------
-        | FOTO BARU
-        |--------------------------------------------------------------------------
-        */
+            $folder = public_path('foto/layanan');
 
-        if ($request->hasFile('foto')) {
-
-            $folder = public_path('layanan');
-
-
+            // BUAT FOLDER JIKA BELUM ADA
             if (!File::exists($folder)) {
-
-                File::makeDirectory(
-                    $folder,
-                    0755,
-                    true
-                );
-
+                File::makeDirectory($folder, 0755, true);
             }
 
+            // HAPUS GAMBAR LAMA
+            if ($layanan->gambar) {
 
-            /*
-            | Hapus foto lama
-            */
+                $gambarLama = $folder . DIRECTORY_SEPARATOR . $layanan->gambar;
 
-            if (
-                $layanan->foto &&
-                File::exists(
-                    $folder .
-                    DIRECTORY_SEPARATOR .
-                    $layanan->foto
-                )
-            ) {
-
-                File::delete(
-                    $folder .
-                    DIRECTORY_SEPARATOR .
-                    $layanan->foto
-                );
+                if (File::exists($gambarLama)) {
+                    File::delete($gambarLama);
+                }
             }
 
+            // UPLOAD GAMBAR BARU
+            $file = $request->file('gambar');
 
-            /*
-            | Simpan foto baru
-            */
+            $namaGambar = time() . '_' .
+                Str::slug(pathinfo(
+                    $file->getClientOriginalName(),
+                    PATHINFO_FILENAME
+                )) . '.' .
+                strtolower($file->getClientOriginalExtension());
 
-            $file = $request->file('foto');
+            $file->move($folder, $namaGambar);
 
-
-            $namaFoto =
-                time() .
-                '_' .
-                Str::slug(
-                    pathinfo(
-                        $file->getClientOriginalName(),
-                        PATHINFO_FILENAME
-                    )
-                ) .
-                '.' .
-                $file->getClientOriginalExtension();
-
-
-            $file->move(
-                $folder,
-                $namaFoto
-            );
-
-
-            $data['foto'] = $namaFoto;
+            // SIMPAN NAMA GAMBAR BARU
+            $data['gambar'] = $namaGambar;
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | UPDATE DATABASE
-        |--------------------------------------------------------------------------
-        */
-
+        // UPDATE DATABASE
         $layanan->update($data);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | REDIRECT
-        |--------------------------------------------------------------------------
-        */
 
         return redirect()
             ->route('admin.layanan.index')
-            ->with(
-                'success',
-                'Layanan berhasil diperbarui.'
-            );
+            ->with('success', 'Layanan berhasil diperbarui.');
     }
 
-
     /**
-     * =========================================================
      * HAPUS LAYANAN
-     * =========================================================
      */
     public function destroy($id)
     {
         $layanan = Layanan::findOrFail($id);
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | HAPUS FOTO
-        |--------------------------------------------------------------------------
-        */
-
-        if ($layanan->foto) {
+        // HAPUS FILE GAMBAR
+        if ($layanan->gambar) {
 
             $path = public_path(
-                'layanan' .
-                DIRECTORY_SEPARATOR .
-                $layanan->foto
+                'foto/layanan/' . $layanan->gambar
             );
 
-
             if (File::exists($path)) {
-
                 File::delete($path);
-
             }
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | HAPUS DATA
-        |--------------------------------------------------------------------------
-        */
-
+        // HAPUS DATA DARI DATABASE
         $layanan->delete();
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | REDIRECT
-        |--------------------------------------------------------------------------
-        */
 
         return redirect()
             ->route('admin.layanan.index')
-            ->with(
-                'success',
-                'Layanan berhasil dihapus.'
-            );
+            ->with('success', 'Layanan berhasil dihapus.');
     }
 }

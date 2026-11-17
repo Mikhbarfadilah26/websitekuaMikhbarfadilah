@@ -8,15 +8,60 @@ use Illuminate\Support\Facades\Auth;
 class ControllerAuthUser
 {
     /**
-     * Halaman Login
+     * =========================================================
+     * HALAMAN LOGIN
+     * =========================================================
      */
-    public function index()
+    public function index(Request $request)
     {
+        /*
+        |--------------------------------------------------------------------------
+        | SIMPAN TUJUAN REDIRECT
+        |--------------------------------------------------------------------------
+        |
+        | Jika masyarakat membuka login dari halaman komentar,
+        | simpan alamat halaman berita agar setelah login
+        | pengguna kembali ke halaman tersebut.
+        |
+        */
+
+        $redirect = $request->query('redirect');
+
+        if (!empty($redirect)) {
+            $parsedUrl = parse_url($redirect);
+
+            $isRelativeUrl =
+                str_starts_with($redirect, '/') &&
+                !str_starts_with($redirect, '//');
+
+            $isSameHost =
+                isset($parsedUrl['host']) &&
+                strtolower($parsedUrl['host']) ===
+                strtolower($request->getHost());
+
+            $isSameScheme =
+                !isset($parsedUrl['scheme']) ||
+                strtolower($parsedUrl['scheme']) ===
+                strtolower($request->getScheme());
+
+            if (
+                $isRelativeUrl ||
+                ($isSameHost && $isSameScheme)
+            ) {
+                $request->session()->put(
+                    'url.intended',
+                    $redirect
+                );
+            }
+        }
+
         return view('auth.loginuser');
     }
 
     /**
-     * Proses Login
+     * =========================================================
+     * PROSES LOGIN
+     * =========================================================
      */
     public function login(Request $request)
     {
@@ -67,9 +112,7 @@ class ControllerAuthUser
         if ($user->role === 'admin') {
 
             return redirect()
-                ->intended(
-                    route('admin.dashboard')
-                )
+                ->intended(route('admin.dashboard'))
                 ->with(
                     'success',
                     'Selamat datang, ' . $user->nama . '!'
@@ -89,7 +132,7 @@ class ControllerAuthUser
             | CEK STATUS AKUN MASYARAKAT
             |--------------------------------------------------------------------------
             |
-            | Hanya masyarakat dengan status "disetujui"
+            | Hanya masyarakat dengan status disetujui
             | yang diperbolehkan masuk ke sistem.
             |
             */
@@ -132,32 +175,19 @@ class ControllerAuthUser
 
             /*
             |--------------------------------------------------------------------------
-            | LOGIN BERHASIL
+            | LOGIN MASYARAKAT BERHASIL
             |--------------------------------------------------------------------------
             |
-            | redirect()->intended() sangat penting.
-            |
-            | Contoh:
-            |
-            | Masyarakat membuka /saran
-            |        ↓
-            | Belum login
-            |        ↓
-            | Dialihkan ke /login
-            |        ↓
-            | Login berhasil
-            |        ↓
-            | Kembali ke /saran
+            | Jika login berasal dari halaman komentar berita,
+            | pengguna kembali ke halaman berita tersebut.
             |
             | Jika login dilakukan langsung dari halaman login,
-            | maka diarahkan ke dashboard masyarakat.
+            | pengguna diarahkan ke dashboard masyarakat.
             |
             */
 
             return redirect()
-                ->intended(
-                    route('masyarakat.dashboard')
-                )
+                ->intended(route('masyarakat.dashboard'))
                 ->with(
                     'success',
                     'Selamat datang, ' . $user->nama . '!'
@@ -184,7 +214,9 @@ class ControllerAuthUser
     }
 
     /**
-     * Logout
+     * =========================================================
+     * LOGOUT
+     * =========================================================
      */
     public function logout(Request $request)
     {

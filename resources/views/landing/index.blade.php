@@ -3,1213 +3,575 @@
 @section('title', 'KUA Karang Baru | Beranda')
 
 @section('content')
-{{-- =========================================================
-     HERO SECTION (Slider Carousel)
-========================================================= --}}
-<section class="hero-section position-relative overflow-hidden" id="beranda" style="margin-top: -1px;">
-    <div class="hero-slider-container position-relative w-100" style="height: 580px;">
 
-        <div id="heroSlider" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="4000">
+{{-- =====================================================
+     1. HERO SLIDER
+===================================================== --}}
+
+<section class="hero-section-kua" id="beranda">
+
+    <div class="hero-slider-container-kua">
+
+        <div id="heroSlider" class="carousel slide h-100"
+            data-bs-ride="carousel" data-bs-interval="5000">
+
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#heroSlider"
+                    data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+
+                <button type="button" data-bs-target="#heroSlider"
+                    data-bs-slide-to="1" aria-label="Slide 2"></button>
             </div>
 
             <div class="carousel-inner h-100">
+
                 <div class="carousel-item active h-100">
-                    <img src="{{ asset('88.png') }}" class="w-100 h-100 object-fit-cover" alt="Kantor KUA Karang Baru">
-                    {{-- Overlay ditingkatkan gelapnya agar kontras teks optimal --}}
-                    <div class="position-absolute inset-0 w-100 h-100" style="background: linear-gradient(90deg, rgba(2, 6, 23, 0.96) 0%, rgba(2, 6, 23, 0.82) 55%, rgba(2, 6, 23, 0.45) 100%);"></div>
+                    <img src="{{ asset('foto/landing/kantorbenar.jpg') }}"
+                        class="hero-image-kua"
+                        alt="Kantor KUA Karang Baru">
                 </div>
+
                 <div class="carousel-item h-100">
-                    <img src="{{ asset('pegawaikua.jpeg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan KUA">
-                    <div class="position-absolute inset-0 w-100 h-100" style="background: linear-gradient(90deg, rgba(2, 6, 23, 0.96) 0%, rgba(2, 6, 23, 0.82) 55%, rgba(2, 6, 23, 0.45) 100%);"></div>
+                    <img src="{{ asset('foto/landing/pegawaikua.jpeg') }}"
+                        class="hero-image-kua"
+                        alt="Pelayanan KUA Karang Baru">
                 </div>
             </div>
 
-            <button class="carousel-control-prev" type="button" data-bs-target="#heroSlider" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <button class="carousel-control-prev" type="button"
+                data-bs-target="#heroSlider" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
                 <span class="visually-hidden">Sebelumnya</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#heroSlider" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+
+            <button class="carousel-control-next" type="button"
+                data-bs-target="#heroSlider" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
                 <span class="visually-hidden">Berikutnya</span>
             </button>
+
         </div>
 
-        {{-- KONTEN TEKS HERO --}}
-        <div class="position-absolute top-50 start-0 translate-middle-y z-3 ps-4 ps-md-5 ms-md-4" style="max-width: 750px;">
-            <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-0 text-white shadow-sm" style="background: rgba(37, 99, 235, 0.95); font-size: 13px; font-weight: 700;">
+        <div class="hero-overlay-kua"></div>
+
+        <div class="hero-content-kua">
+
+            <div class="hero-badge-kua">
                 <i class="fas fa-mosque"></i>
                 <span>KANTOR URUSAN AGAMA</span>
             </div>
 
-            <h1 class="text-white display-4 mb-3 text-shadow" style="font-weight: 800; line-height: 1.1;">
-                Pelayanan KUA <span class="d-block text-warning">Karang Baru</span>
+            <h1 class="hero-title-kua">
+                Pelayanan KUA
+                <span>Karang Baru</span>
             </h1>
 
-            {{-- Opini dan ketebalan teks disesuaikan agar sangat mudah dibaca --}}
-            <p class="text-white fs-6 mb-4 fw-normal text-shadow-sm" style="opacity: 0.98; line-height: 1.6;">
-                Memberikan pelayanan kepada masyarakat dengan mudah, cepat, transparan, dan profesional di wilayah Karang Baru.
+            <p class="hero-description-kua">
+                Memberikan pelayanan kepada masyarakat dengan mudah,
+                cepat, transparan, dan profesional di wilayah Karang Baru.
             </p>
 
-            <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('landing.layanan') }}" class="btn btn-primary px-4 py-3 fw-bold rounded-0 shadow-lg">
-                    <i class="fas fa-hand-holding-heart me-2"></i> Lihat Layanan
+            <div class="hero-buttons-kua">
+
+                <a href="{{ route('landing.layanan') }}"
+                    class="btn-hero-primary-kua">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    Lihat Layanan
                 </a>
-                <a href="{{ route('landing.tentang') }}" class="btn btn-outline-light px-4 py-3 fw-bold rounded-0 shadow-sm" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);">
-                    <i class="fas fa-info-circle me-2"></i> Tentang KUA
+
+                <a href="{{ route('landing.tentang') }}"
+                    class="btn-hero-secondary-kua">
+                    <i class="fas fa-info-circle"></i>
+                    Tentang KUA
                 </a>
+
             </div>
+
         </div>
 
     </div>
+
 </section>
 
-{{-- =========================================================
-     1. QUICK INFO BAR (Informasi Cepat di Bawah Hero)
-========================================================= --}}
-<section class="py-4 bg-white shadow-sm position-relative z-2" style="margin-top: -30px;">
+
+{{-- =====================================================
+     2. QUICK INFORMATION
+===================================================== --}}
+
+<section class="quick-info-section">
+
     <div class="container">
 
-        {{-- =================================================
-             INFORMASI UTAMA
-        ================================================== --}}
         <div class="row g-4 align-items-stretch">
 
             {{-- JAM OPERASIONAL --}}
-            <div class="col-md-4">
-                <div class="p-4 bg-light border rounded-4 shadow-sm h-100 position-relative overflow-hidden">
+            <div class="col-md-4 reveal">
 
-                    <div class="d-flex align-items-center gap-3">
+                <div class="quick-card">
 
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
-                            style="width: 65px; height: 65px;">
-                            <i class="fas fa-clock fs-3"></i>
-                        </div>
+                    <div class="quick-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
 
-                        <div>
-                            <span class="badge bg-primary rounded-pill mb-2">
-                                INFORMASI
-                            </span>
+                    <div class="quick-content">
 
-                            <h6 class="fw-bold mb-1 text-dark">
-                                Jam Operasional
-                            </h6>
+                        <span class="quick-label">INFORMASI</span>
 
-                            <p class="text-secondary small mb-0">
-                                Senin - Kamis: 08.00 - 15.00 WIB<br>
-                                Jumat: 08.00 - 16.30 WIB
-                            </p>
-                        </div>
+                        <h6>Jam Operasional</h6>
+
+                        <p>
+                            Senin - Kamis: 08.00 - 15.00 WIB<br>
+                            Jumat: 08.00 - 16.30 WIB
+                        </p>
 
                     </div>
 
-                    <div class="mt-3 pt-3 border-top">
-                        <small class="text-muted">
-                            <i class="fas fa-calendar-check text-primary me-1"></i>
-                            Pelayanan pada hari kerja
-                        </small>
+                    <div class="quick-bottom">
+                        <i class="fas fa-calendar-check"></i>
+                        Pelayanan pada hari kerja
                     </div>
 
                 </div>
+
             </div>
 
+            {{-- LOKASI --}}
+            <div class="col-md-4 reveal">
 
-            {{-- LOKASI KANTOR --}}
-            <div class="col-md-4">
-                <div class="p-4 bg-white border border-primary rounded-4 shadow h-100">
+                <div class="quick-card">
 
-                    <div class="d-flex align-items-start gap-3">
-
-                        <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3 flex-shrink-0">
-                            <i class="fas fa-map-marked-alt fs-2"></i>
-                        </div>
-
-                        <div>
-                            <h6 class="fw-bold mb-2 text-dark">
-                                Lokasi Kantor
-                            </h6>
-
-                            <p class="text-secondary small mb-3">
-                                Jl. Medan - Banda Aceh, Medang Ara,
-                                Kec. Karang Baru,
-                                Kab. Aceh Tamiang
-                            </p>
-
-                            <span class="badge bg-light text-primary border rounded-pill">
-                                <i class="fas fa-map-marker-alt me-1"></i>
-                                KUA Karang Baru
-                            </span>
-                        </div>
-
+                    <div class="quick-icon">
+                        <i class="fas fa-map-marked-alt"></i>
                     </div>
 
-                </div>
-            </div>
+                    <div class="quick-content">
 
+                        <h6>Lokasi Kantor</h6>
 
-            {{-- LAYANAN INFORMASI --}}
-            <div class="col-md-4">
-                <div class="p-4 bg-primary text-white rounded-4 shadow h-100">
+                        <p>
+                            Jl. Medan - Banda Aceh, Medang Ara,
+                            Kec. Karang Baru,
+                            Kab. Aceh Tamiang
+                        </p>
 
-                    <div class="d-flex justify-content-between align-items-start">
-
-                        <div>
-                            <span class="badge bg-white text-primary rounded-pill mb-3">
-                                SIAP MELAYANI
-                            </span>
-
-                            <h5 class="fw-bold mb-2">
-                                Layanan Informasi
-                            </h5>
-
-                            <p class="small mb-0 opacity-75">
-                                Hubungi kontak kami atau datang langsung
-                                untuk mendapatkan informasi dan asistensi
-                                pelayanan.
-                            </p>
-                        </div>
-
-                        <div class="bg-white text-primary rounded-circle p-3 ms-2">
-                            <i class="fas fa-headset fs-3"></i>
-                        </div>
-
-                    </div>
-
-                    <div class="mt-4 pt-3 border-top border-light">
-                        <small>
-                            <i class="fas fa-phone-alt me-1"></i>
-                            Informasi & bantuan pelayanan
-                        </small>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-
-
-        {{-- =================================================
-             AKSES CEPAT
-        ================================================== --}}
-        <div class="row g-3 mt-4 pt-4 border-top">
-
-            <div class="col-12 mb-1">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <span class="text-uppercase text-muted fw-bold"
-                            style="font-size: 11px; letter-spacing: 0.8px;">
-                            Akses Cepat
+                        <span class="quick-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            KUA Karang Baru
                         </span>
 
-                        <h6 class="fw-bold text-dark mb-0 mt-1">
-                            Layanan Utama KUA
-                        </h6>
                     </div>
 
-                    <i class="fas fa-arrow-right text-primary"></i>
                 </div>
+
             </div>
 
+            {{-- INFORMASI --}}
+            <div class="col-md-4 reveal">
 
-            {{-- PENDAFTARAN NIKAH --}}
-            <div class="col-6 col-lg-3">
-                <a href="{{ route('landing.layanan') }}"
-                    class="btn btn-outline-primary w-100 rounded-3 py-3 text-start shadow-sm">
+                <div class="quick-card">
 
-                    <div class="d-flex align-items-center gap-3">
-
-                        <div class="bg-primary bg-opacity-10 rounded-3 p-2">
-                            <i class="fas fa-rings-wedding text-primary fs-5"></i>
-                        </div>
+                    <div class="service-top">
 
                         <div>
-                            <div class="small fw-bold text-dark">
-                                Pendaftaran Nikah
-                            </div>
-                            <small class="text-muted">
-                                Informasi & layanan
-                            </small>
+                            <span class="quick-label">SIAP MELAYANI</span>
+                            <h5>Layanan Informasi</h5>
+                        </div>
+
+                        <div class="quick-icon service-icon">
+                            <i class="fas fa-headset"></i>
                         </div>
 
                     </div>
-                </a>
-            </div>
 
+                    <p class="service-description">
+                        Hubungi kontak kami atau datang langsung
+                        untuk mendapatkan informasi dan asistensi
+                        pelayanan.
+                    </p>
 
-            {{-- BIMBINGAN PRA NIKAH --}}
-            <div class="col-6 col-lg-3">
-                <a href="{{ route('landing.layanan') }}"
-                    class="btn btn-outline-success w-100 rounded-3 py-3 text-start shadow-sm">
-
-                    <div class="d-flex align-items-center gap-3">
-
-                        <div class="bg-success bg-opacity-10 rounded-3 p-2">
-                            <i class="fas fa-hands-heart text-success fs-5"></i>
-                        </div>
-
-                        <div>
-                            <div class="small fw-bold text-dark">
-                                Bimbingan Pra-Nikah
-                            </div>
-                            <small class="text-muted">
-                                Pembinaan keluarga
-                            </small>
-                        </div>
-
+                    <div class="quick-bottom">
+                        <i class="fas fa-phone-alt"></i>
+                        Informasi dan bantuan pelayanan
                     </div>
-                </a>
-            </div>
 
+                </div>
 
-            {{-- LEGALISASI --}}
-            <div class="col-6 col-lg-3">
-                <a href="{{ route('landing.layanan') }}"
-                    class="btn btn-outline-warning w-100 rounded-3 py-3 text-start shadow-sm">
-
-                    <div class="d-flex align-items-center gap-3">
-
-                        <div class="bg-warning bg-opacity-10 rounded-3 p-2">
-                            <i class="fas fa-file-certificate text-warning fs-5"></i>
-                        </div>
-
-                        <div>
-                            <div class="small fw-bold text-dark">
-                                Legalisasi Dokumen
-                            </div>
-                            <small class="text-muted">
-                                Administrasi dokumen
-                            </small>
-                        </div>
-
-                    </div>
-                </a>
-            </div>
-
-
-            {{-- KONSULTASI --}}
-            <div class="col-6 col-lg-3">
-                <a href="{{ route('landing.layanan') }}"
-                    class="btn btn-outline-info w-100 rounded-3 py-3 text-start shadow-sm">
-
-                    <div class="d-flex align-items-center gap-3">
-
-                        <div class="bg-info bg-opacity-10 rounded-3 p-2">
-                            <i class="fas fa-comments text-info fs-5"></i>
-                        </div>
-
-                        <div>
-                            <div class="small fw-bold text-dark">
-                                Konsultasi Syariah
-                            </div>
-                            <small class="text-muted">
-                                Konsultasi & informasi
-                            </small>
-                        </div>
-
-                    </div>
-                </a>
             </div>
 
         </div>
 
     </div>
+
 </section>
 
-{{-- =========================================================
-     2. SECTION BERITA TERBARU
-     3 CARD SAJA
-     1 BESAR + 2 KECIL
-     CARD BESAR BERGANTIAN OTOMATIS
-========================================================= --}}
-<section class="py-5 bg-white">
 
-    <div class="container py-4">
+{{-- =====================================================
+     3. LAYANAN KUA - SLIDER FOTO LOGO LINGKARAN
+===================================================== --}}
 
-        {{-- =====================================================
-             JUDUL
-        ====================================================== --}}
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 pb-2 border-bottom">
+<section class="home-service-section" id="layanan">
 
-            <div>
+    <div class="container">
 
-                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-0 fw-bold mb-2">
-                    BERITA & INFORMASI
-                </span>
+        <div class="section-heading reveal">
 
-                <h2 class="fw-bold text-dark mb-0">
-                    Berita Terbaru KUA Karang Baru
-                </h2>
+            <span class="section-eyebrow">
+                <i class="fas fa-hand-holding-heart"></i>
+                PELAYANAN KAMI
+            </span>
 
-            </div>
+            <h2>Layanan KUA Karang Baru</h2>
 
+            <div class="section-line"></div>
 
-            @if(isset($berita) && $berita->count() > 0)
-
-            <div class="mt-3 mt-md-0">
-
-                <a href="{{ route('landing.berita') }}"
-                    class="text-primary fw-bold text-decoration-none d-inline-flex align-items-center gap-2">
-
-                    Lihat Semua Berita
-
-                    <i class="fas fa-arrow-right small"></i>
-
-                </a>
-
-            </div>
-
-            @endif
+            <p>
+                Berbagai layanan keagamaan dan administrasi untuk
+                membantu memenuhi kebutuhan masyarakat Kecamatan Karang Baru.
+            </p>
 
         </div>
 
 
-        {{-- =====================================================
-             BERITA
-        ====================================================== --}}
-        @if(isset($berita) && $berita->count() > 0)
+        @if(isset($layanan) && $layanan->count() > 0)
 
-        @php
+        <div class="service-slider-wrapper reveal">
 
-        /*
-        |--------------------------------------------------------------------------
-        | HANYA AMBIL 3 BERITA
-        |--------------------------------------------------------------------------
-        */
-        $beritaTampil = $berita->take(3)->values();
+            {{-- TOMBOL KIRI --}}
+            <button type="button"
+                class="service-slider-arrow service-slider-prev"
+                id="servicePrev"
+                aria-label="Layanan sebelumnya">
 
-        @endphp
+                <i class="fas fa-chevron-left"></i>
 
+            </button>
 
-        {{-- =================================================
-                 CONTAINER SLIDE
-            ================================================== --}}
-        <div id="beritaSlider"
-            class="berita-slider-container">
 
+            {{-- SLIDER --}}
+            <div class="service-slider-viewport" id="serviceViewport">
 
-            {{-- =================================================
-                     CARD BESAR
-                     BERITA YANG AKTIF
-                ================================================== --}}
-            <div class="berita-slide-area">
+                <div class="service-slider-track" id="serviceTrack">
 
+                    @foreach($layanan as $index => $item)
 
-                @foreach($beritaTampil as $index => $item)
+                    @php
+                    $gambarPath = $item->gambar
+                    ? public_path('foto/layanan/' . basename($item->gambar))
+                    : null;
 
-                @php
+                    $gambarUrl = $item->gambar
+                    ? asset('foto/layanan/' . basename($item->gambar))
+                    : null;
+                    @endphp
 
-                if ($item->foto === 'bimwin.jpg') {
+                    <article class="service-circle-item">
 
-                $fotoPublic = 'bimbingan1.jpg';
+                        {{-- FOTO LOGO --}}
+                        <a href="{{ route('layanan.show', $item->id) }}"
+                            class="service-circle-link"
+                            aria-label="Lihat layanan {{ $item->judul }}">
 
-                } else {
+                            <div class="service-circle-image">
 
-                $fotoPublic = $item->foto;
+                                <div class="service-circle-inner">
 
-                }
+                                    @if($gambarPath && file_exists($gambarPath))
 
-                $fotoPath = $fotoPublic
-                ? public_path($fotoPublic)
-                : null;
-
-                @endphp
-
-
-                <div class="berita-big-slide {{ $index === 0 ? 'active' : '' }}"
-                    data-slide="{{ $index }}">
-
-
-                    <div class="card premium-main-card border-0 shadow-sm rounded-0 overflow-hidden h-100">
-
-
-                        {{-- =================================================
-                                     GAMBAR BESAR
-                                ================================================== --}}
-                        <div class="premium-main-image position-relative"
-                            style="height: 380px;">
-
-
-                            @if(
-                            $fotoPublic &&
-                            $fotoPath &&
-                            file_exists($fotoPath)
-                            )
-
-                            <img
-                                src="{{ asset($fotoPublic) }}"
-                                alt="{{ $item->judul }}"
-                                class="w-100 h-100 object-fit-cover">
-
-                            @else
-
-                            <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-primary"
-                                style="min-height: 380px;">
-
-                                <i class="fas fa-newspaper"
-                                    style="font-size: 60px;">
-                                </i>
-
-                            </div>
-
-                            @endif
-
-
-                            {{-- LABEL UTAMA --}}
-                            <span class="position-absolute top-0 start-0 m-3 badge bg-primary px-3 py-2 rounded-0 fw-bold shadow-sm">
-
-                                <i class="fas fa-star me-1"></i>
-
-                                UTAMA
-
-                            </span>
-
-                        </div>
-
-
-                        {{-- =================================================
-                                     ISI BERITA BESAR
-                                ================================================== --}}
-                        <div class="card-body p-4 p-lg-5 bg-white">
-
-
-                            {{-- TANGGAL --}}
-                            <div class="text-muted small mb-2">
-
-                                <i class="fas fa-calendar-alt text-primary me-1"></i>
-
-                                {{ $item->created_at->format('l, d F Y') }}
-
-                            </div>
-
-
-                            {{-- JUDUL --}}
-                            <h3 class="fw-bold text-dark mb-3"
-                                style="font-size: 24px; line-height: 1.3;">
-
-                                <a
-                                    href="{{ route('berita.detail', $item->slug) }}"
-                                    class="text-dark text-decoration-none">
-
-                                    {{ $item->judul }}
-
-                                </a>
-
-                            </h3>
-
-
-                            {{-- DESKRIPSI --}}
-                            <p class="text-secondary mb-0"
-                                style="line-height: 1.7; font-size: 15px;">
-
-                                {{ \Illuminate\Support\Str::limit(
-                                            strip_tags($item->isi),
-                                            180
-                                        ) }}
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                @endforeach
-
-            </div>
-
-
-
-            {{-- =================================================
-                     2 CARD KECIL DI KANAN
-                     BERITA SELAIN YANG BESAR
-                ================================================== --}}
-            <div class="berita-small-area">
-
-
-                @foreach($beritaTampil as $index => $item)
-
-                @php
-
-                if ($item->foto === 'bimwin.jpg') {
-
-                $fotoSmall = 'bimbingan1.jpg';
-
-                } else {
-
-                $fotoSmall = $item->foto;
-
-                }
-
-                $fotoSmallPath = $fotoSmall
-                ? public_path($fotoSmall)
-                : null;
-
-                @endphp
-
-
-                <div class="berita-small-card {{ $index === 0 ? 'small-active' : '' }}"
-                    data-small="{{ $index }}">
-
-
-                    <div class="card border-0 shadow-sm rounded-0 p-3 bg-white h-100">
-
-                        <div class="row g-3 align-items-center h-100">
-
-
-                            {{-- =================================================
-                                         GAMBAR
-                                    ================================================== --}}
-                            <div class="col-5">
-
-                                <div class="rounded-0 overflow-hidden"
-                                    style="height: 120px;">
-
-
-                                    @if(
-                                    $fotoSmall &&
-                                    $fotoSmallPath &&
-                                    file_exists($fotoSmallPath)
-                                    )
-
-                                    <img
-                                        src="{{ asset($fotoSmall) }}"
+                                    <img src="{{ $gambarUrl }}"
                                         alt="{{ $item->judul }}"
-                                        class="w-100 h-100 object-fit-cover">
+                                        loading="lazy">
 
                                     @else
 
-                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-primary">
-
-                                        <i class="fas fa-newspaper"
-                                            style="font-size: 30px;">
-                                        </i>
-
+                                    <div class="service-circle-placeholder">
+                                        <i class="fas fa-mosque"></i>
                                     </div>
 
                                     @endif
 
                                 </div>
 
+                                <div class="service-circle-overlay">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+
+                            </div>
+
+                        </a>
+
+
+                        {{-- NOMOR --}}
+                        <span class="service-circle-number">
+                            {{ sprintf('%02d', $index + 1) }}
+                        </span>
+
+
+                        {{-- NAMA --}}
+                        <h3 class="service-circle-title">
+                            {{ $item->judul }}
+                        </h3>
+
+
+                        {{-- DESKRIPSI --}}
+                        <p class="service-circle-description">
+                            {{ \Illuminate\Support\Str::limit(
+                                        strip_tags($item->isi), 75
+                                    ) }}
+                        </p>
+
+
+                        {{-- DETAIL --}}
+                        <a href="{{ route('layanan.show', $item->id) }}"
+                            class="service-circle-detail">
+
+                            Lihat Detail
+                            <i class="fas fa-arrow-right"></i>
+
+                        </a>
+
+                    </article>
+
+                    @endforeach
+
+                </div>
+
+            </div>
+
+
+            {{-- TOMBOL KANAN --}}
+            <button type="button"
+                class="service-slider-arrow service-slider-next"
+                id="serviceNext"
+                aria-label="Layanan berikutnya">
+
+                <i class="fas fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+
+        {{-- INDIKATOR --}}
+        <div class="service-slider-bottom">
+
+            <div class="service-slider-progress">
+                <div class="service-slider-progress-bar"
+                    id="serviceProgressBar"></div>
+            </div>
+
+            <span class="service-slider-caption">
+                Geser untuk melihat layanan lainnya
+            </span>
+
+        </div>
+
+
+        {{-- SEMUA LAYANAN --}}
+        <div class="service-more reveal">
+
+            <a href="{{ route('landing.layanan') }}"
+                class="service-more-button">
+
+                Lihat Semua Layanan
+                <i class="fas fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+        @else
+
+        <div class="service-empty reveal">
+
+            <i class="fas fa-folder-open"></i>
+
+            <h4>Layanan Belum Tersedia</h4>
+
+            <p>
+                Informasi layanan akan ditampilkan setelah
+                admin menambahkan data melalui CMS.
+            </p>
+
+        </div>
+
+        @endif
+
+    </div>
+
+</section>
+
+
+
+{{-- =====================================================
+     4. BERITA TERBARU
+===================================================== --}}
+
+<section class="news-modern-section" id="berita">
+
+    <div class="container">
+
+        <div class="news-modern-header reveal">
+
+            <div class="news-header-left">
+
+                <span class="news-eyebrow">
+                    <i class="fas fa-newspaper"></i>
+                    INFORMASI TERKINI
+                </span>
+
+                <h2>Berita Terbaru</h2>
+
+                <div class="news-title-line"></div>
+
+                <p>
+                    Informasi terbaru seputar kegiatan dan pelayanan
+                    KUA Kecamatan Karang Baru.
+                </p>
+
+            </div>
+
+            @if(isset($berita) && $berita->count() > 0)
+
+                <a href="{{ route('landing.berita') }}"
+                   class="news-all-button">
+
+                    Lihat Semua Berita
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
+
+            @endif
+
+        </div>
+
+
+        @if(isset($berita) && $berita->count() > 0)
+
+            <div class="news-modern-grid">
+
+                @foreach($berita as $index => $item)
+
+                    @php
+                        // PATH FOTO BERITA
+                        $fotoPath = $item->foto
+                            ? public_path('foto/berita/' . basename($item->foto))
+                            : null;
+
+                        // URL FOTO BERITA
+                        $fotoUrl = $item->foto
+                            ? asset('foto/berita/' . basename($item->foto))
+                            : null;
+                    @endphp
+
+                    <article class="news-modern-card reveal">
+
+                        <a href="{{ route('berita.detail', $item->slug) }}"
+                           class="news-image-wrapper">
+
+                            @if($fotoPath && file_exists($fotoPath))
+
+                                <img
+                                    src="{{ $fotoUrl }}"
+                                    alt="{{ $item->judul }}"
+                                    class="news-image"
+                                    loading="lazy">
+
+                            @else
+
+                                <div class="news-image-placeholder">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+
+                            @endif
+
+                            <span class="news-category">
+                                BERITA KUA
+                            </span>
+
+                            <span class="news-number">
+                                {{ sprintf('%02d', $index + 1) }}
+                            </span>
+
+                        </a>
+
+
+                        <div class="news-card-content">
+
+                            <div class="news-date">
+
+                                <i class="far fa-calendar-alt"></i>
+
+                                {{ $item->created_at
+                                    ? $item->created_at->format('d F Y')
+                                    : '-' }}
+
                             </div>
 
 
+                            <h3 class="news-card-title">
 
-                            {{-- =================================================
-                                         INFORMASI
-                                    ================================================== --}}
-                            <div class="col-7">
-
-
-                                {{-- TANGGAL --}}
-                                <div class="text-primary small fw-semibold mb-2"
-                                    style="font-size: 12px;">
-
-                                    <i class="fas fa-calendar-alt me-1"></i>
-
-                                    {{ $item->created_at->format('d M Y') }}
-
-                                </div>
-
-
-                                {{-- JUDUL --}}
-                                <h5 class="fw-bold text-dark mb-0"
-                                    style="font-size: 15px; line-height: 1.4;">
+                                <a href="{{ route('berita.detail', $item->slug) }}">
 
                                     {{ \Illuminate\Support\Str::limit(
-                                                $item->judul,
-                                                65
-                                            ) }}
+                                        $item->judul, 65
+                                    ) }}
 
-                                </h5>
+                                </a>
 
+                            </h3>
+
+
+                            <p class="news-description">
+
+                                {{ \Illuminate\Support\Str::limit(
+                                    strip_tags($item->isi), 115
+                                ) }}
+
+                            </p>
+
+
+                            <div class="news-card-footer">
+
+                                <a href="{{ route('berita.detail', $item->slug) }}"
+                                   class="news-read-more">
+
+                                    Baca Selengkapnya
+                                    <i class="fas fa-arrow-right"></i>
+
+                                </a>
+
+                                <span class="news-read-icon">
+                                    <i class="far fa-newspaper"></i>
+                                </span>
 
                             </div>
 
                         </div>
 
-                    </div>
-
-                </div>
+                    </article>
 
                 @endforeach
 
             </div>
 
-        </div>
-
-
         @else
 
+            <div class="news-empty reveal">
 
-        {{-- =================================================
-                 BELUM ADA BERITA
-            ================================================== --}}
-        <div class="text-center bg-light rounded-0 shadow-sm p-5">
-
-            <i class="fas fa-newspaper text-secondary mb-3"
-                style="font-size: 50px;">
-            </i>
-
-            <h4 class="fw-bold text-dark">
-                Belum Ada Berita
-            </h4>
-
-            <p class="text-secondary mb-0">
-
-                Belum ada berita atau informasi yang dipublikasikan
-                oleh KUA Karang Baru.
-
-            </p>
-
-        </div>
-
-
-        @endif
-
-    </div>
-
-</section>
-
-
-
-{{-- =========================================================
-     CSS
-========================================================= --}}
-<style>
-    /*
-    |--------------------------------------------------------------------------
-    | CONTAINER
-    |--------------------------------------------------------------------------
-    */
-
-    .berita-slider-container {
-
-        display: grid;
-
-        grid-template-columns: 7fr 5fr;
-
-        gap: 24px;
-
-        align-items: stretch;
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | AREA CARD BESAR
-    |--------------------------------------------------------------------------
-    */
-
-    .berita-slide-area {
-
-        position: relative;
-
-        min-height: 600px;
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | CARD BESAR
-    |--------------------------------------------------------------------------
-    */
-
-    .berita-big-slide {
-
-        position: absolute;
-
-        inset: 0;
-
-        opacity: 0;
-
-        visibility: hidden;
-
-        transform: translateX(30px);
-
-        transition:
-            opacity .7s ease,
-            transform .7s ease,
-            visibility .7s ease;
-
-    }
-
-
-    .berita-big-slide.active {
-
-        opacity: 1;
-
-        visibility: visible;
-
-        transform: translateX(0);
-
-        z-index: 2;
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | AREA CARD KECIL
-    |--------------------------------------------------------------------------
-    */
-
-    .berita-small-area {
-
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 24px;
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | CARD KECIL
-    |--------------------------------------------------------------------------
-    */
-
-    .berita-small-card {
-
-        transition:
-            opacity .5s ease,
-            transform .5s ease;
-
-        flex: 1;
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | CARD KECIL YANG AKTIF
-    |--------------------------------------------------------------------------
-    */
-
-    .berita-small-card.small-active {
-
-        transform: scale(1.02);
-
-        box-shadow:
-            0 8px 25px rgba(0, 0, 0, .08) !important;
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | HOVER
-    |--------------------------------------------------------------------------
-    */
-
-    .premium-main-card {
-
-        transition:
-            transform .3s ease,
-            box-shadow .3s ease;
-
-    }
-
-
-    .premium-main-card:hover {
-
-        transform: translateY(-3px);
-
-        box-shadow:
-            0 15px 35px rgba(0, 0, 0, .12) !important;
-
-    }
-
-
-    .berita-small-card .card {
-
-        transition:
-            transform .3s ease,
-            box-shadow .3s ease;
-
-    }
-
-
-    .berita-small-card .card:hover {
-
-        transform: translateY(-3px);
-
-        box-shadow:
-            0 10px 25px rgba(0, 0, 0, .10) !important;
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | GAMBAR
-    |--------------------------------------------------------------------------
-    */
-
-    .object-fit-cover {
-
-        object-fit: cover;
-
-        object-position: center;
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | TABLET
-    |--------------------------------------------------------------------------
-    */
-
-    @media (max-width: 991.98px) {
-
-        .berita-slider-container {
-
-            grid-template-columns: 1fr;
-
-        }
-
-
-        .berita-slide-area {
-
-            min-height: 600px;
-
-        }
-
-
-        .berita-small-area {
-
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-        }
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | HP
-    |--------------------------------------------------------------------------
-    */
-
-    @media (max-width: 575.98px) {
-
-        .berita-slide-area {
-
-            min-height: 560px;
-
-        }
-
-
-        .berita-small-area {
-
-            grid-template-columns: 1fr;
-
-        }
-
-
-        .premium-main-image {
-
-            height: 280px !important;
-
-        }
-
-
-        .berita-big-slide .card-body {
-
-            padding: 20px !important;
-
-        }
-
-
-        .berita-big-slide h3 {
-
-            font-size: 20px !important;
-
-        }
-
-    }
-</style>
-
-
-
-{{-- =========================================================
-     JAVASCRIPT SLIDE
-========================================================= --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        const bigSlides = document.querySelectorAll('.berita-big-slide');
-
-        const smallCards = document.querySelectorAll('.berita-small-card');
-
-        let currentSlide = 0;
-
-        /*
-        |--------------------------------------------------------------------------
-        | Kalau berita kurang dari 2
-        |--------------------------------------------------------------------------
-        */
-
-        if (bigSlides.length <= 1) {
-
-            return;
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Fungsi pindah berita
-        |--------------------------------------------------------------------------
-        */
-
-        function changeBerita(index) {
-
-
-            /*
-            |----------------------------------------------------------
-            | CARD BESAR
-            |----------------------------------------------------------
-            */
-
-            bigSlides.forEach(function(slide) {
-
-                slide.classList.remove('active');
-
-            });
-
-
-            /*
-            |----------------------------------------------------------
-            | CARD KECIL
-            |----------------------------------------------------------
-            */
-
-            smallCards.forEach(function(card) {
-
-                card.classList.remove('small-active');
-
-            });
-
-
-            /*
-            |----------------------------------------------------------
-            | AKTIFKAN BERITA BARU
-            |----------------------------------------------------------
-            */
-
-            if (bigSlides[index]) {
-
-                bigSlides[index].classList.add('active');
-
-            }
-
-
-            /*
-            |----------------------------------------------------------
-            | CARD KECIL
-            |
-            | Berita yang sedang besar tidak ditampilkan
-            | sebagai card kecil.
-            |----------------------------------------------------------
-            */
-
-            smallCards.forEach(function(card, cardIndex) {
-
-                if (cardIndex !== index) {
-
-                    card.style.display = '';
-
-                } else {
-
-                    card.style.display = 'none';
-
-                }
-
-            });
-
-
-            /*
-            |----------------------------------------------------------
-            | Simpan index
-            |----------------------------------------------------------
-            */
-
-            currentSlide = index;
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Jalankan pertama kali
-        |--------------------------------------------------------------------------
-        */
-
-        changeBerita(0);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | BERGANTI SETIAP 5 DETIK
-        |--------------------------------------------------------------------------
-        */
-
-        setInterval(function() {
-
-            currentSlide++;
-
-            if (currentSlide >= bigSlides.length) {
-
-                currentSlide = 0;
-
-            }
-
-            changeBerita(currentSlide);
-
-        }, 5000);
-
-    });
-</script>
-
-{{-- =========================================================
-     3. SECTION LAYANAN UNGGULAN
-     DATA DIAMBIL DARI DATABASE
-========================================================= --}}
-<section class="py-5 bg-light">
-
-    <div class="container py-4">
-
-        {{-- =====================================================
-             JUDUL SECTION
-        ====================================================== --}}
-        <div class="text-center mb-4">
-
-            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-0 fw-bold mb-2">
-                LAYANAN KAMI
-            </span>
-
-            <h2 class="fw-bold text-dark mb-2">
-                Layanan Utama KUA Karang Baru
-            </h2>
-
-            <p class="text-secondary mx-auto mb-0"
-                style="max-width: 600px; font-size: 14px;">
-
-                Berbagai kemudahan layanan keagamaan dan administrasi
-                yang kami hadirkan untuk masyarakat.
-
-            </p>
-
-        </div>
-
-
-        {{-- =====================================================
-             DATA LAYANAN DARI DATABASE
-        ====================================================== --}}
-        @if(isset($layanan) && $layanan->count() > 0)
-
-        <div class="row g-3">
-
-            @foreach($layanan as $item)
-
-            {{-- =================================================
-                         CARD LAYANAN
-                    ================================================== --}}
-            <div class="col-xl-3 col-lg-4 col-md-6">
-
-                <div class="card layanan-card border-0 shadow-sm h-100 rounded-0 bg-white">
-
-                    <div class="card-body p-3 d-flex flex-column">
-
-                        {{-- =================================================
-                                     ICON
-                                ================================================== --}}
-                        <div class="layanan-icon mb-2">
-
-                            <i class="fas fa-mosque"></i>
-
-                        </div>
-
-
-                        {{-- =================================================
-                                     JUDUL LAYANAN
-                                ================================================== --}}
-                        <h5 class="fw-bold text-dark mb-2 layanan-title">
-
-                            {{ $item->judul }}
-
-                        </h5>
-
-
-                        {{-- =================================================
-                                     ISI / DESKRIPSI
-                                ================================================== --}}
-                        <p class="text-secondary small mb-3 layanan-description">
-
-                            {{ \Illuminate\Support\Str::limit(
-                                        strip_tags($item->isi),
-                                        90
-                                    ) }}
-
-                        </p>
-
-
-                        {{-- =================================================
-                                     TOMBOL DETAIL
-                                ================================================== --}}
-                        <a
-                            href="{{ route('layanan.show', $item->id) }}"
-                            class="layanan-link mt-auto">
-
-                            Selengkapnya
-
-                            <i class="fas fa-arrow-right ms-1"></i>
-
-                        </a>
-
-                    </div>
-
+                <div class="news-empty-icon">
+                    <i class="far fa-newspaper"></i>
                 </div>
+
+                <h4>Belum Ada Berita</h4>
+
+                <p>
+                    Belum ada berita atau informasi yang dipublikasikan
+                    oleh KUA Karang Baru.
+                </p>
 
             </div>
 
-            @endforeach
-
-        </div>
-
-
-        @else
-
-        {{-- =================================================
-                 JIKA BELUM ADA DATA
-            ================================================== --}}
-        <div class="text-center bg-white shadow-sm p-4">
-
-            <i class="fas fa-concierge-bell text-secondary mb-2"
-                style="font-size: 35px;">
-            </i>
-
-            <h5 class="fw-bold text-dark">
-                Belum Ada Layanan
-            </h5>
-
-            <p class="text-secondary small mb-0">
-                Data layanan belum tersedia.
-            </p>
-
-        </div>
-
         @endif
 
     </div>
@@ -1217,180 +579,1558 @@
 </section>
 
 
-{{-- =========================================================
-     CSS
-========================================================= --}}
+{{-- =====================================================
+     5. CSS - SOFT SAGE GREEN MODERN
+===================================================== --}}
+
 <style>
-    /* CARD */
-
-    .layanan-card {
-
-        transition:
-            transform .25s ease,
-            box-shadow .25s ease;
-
-        border: 1px solid rgba(0, 0, 0, .04) !important;
-
+    :root {
+        --green-bg: #DCEEDC;
+        --green-card: #EAF5E8;
+        --green-light: #F0F7EF;
+        --green-medium: #C8E3C5;
+        --green-accent: #78A982;
+        --green-dark: #285C3A;
+        --green-text: #365B42;
+        --green-border: #D1E5CF;
     }
 
 
-    /* HOVER */
+    /* GENERAL */
 
-    .layanan-card:hover {
+    .quick-info-section,
+    .home-service-section,
+    .news-modern-section {
+        background: var(--green-bg);
+    }
 
-        transform: translateY(-4px);
-
-        box-shadow:
-            0 10px 25px rgba(0, 0, 0, .10) !important;
-
+    .quick-info-section {
+        position: relative;
+        z-index: 2;
+        margin-top: -20px;
+        padding: 50px 0;
     }
 
 
-    /* ICON */
+    /* =====================================================
+   HERO
+===================================================== */
 
-    .layanan-icon {
+    .hero-section-kua {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background: var(--green-bg);
+    }
 
-        width: 40px;
+    .hero-slider-container-kua {
+        width: 100%;
+        height: 500px;
+        position: relative;
+        overflow: hidden;
+    }
 
-        height: 40px;
+    .hero-section-kua .carousel,
+    .hero-section-kua .carousel-inner,
+    .hero-section-kua .carousel-item {
+        width: 100%;
+        height: 100%;
+    }
 
-        display: flex;
+    .hero-image-kua {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 45%;
+        transition: transform 6s ease;
+    }
 
+    .hero-section-kua .carousel-item.active .hero-image-kua {
+        transform: scale(1.02);
+    }
+
+    .hero-overlay-kua {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: linear-gradient(90deg,
+                rgba(10, 45, 27, .45),
+                rgba(10, 45, 27, .22),
+                rgba(10, 45, 27, .03));
+    }
+
+    .hero-content-kua {
+        position: absolute;
+        z-index: 3;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 100%;
+        max-width: 650px;
+        padding: 0 25px 0 6%;
+    }
+
+    .hero-badge-kua {
+        display: inline-flex;
         align-items: center;
+        gap: 9px;
+        padding: 8px 14px;
+        margin-bottom: 15px;
+        background: var(--green-bg);
+        color: var(--green-dark);
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 800;
+    }
 
+    .hero-title-kua {
+        color: white;
+        font-size: clamp(32px, 3.2vw, 45px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0 0 14px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, .35);
+    }
+
+    .hero-title-kua span {
+        display: block;
+        color: #D1EBD1;
+    }
+
+    .hero-description-kua {
+        color: white;
+        font-size: 14px;
+        line-height: 1.7;
+        max-width: 490px;
+        margin-bottom: 21px;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, .65);
+    }
+
+    .hero-buttons-kua {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 11px;
+    }
+
+    .btn-hero-primary-kua,
+    .btn-hero-secondary-kua {
+        min-height: 46px;
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
+        gap: 8px;
+        padding: 0 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        transition: .3s;
+    }
 
-        background: rgba(13, 110, 253, .08);
+    .btn-hero-primary-kua {
+        background: #198754;
+        color: white;
+        border: 1px solid #198754;
+    }
 
-        color: #0d6efd;
+    .btn-hero-primary-kua:hover {
+        background: #146c43;
+        color: white;
+        transform: translateY(-3px);
+    }
 
+    .btn-hero-secondary-kua {
+        background: rgba(255, 255, 255, .18);
+        color: white;
+        border: 1px solid white;
+        backdrop-filter: blur(5px);
+    }
+
+    .btn-hero-secondary-kua:hover {
+        background: var(--green-bg);
+        color: var(--green-dark);
+    }
+
+    .hero-section-kua .carousel-indicators {
+        z-index: 5;
+    }
+
+    .hero-section-kua .carousel-indicators button {
+        width: 25px;
+        height: 4px;
+        border: 0;
+        border-radius: 10px;
+    }
+
+    .hero-section-kua .carousel-indicators button.active {
+        width: 38px;
+        background: #B9DFBD;
+    }
+
+
+    /* =====================================================
+   QUICK INFO
+===================================================== */
+
+    .quick-card {
+        height: 100%;
+        min-height: 245px;
+        padding: 25px;
+        border-radius: 17px;
+        background: var(--green-card);
+        border: 1px solid var(--green-border);
+        box-shadow: 0 4px 15px rgba(40, 92, 58, .06);
+        display: flex;
+        flex-direction: column;
+        transition: .35s;
+    }
+
+    .quick-card:hover {
+        transform: translateY(-7px);
+        background: var(--green-light);
+        box-shadow: 0 12px 28px rgba(40, 92, 58, .12);
+    }
+
+    .quick-icon {
+        width: 58px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        background: var(--green-medium);
+        color: var(--green-dark);
+        font-size: 24px;
+        margin-bottom: 17px;
+    }
+
+    .quick-label {
+        display: inline-block;
+        padding: 6px 12px;
+        background: var(--green-medium);
+        color: var(--green-dark);
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .quick-content h6 {
+        color: var(--green-dark);
         font-size: 18px;
-
+        font-weight: 800;
+        margin-bottom: 10px;
     }
 
-
-    /* JUDUL */
-
-    .layanan-title {
-
-        font-size: 15px;
-
-        line-height: 1.35;
-
-        min-height: 40px;
-
+    .quick-content p,
+    .service-description {
+        color: var(--green-text);
+        font-size: 13px;
+        line-height: 1.8;
     }
 
-
-    /* DESKRIPSI */
-
-    .layanan-description {
-
+    .quick-bottom {
+        margin-top: auto;
+        padding-top: 15px;
+        border-top: 1px solid var(--green-border);
+        color: var(--green-text);
         font-size: 12px;
+    }
 
-        line-height: 1.55;
+    .quick-bottom i {
+        color: var(--green-accent);
+        margin-right: 6px;
+    }
 
-        min-height: 38px;
+    .quick-location {
+        display: inline-flex;
+        gap: 7px;
+        padding: 7px 12px;
+        margin-top: 14px;
+        background: var(--green-medium);
+        color: var(--green-dark);
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+    }
 
+    .service-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .service-top h5 {
+        color: var(--green-dark);
+        font-size: 19px;
+        font-weight: 800;
+        margin: 0;
+    }
+
+    .service-icon {
+        flex-shrink: 0;
+        margin: 0;
+    }
+
+
+    /* =====================================================
+   SECTION HEADING
+===================================================== */
+
+    .section-heading {
+        max-width: 700px;
+        text-align: center;
+        margin: 0 auto 42px;
+    }
+
+    .section-eyebrow,
+    .news-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        background: var(--green-medium);
+        color: var(--green-dark);
+        border-radius: 7px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .7px;
+    }
+
+    .section-heading h2 {
+        color: var(--green-dark);
+        font-size: 35px;
+        font-weight: 900;
+        margin: 15px 0 0;
+    }
+
+    .section-line {
+        width: 65px;
+        height: 4px;
+        background: var(--green-accent);
+        border-radius: 10px;
+        margin: 13px auto;
+    }
+
+    .section-heading p {
+        color: var(--green-text);
+        font-size: 14px;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+
+    /* =====================================================
+   LAYANAN KUA - CIRCLE SLIDER
+===================================================== */
+
+    .home-service-section {
+        position: relative;
+        padding: 75px 0 80px;
+        background: var(--green-bg);
+        overflow: hidden;
+    }
+
+    .home-service-section .section-heading {
+        margin-bottom: 48px;
+    }
+
+
+    /* SLIDER */
+
+    .service-slider-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 0 45px;
+    }
+
+    .service-slider-viewport {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 15px 3px 20px;
+    }
+
+    .service-slider-viewport::-webkit-scrollbar {
+        display: none;
+    }
+
+    .service-slider-track {
+        display: flex;
+        align-items: flex-start;
+        gap: 25px;
+        width: max-content;
+        min-width: 100%;
+    }
+
+
+    /* ITEM */
+
+    .service-circle-item {
+        position: relative;
+        flex: 0 0 190px;
+        width: 190px;
+        min-width: 0;
+        text-align: center;
+        padding: 5px 10px 15px;
+        transition: transform .35s ease;
+    }
+
+    .service-circle-item:hover {
+        transform: translateY(-7px);
     }
 
 
     /* LINK */
 
-    .layanan-link {
-
-        display: inline-flex;
-
-        align-items: center;
-
-        font-size: 12px;
-
-        font-weight: 700;
-
-        color: #0d6efd;
-
+    .service-circle-link {
+        display: inline-block;
         text-decoration: none;
-
-        transition: .2s ease;
-
+        outline: none;
     }
 
 
-    .layanan-link:hover {
+    /* FOTO LINGKARAN */
 
-        color: #084298;
-
+    .service-circle-image {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 17px;
+        padding: 7px;
+        border-radius: 50%;
+        background: linear-gradient(145deg,
+                #FFFFFF,
+                var(--green-medium),
+                var(--green-accent));
+        box-shadow:
+            0 7px 20px rgba(40, 92, 58, .12),
+            0 0 0 5px rgba(255, 255, 255, .55);
+        transition: all .4s ease;
     }
 
-
-    /* RESPONSIVE */
-
-    @media (max-width: 575.98px) {
-
-        .layanan-title {
-
-            font-size: 14px;
-
-        }
-
-        .layanan-description {
-
-            font-size: 12px;
-
-        }
-
-    }
-</style>
-
-@endsection
-
-@push('styles')
-<style>
-    .text-shadow {
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+    .service-circle-item:hover .service-circle-image {
+        transform: scale(1.07);
+        box-shadow:
+            0 12px 28px rgba(40, 92, 58, .20),
+            0 0 0 7px rgba(255, 255, 255, .7);
     }
 
-    .text-shadow-sm {
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
-    }
-
-    .transition-hover {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .transition-hover:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1) !important;
-    }
-
-    .premium-main-card {
-        border: 1px solid #e9eef5 !important;
-        transition: all .35s ease;
-    }
-
-    .premium-main-card:hover {
-        box-shadow: 0 20px 45px rgba(15, 23, 42, .1) !important;
-    }
-
-    .premium-main-image {
-        height: 340px;
+    .service-circle-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
         overflow: hidden;
-        background: linear-gradient(135deg, #dbeafe, #eff6ff);
+        border-radius: 50%;
+        background: var(--green-card);
+        border: 3px solid white;
     }
 
-    .premium-main-image img {
+    .service-circle-inner img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
         transition: transform .5s ease;
     }
 
-    .premium-main-card:hover .premium-main-image img {
-        transform: scale(1.05);
+    .service-circle-item:hover .service-circle-inner img {
+        transform: scale(1.12);
     }
 
-    @media (max-width: 768px) {
-        .premium-main-image {
-            height: 220px;
+
+    /* FOTO KOSONG */
+
+    .service-circle-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-medium);
+        color: var(--green-dark);
+        font-size: 45px;
+    }
+
+
+    /* OVERLAY */
+
+    .service-circle-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(40, 92, 58, .55);
+        color: white;
+        font-size: 25px;
+        opacity: 0;
+        transition: opacity .35s ease;
+        pointer-events: none;
+    }
+
+    .service-circle-item:hover .service-circle-overlay {
+        opacity: 1;
+    }
+
+
+    /* NOMOR */
+
+    .service-circle-number {
+        position: absolute;
+        top: 112px;
+        right: 18px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-dark);
+        color: white;
+        border: 3px solid var(--green-bg);
+        border-radius: 50%;
+        font-size: 10px;
+        font-weight: 900;
+        z-index: 2;
+    }
+
+
+    /* JUDUL */
+
+    .service-circle-title {
+        min-height: 48px;
+        color: var(--green-dark);
+        font-size: 15px;
+        line-height: 1.5;
+        font-weight: 800;
+        margin: 0 0 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+
+    /* DESKRIPSI */
+
+    .service-circle-description {
+        min-height: 60px;
+        color: var(--green-text);
+        font-size: 11px;
+        line-height: 1.7;
+        margin: 0 0 12px;
+    }
+
+
+    /* DETAIL */
+
+    .service-circle-detail {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        color: var(--green-dark);
+        font-size: 11px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: all .3s ease;
+    }
+
+    .service-circle-detail:hover {
+        color: var(--green-accent);
+        gap: 12px;
+    }
+
+
+    /* TOMBOL SLIDER */
+
+    .service-slider-arrow {
+        position: absolute;
+        top: 70px;
+        z-index: 5;
+        width: 43px;
+        height: 43px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--green-border);
+        border-radius: 50%;
+        background: var(--green-card);
+        color: var(--green-dark);
+        font-size: 15px;
+        box-shadow: 0 4px 12px rgba(40, 92, 58, .10);
+        cursor: pointer;
+        transition: all .3s ease;
+    }
+
+    .service-slider-arrow:hover {
+        background: var(--green-dark);
+        color: white;
+        transform: scale(1.08);
+    }
+
+    .service-slider-arrow:disabled {
+        opacity: .35;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .service-slider-prev {
+        left: 0;
+    }
+
+    .service-slider-next {
+        right: 0;
+    }
+
+
+    /* PROGRESS */
+
+    .service-slider-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .service-slider-progress {
+        width: 150px;
+        height: 4px;
+        overflow: hidden;
+        background: var(--green-medium);
+        border-radius: 10px;
+    }
+
+    .service-slider-progress-bar {
+        width: 0;
+        height: 100%;
+        background: var(--green-dark);
+        border-radius: 10px;
+        transition: width .3s ease;
+    }
+
+    .service-slider-caption {
+        color: var(--green-text);
+        font-size: 11px;
+    }
+
+
+    /* SEMUA LAYANAN */
+
+    .service-more {
+        text-align: center;
+        margin-top: 35px;
+    }
+
+    .service-more-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 13px 25px;
+        background: var(--green-dark);
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 800;
+        transition: .3s;
+    }
+
+    .service-more-button:hover {
+        background: #3D7650;
+        color: white;
+        transform: translateY(-3px);
+    }
+
+
+    /* KOSONG */
+
+    .service-empty {
+        text-align: center;
+        padding: 45px 20px;
+        background: var(--green-card);
+        border: 1px dashed var(--green-accent);
+        border-radius: 16px;
+        color: var(--green-dark);
+    }
+
+    .service-empty>i {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+
+    .service-empty h4 {
+        font-weight: 800;
+    }
+
+    .service-empty p {
+        color: var(--green-text);
+        margin: 0;
+    }
+
+
+    /* =====================================================
+   BERITA
+===================================================== */
+
+    .news-modern-section {
+        padding: 75px 0 85px;
+        overflow: hidden;
+    }
+
+    .news-modern-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 25px;
+        margin-bottom: 38px;
+    }
+
+    .news-header-left {
+        max-width: 650px;
+    }
+
+    .news-header-left h2 {
+        color: var(--green-dark);
+        font-size: 36px;
+        font-weight: 900;
+        margin: 14px 0 0;
+    }
+
+    .news-title-line {
+        width: 65px;
+        height: 4px;
+        border-radius: 10px;
+        background: var(--green-accent);
+        margin: 12px 0;
+    }
+
+    .news-header-left p {
+        color: var(--green-text);
+        font-size: 15px;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    .news-all-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 12px 21px;
+        border: 1.5px solid var(--green-accent);
+        border-radius: 9px;
+        color: var(--green-dark);
+        font-size: 13px;
+        font-weight: 800;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: .3s;
+    }
+
+    .news-all-button:hover {
+        background: var(--green-medium);
+        color: var(--green-dark);
+        transform: translateY(-3px);
+    }
+
+    .news-modern-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 23px;
+    }
+
+    .news-modern-card {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        background: var(--green-card);
+        border: 1px solid var(--green-border);
+        border-top: 4px solid var(--green-accent);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(40, 92, 58, .06);
+        transition: .35s;
+    }
+
+    .news-modern-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 14px 30px rgba(40, 92, 58, .13);
+    }
+
+    .news-image-wrapper {
+        position: relative;
+        display: block;
+        height: 215px;
+        width: 100%;
+        overflow: hidden;
+        background: var(--green-medium);
+        text-decoration: none;
+    }
+
+    .news-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .6s ease;
+    }
+
+    .news-modern-card:hover .news-image {
+        transform: scale(1.07);
+    }
+
+    .news-image-placeholder {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-medium);
+        color: var(--green-dark);
+        font-size: 48px;
+    }
+
+    .news-category {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        padding: 7px 12px;
+        border-radius: 20px;
+        background: var(--green-medium);
+        color: var(--green-dark);
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .news-number {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: rgba(40, 92, 58, .85);
+        color: white;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 7px 10px;
+        border-radius: 7px;
+    }
+
+    .news-card-content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .news-date {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #718477;
+        font-size: 12px;
+        margin-bottom: 13px;
+    }
+
+    .news-date i {
+        color: var(--green-accent);
+    }
+
+    .news-card-title {
+        font-size: 17px;
+        font-weight: 800;
+        line-height: 1.5;
+        margin: 0 0 12px;
+        min-height: 51px;
+    }
+
+    .news-card-title a {
+        color: var(--green-dark);
+        text-decoration: none;
+    }
+
+    .news-card-title a:hover {
+        color: var(--green-accent);
+    }
+
+    .news-description {
+        color: var(--green-text);
+        font-size: 13px;
+        line-height: 1.8;
+        margin: 0 0 20px;
+        flex: 1;
+    }
+
+    .news-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid var(--green-border);
+        padding-top: 14px;
+        margin-top: auto;
+    }
+
+    .news-read-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--green-dark);
+        font-size: 12px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: .2s;
+    }
+
+    .news-read-more:hover {
+        color: var(--green-accent);
+        gap: 12px;
+    }
+
+    .news-read-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-medium);
+        color: var(--green-dark);
+    }
+
+    .news-empty {
+        text-align: center;
+        background: var(--green-card);
+        border: 1px dashed var(--green-accent);
+        border-radius: 17px;
+        padding: 60px 20px;
+    }
+
+    .news-empty-icon {
+        width: 75px;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--green-medium);
+        color: var(--green-dark);
+        font-size: 30px;
+        margin: 0 auto 18px;
+    }
+
+    .news-empty h4 {
+        font-size: 21px;
+        font-weight: 800;
+        color: var(--green-dark);
+    }
+
+    .news-empty p {
+        color: var(--green-text);
+        font-size: 14px;
+        margin: 0;
+    }
+
+
+    /* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+    .reveal {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(45px) scale(.96);
+        filter: blur(3px);
+
+        transition:
+            opacity .8s ease,
+            transform .8s cubic-bezier(.2, .7, .2, 1),
+            filter .8s ease,
+            visibility .8s ease;
+    }
+
+    .reveal.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+
+
+    /* HERO ANIMATION */
+
+    .hero-content-kua {
+        animation: heroAppear 1s ease both;
+    }
+
+    @keyframes heroAppear {
+        from {
+            opacity: 0;
+            transform: translate(-20px, -45%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(0, -50%);
         }
     }
+
+
+    /* STAGGER */
+
+    .home-service-section .service-circle-item:nth-child(2),
+    .news-modern-card:nth-child(2),
+    .quick-info-section .col-md-4:nth-child(2) {
+        transition-delay: .12s;
+    }
+
+    .home-service-section .service-circle-item:nth-child(3),
+    .news-modern-card:nth-child(3),
+    .quick-info-section .col-md-4:nth-child(3) {
+        transition-delay: .22s;
+    }
+
+    .news-modern-card:nth-child(4) {
+        transition-delay: .12s;
+    }
+
+    .home-service-section .service-circle-item:nth-child(4) {
+        transition-delay: .12s;
+    }
+
+    .home-service-section .service-circle-item:nth-child(5) {
+        transition-delay: .22s;
+    }
+
+
+    /* =====================================================
+   RESPONSIVE
+===================================================== */
+
+    @media(max-width:1199.98px) {
+
+        .news-modern-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+    }
+
+
+    @media(max-width:991.98px) {
+
+        .hero-slider-container-kua {
+            height: 440px;
+        }
+
+        .hero-content-kua {
+            max-width: 560px;
+        }
+
+        .hero-title-kua {
+            font-size: 38px;
+        }
+
+        .news-modern-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .news-header-left h2 {
+            font-size: 31px;
+        }
+
+        .service-slider-wrapper {
+            padding: 0 40px;
+        }
+
+        .service-circle-item {
+            flex-basis: 175px;
+            width: 175px;
+        }
+
+        .service-circle-image {
+            width: 135px;
+            height: 135px;
+        }
+
+        .service-circle-number {
+            top: 102px;
+            right: 15px;
+        }
+
+        .service-slider-arrow {
+            top: 62px;
+        }
+
+    }
+
+
+    @media(max-width:575.98px) {
+
+        .hero-slider-container-kua {
+            height: 440px;
+        }
+
+        .hero-overlay-kua {
+            background: rgba(10, 45, 27, .42);
+        }
+
+        .hero-content-kua {
+            padding: 0 24px;
+            max-width: 100%;
+        }
+
+        .hero-title-kua {
+            font-size: 32px;
+        }
+
+        .hero-description-kua {
+            font-size: 13px;
+        }
+
+        .btn-hero-primary-kua,
+        .btn-hero-secondary-kua {
+            min-height: 43px;
+            padding: 0 14px;
+            font-size: 12px;
+        }
+
+        .quick-info-section {
+            padding: 35px 0 40px;
+        }
+
+        .quick-card {
+            min-height: auto;
+            padding: 22px;
+        }
+
+        .home-service-section {
+            padding: 48px 0 55px;
+        }
+
+        .home-service-section .section-heading {
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+
+        .home-service-section .section-heading h2 {
+            font-size: 27px;
+        }
+
+        .home-service-section .section-heading p {
+            font-size: 12px;
+        }
+
+        .service-slider-wrapper {
+            padding: 0 29px;
+        }
+
+        .service-slider-track {
+            gap: 12px;
+        }
+
+        .service-circle-item {
+            flex-basis: 145px;
+            width: 145px;
+            padding: 5px 7px 12px;
+        }
+
+        .service-circle-image {
+            width: 112px;
+            height: 112px;
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+
+        .service-circle-number {
+            top: 85px;
+            right: 12px;
+            width: 27px;
+            height: 27px;
+            font-size: 9px;
+        }
+
+        .service-circle-title {
+            font-size: 13px;
+            min-height: 40px;
+        }
+
+        .service-circle-description {
+            font-size: 10px;
+            min-height: 55px;
+        }
+
+        .service-circle-placeholder {
+            font-size: 35px;
+        }
+
+        .service-slider-arrow {
+            width: 32px;
+            height: 32px;
+            font-size: 11px;
+            top: 45px;
+        }
+
+        .service-slider-progress {
+            width: 110px;
+        }
+
+        .service-slider-caption {
+            font-size: 10px;
+        }
+
+        .service-more {
+            margin-top: 25px;
+        }
+
+        .news-modern-section {
+            padding: 45px 0;
+        }
+
+        .news-modern-header {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .news-header-left h2 {
+            font-size: 28px;
+        }
+
+        .news-header-left p {
+            font-size: 13px;
+        }
+
+        .news-modern-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .news-image-wrapper {
+            height: 230px;
+        }
+
+        .news-card-title {
+            min-height: auto;
+        }
+
+    }
+
+
+    @media(max-width:380px) {
+
+        .hero-slider-container-kua {
+            height: 420px;
+        }
+
+        .hero-title-kua {
+            font-size: 29px;
+        }
+
+        .hero-description-kua {
+            font-size: 12px;
+        }
+
+    }
+
+
+    /* AKSESIBILITAS */
+
+    @media(prefers-reduced-motion:reduce) {
+
+        *,
+        *::before,
+        *::after {
+            scroll-behavior: auto !important;
+            animation-duration: .01ms !important;
+            transition-duration: .01ms !important;
+        }
+
+        .reveal {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            filter: none;
+        }
+
+        .service-slider-viewport {
+            scroll-behavior: auto;
+        }
+
+    }
+
+
+    /* =====================================================
+   AKHIR CSS
+===================================================== */
 </style>
 
-@endpush
+
+{{-- =====================================================
+     6. JAVASCRIPT SCROLL REVEAL DAN SLIDER
+===================================================== --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        /* =========================================
+           SCROLL REVEAL BERULANG
+        ========================================= */
+
+        const revealElements = document.querySelectorAll(
+            '.quick-info-section .col-md-4, ' +
+            '.section-heading, ' +
+            '.service-slider-wrapper, ' +
+            '.service-circle-item, ' +
+            '.service-slider-bottom, ' +
+            '.service-more, ' +
+            '.service-empty, ' +
+            '.news-modern-header, ' +
+            '.news-modern-card, ' +
+            '.news-empty'
+        );
+
+        revealElements.forEach(function(element) {
+            element.classList.add('reveal');
+        });
+
+        if ('IntersectionObserver' in window) {
+
+            const observer = new IntersectionObserver(function(entries) {
+
+                entries.forEach(function(entry) {
+
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    } else {
+                        entry.target.classList.remove('show');
+                    }
+
+                });
+
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -35px 0px'
+            });
+
+            revealElements.forEach(function(element) {
+                observer.observe(element);
+            });
+
+        } else {
+
+            revealElements.forEach(function(element) {
+                element.classList.add('show');
+            });
+
+        }
+
+
+        /* =========================================
+           SLIDER LAYANAN
+        ========================================= */
+
+        const viewport = document.getElementById('serviceViewport');
+        const track = document.getElementById('serviceTrack');
+        const prevButton = document.getElementById('servicePrev');
+        const nextButton = document.getElementById('serviceNext');
+        const progressBar = document.getElementById('serviceProgressBar');
+
+        if (!viewport || !track || !prevButton || !nextButton) {
+            return;
+        }
+
+        const items = track.querySelectorAll('.service-circle-item');
+
+        if (items.length === 0) {
+            return;
+        }
+
+        let autoSlide = null;
+        let isHovered = false;
+
+        function getStep() {
+
+            const item = items[0];
+            const styles = window.getComputedStyle(track);
+            const gap = parseFloat(styles.columnGap) || 0;
+
+            return item.getBoundingClientRect().width + gap;
+        }
+
+
+        function updateSlider() {
+
+            const maxScroll = Math.max(
+                0,
+                viewport.scrollWidth - viewport.clientWidth
+            );
+
+            prevButton.disabled = viewport.scrollLeft <= 2;
+            nextButton.disabled = viewport.scrollLeft >= maxScroll - 2;
+
+            if (progressBar) {
+
+                const progress = maxScroll > 0 ?
+                    (viewport.scrollLeft / maxScroll) * 100 :
+                    100;
+
+                progressBar.style.width = progress + '%';
+
+            }
+
+        }
+
+
+        function slideNext() {
+
+            const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+
+            if (maxScroll <= 0) {
+                return;
+            }
+
+            if (viewport.scrollLeft >= maxScroll - 5) {
+
+                viewport.scrollTo({
+                    left: 0,
+                    behavior: 'smooth'
+                });
+
+            } else {
+
+                viewport.scrollBy({
+                    left: getStep(),
+                    behavior: 'smooth'
+                });
+
+            }
+
+        }
+
+
+        function slidePrev() {
+
+            const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+
+            if (maxScroll <= 0) {
+                return;
+            }
+
+            if (viewport.scrollLeft <= 5) {
+
+                viewport.scrollTo({
+                    left: maxScroll,
+                    behavior: 'smooth'
+                });
+
+            } else {
+
+                viewport.scrollBy({
+                    left: -getStep(),
+                    behavior: 'smooth'
+                });
+
+            }
+
+        }
+
+
+        function stopAutoSlide() {
+
+            if (autoSlide) {
+                clearInterval(autoSlide);
+                autoSlide = null;
+            }
+
+        }
+
+
+        function startAutoSlide() {
+
+            stopAutoSlide();
+
+            if (
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            ) {
+                return;
+            }
+
+            autoSlide = setInterval(function() {
+
+                if (!isHovered && !document.hidden) {
+                    slideNext();
+                }
+
+            }, 4000);
+
+        }
+
+
+        nextButton.addEventListener('click', function() {
+
+            slideNext();
+            startAutoSlide();
+
+        });
+
+
+        prevButton.addEventListener('click', function() {
+
+            slidePrev();
+            startAutoSlide();
+
+        });
+
+
+        viewport.addEventListener('scroll', updateSlider);
+
+
+        viewport.addEventListener('mouseenter', function() {
+            isHovered = true;
+        });
+
+
+        viewport.addEventListener('mouseleave', function() {
+            isHovered = false;
+        });
+
+
+        viewport.addEventListener('touchstart', stopAutoSlide, {
+            passive: true
+        });
+
+
+        viewport.addEventListener('touchend', startAutoSlide, {
+            passive: true
+        });
+
+
+        document.addEventListener('visibilitychange', function() {
+
+            if (document.hidden) {
+                stopAutoSlide();
+            } else {
+                startAutoSlide();
+            }
+
+        });
+
+
+        window.addEventListener('resize', updateSlider);
+
+
+        updateSlider();
+        startAutoSlide();
+
+    });
+</script>
+
+@endsection

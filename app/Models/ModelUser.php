@@ -44,6 +44,7 @@ class ModelUser extends Authenticatable
         'role',
         'no_hp',
         'alamat',
+        'foto',
         'status',
     ];
 

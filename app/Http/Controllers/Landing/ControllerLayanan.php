@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Landing;
 
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +27,7 @@ class ControllerLayanan
             ->orderBy('id', 'asc')
             ->get();
 
-        return view('layanan.show', compact(
+        return view('landing.layanan.show', compact(
             'layanan',
             'layananLainnya'
         ));

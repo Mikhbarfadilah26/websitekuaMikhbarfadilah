@@ -1,831 +1,1067 @@
+
 @extends('layouts.applanding')
 
-@section('title', $berita->judul)
+@section('title', $berita->judul . ' | KUA Karang Baru')
 
 @section('content')
 
-<style>
-
-/* =========================================================
-   HALAMAN DETAIL BERITA
-========================================================= */
-
-.news-detail-page {
-    background: #ffffff;
-    min-height: 100vh;
-    padding: 125px 0 80px;
-}
-
-
-/* =========================================================
-   BREADCRUMB
-========================================================= */
-
-.news-breadcrumb {
-    font-size: 13px;
-    color: #94a3b8;
-    margin-bottom: 28px;
-}
-
-.news-breadcrumb a {
-    color: #64748b;
-    text-decoration: none;
-    transition: .2s;
-}
-
-.news-breadcrumb a:hover {
-    color: #0f766e;
-}
-
-.news-breadcrumb span {
-    margin: 0 8px;
-    color: #cbd5e1;
-}
-
-
-/* =========================================================
-   GRID ARTIKEL + SIDEBAR
-========================================================= */
-
-.news-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 310px;
-    gap: 55px;
-    align-items: start;
-}
-
-
-/* =========================================================
-   ARTIKEL
-========================================================= */
-
-.news-article {
-    min-width: 0;
-}
-
-
-/* =========================================================
-   KATEGORI
-========================================================= */
-
-.news-category {
-    display: inline-flex;
-    align-items: center;
-    color: #0f766e;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 14px;
-}
-
-.news-category::before {
-    content: "";
-    width: 4px;
-    height: 18px;
-    background: #0f766e;
-    border-radius: 5px;
-    margin-right: 9px;
-}
-
-
-/* =========================================================
-   JUDUL
-========================================================= */
-
-.news-title {
-    font-size: clamp(32px, 4vw, 48px);
-    line-height: 1.16;
-    font-weight: 800;
-    color: #0f172a;
-    letter-spacing: -1px;
-    margin: 0 0 18px;
-}
-
-
-/* =========================================================
-   META
-========================================================= */
-
-.news-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    color: #64748b;
-    font-size: 14px;
-    margin-bottom: 28px;
-}
-
-.news-meta .author {
-    font-weight: 700;
-    color: #334155;
-}
-
-.news-meta .separator {
-    color: #cbd5e1;
-}
-
-.news-meta i {
-    margin-right: 5px;
-    color: #94a3b8;
-}
-
-
-/* =========================================================
-   GARIS
-========================================================= */
-
-.news-divider {
-    height: 1px;
-    background: #e2e8f0;
-    margin-bottom: 28px;
-}
-
-
-/* =========================================================
-   FOTO UTAMA
-========================================================= */
-
-.news-main-image {
-    width: 100%;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.news-main-image img {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-}
-
-
-/* =========================================================
-   CAPTION
-========================================================= */
-
-.news-image-caption {
-    font-size: 12px;
-    color: #94a3b8;
-    margin-bottom: 30px;
-}
-
-
-/* =========================================================
-   TIDAK ADA FOTO
-========================================================= */
-
-.news-no-image {
-    height: 430px;
-    background: linear-gradient(
-        135deg,
-        #f0fdfa,
-        #ecfeff
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-}
-
-.news-no-image i {
-    font-size: 70px;
-    color: #0f766e;
-}
-
-
-/* =========================================================
-   ISI BERITA
-========================================================= */
-
-.news-content {
-    color: #334155;
-    font-size: 17px;
-    line-height: 1.9;
-}
-
-.news-content p {
-    margin-bottom: 22px;
-}
-
-.news-content h2,
-.news-content h3 {
-    color: #0f172a;
-    font-weight: 750;
-    margin-top: 35px;
-    margin-bottom: 15px;
-}
-
-.news-content img {
-    max-width: 100%;
-    height: auto;
-}
-
-
-/* =========================================================
-   SHARE
-========================================================= */
-
-.news-share {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 40px;
-    padding-top: 25px;
-    border-top: 1px solid #e2e8f0;
-}
-
-.news-share-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: #475569;
-    margin-right: 5px;
-}
-
-.share-button {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 1px solid #e2e8f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #475569;
-    background: #fff;
-    text-decoration: none;
-    transition: .25s;
-}
-
-.share-button:hover {
-    background: #0f766e;
-    color: #fff;
-    border-color: #0f766e;
-    transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   TOMBOL KEMBALI
-========================================================= */
-
-.news-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 35px;
-    color: #0f766e;
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: .2s;
-}
-
-.news-back:hover {
-    color: #115e59;
-    transform: translateX(-4px);
-}
-
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-.news-sidebar {
-    position: sticky;
-    top: 110px;
-}
-
-.sidebar-title {
-    font-size: 24px;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 20px;
-    padding-bottom: 13px;
-    border-bottom: 2px solid #0f766e;
-}
-
-
-/* =========================================================
-   SIDEBAR ITEM
-========================================================= */
-
-.sidebar-item {
-    display: flex;
-    gap: 13px;
-    padding: 15px 0;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.sidebar-number {
-    width: 38px;
-    height: 38px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f0fdfa;
-    color: #0f766e;
-    font-size: 14px;
-    font-weight: 800;
-    border-radius: 9px;
-}
-
-.sidebar-item-content {
-    min-width: 0;
-}
-
-.sidebar-item-content h4 {
-    font-size: 15px;
-    line-height: 1.45;
-    font-weight: 700;
-    margin: 0 0 7px;
-}
-
-.sidebar-item-content h4 a {
-    color: #334155;
-    text-decoration: none;
-    transition: .2s;
-}
-
-.sidebar-item-content h4 a:hover {
-    color: #0f766e;
-}
-
-.sidebar-date {
-    color: #94a3b8;
-    font-size: 11px;
-}
-
-.sidebar-date i {
-    margin-right: 4px;
-}
-
-
-/* =========================================================
-   INFO SIDEBAR
-========================================================= */
-
-.sidebar-info {
-    margin-top: 30px;
-    padding: 25px;
-    background: #f8fafc;
-    border-left: 4px solid #0f766e;
-}
-
-.sidebar-info h4 {
-    font-size: 17px;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 8px;
-}
-
-.sidebar-info p {
-    font-size: 13px;
-    line-height: 1.7;
-    color: #64748b;
-    margin: 0;
-}
-
-
-/* =========================================================
-   RESPONSIVE TABLET
-========================================================= */
-
-@media (max-width: 991px) {
-
-    .news-layout {
-        grid-template-columns: 1fr;
-        gap: 45px;
-    }
-
-    .news-sidebar {
-        position: static;
-    }
-
-    .news-title {
-        font-size: 38px;
-    }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE HP
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .news-detail-page {
-        padding: 105px 15px 60px;
-    }
-
-    .news-breadcrumb {
-        margin-bottom: 20px;
-    }
-
-    .news-title {
-        font-size: 30px;
-        letter-spacing: -.5px;
-    }
-
-    .news-meta {
-        font-size: 12px;
-    }
-
-    .news-main-image img {
-        height: 280px;
-    }
-
-    .news-no-image {
-        height: 280px;
-    }
-
-    .news-content {
-        font-size: 16px;
-        line-height: 1.8;
-    }
-
-    .news-sidebar {
-        margin-top: 10px;
-    }
-
-}
-
-
-/* =========================================================
-   HP KECIL
-========================================================= */
-
-@media (max-width: 480px) {
-
-    .news-detail-page {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-    .news-title {
-        font-size: 27px;
-    }
-
-    .news-main-image img {
-        height: 230px;
-    }
-
-    .news-content {
-        font-size: 15.5px;
-    }
-
-}
-
-</style>
-
-
-<div class="news-detail-page">
-
+@php
+    use App\Models\Saran;
+    use App\Models\Berita;
+    use Illuminate\Support\Facades\Auth;
+
+    // Mengambil komentar untuk berita ini
+    $komentarBerita = Saran::with('user')
+        ->where('berita_id', $berita->id)
+        ->latest()
+        ->get();
+
+    // Mengambil berita terbaru untuk sidebar
+    $beritaTerbaru = Berita::where('id', '!=', $berita->id)
+        ->latest()
+        ->take(5)
+        ->get();
+
+    // Memeriksa hak akses komentar
+    $bolehKomentar = Auth::check()
+        && Auth::user()->role === 'masyarakat'
+        && Auth::user()->status === 'disetujui';
+@endphp
+
+
+{{-- =====================================================
+     HEADER DETAIL BERITA
+===================================================== --}}
+
+<section class="detail-berita-header">
     <div class="container">
 
-        {{-- =================================================
-             BREADCRUMB
-        ================================================== --}}
-
-        <div class="news-breadcrumb">
-
-            <a href="{{ url('/beranda') }}">
-                Beranda
-            </a>
-
-            <span>/</span>
-
-            <a href="{{ route('landing.berita') }}">
-                Berita
-            </a>
-
-            <span>/</span>
-
-            <span>
-                Detail
-            </span>
-
+        <div class="detail-breadcrumb">
+            <a href="{{ route('landing') }}">Beranda</a>
+            <i class="bi bi-chevron-right"></i>
+            <a href="{{ route('landing.berita') }}">Berita</a>
+            <i class="bi bi-chevron-right"></i>
+            <span>Detail Berita</span>
         </div>
 
-
-        {{-- =================================================
-             LAYOUT ARTIKEL + SIDEBAR
-        ================================================== --}}
-
-        <div class="news-layout">
-
-
-            {{-- =================================================
-                 ARTIKEL UTAMA
-            ================================================== --}}
-
-            <article class="news-article">
-
-                {{-- KATEGORI --}}
-
-                <div class="news-category">
-                    Berita KUA
-                </div>
-
-
-                {{-- JUDUL --}}
-
-                <h1 class="news-title">
-                    {{ $berita->judul }}
-                </h1>
-
-
-                {{-- META --}}
-
-                <div class="news-meta">
-
-                    <span class="author">
-                        <i class="fas fa-user"></i>
-                        Admin KUA
-                    </span>
-
-                    <span class="separator">
-                        •
-                    </span>
-
-                    <span>
-                        <i class="far fa-calendar"></i>
-
-                        {{ $berita->created_at->translatedFormat('l, d F Y') }}
-                    </span>
-
-                    <span class="separator">
-                        •
-                    </span>
-
-                    <span>
-                        <i class="far fa-clock"></i>
-
-                        {{ $berita->created_at->format('H:i') }} WIB
-                    </span>
-
-                </div>
-
-
-                {{-- GARIS --}}
-
-                <div class="news-divider"></div>
-
-
-                {{-- =================================================
-                     FOTO BERITA
-                ================================================== --}}
-
-                @if($berita->foto)
-
-                    <div class="news-main-image">
-
-                        {{-- FOTO LANGSUNG DARI PUBLIC --}}
-
-                        <img
-                            src="{{ asset($berita->foto) }}"
-                            alt="{{ $berita->judul }}"
-                            onerror="this.style.display='none';">
-
-                    </div>
-
-                    <div class="news-image-caption">
-                        Foto: Dokumentasi KUA Karang Baru
-                    </div>
-
-                @else
-
-                    <div class="news-no-image">
-
-                        <i class="fas fa-newspaper"></i>
-
-                    </div>
-
-                @endif
-
-
-                {{-- =================================================
-                     ISI BERITA
-                ================================================== --}}
-
-                <div class="news-content">
-
-                    {!! nl2br(e($berita->isi)) !!}
-
-                </div>
-
-
-                {{-- =================================================
-                     SHARE
-                ================================================== --}}
-
-                <div class="news-share">
-
-                    <span class="news-share-label">
-                        Bagikan:
-                    </span>
-
-                    <a
-                        href="#"
-                        class="share-button"
-                        onclick="shareFacebook(event)"
-                        title="Bagikan ke Facebook">
-
-                        <i class="fab fa-facebook-f"></i>
-
-                    </a>
-
-                    <a
-                        href="#"
-                        class="share-button"
-                        onclick="shareWhatsApp(event)"
-                        title="Bagikan ke WhatsApp">
-
-                        <i class="fab fa-whatsapp"></i>
-
-                    </a>
-
-                    <a
-                        href="#"
-                        class="share-button"
-                        onclick="copyNewsLink(event)"
-                        title="Salin tautan">
-
-                        <i class="fas fa-link"></i>
-
-                    </a>
-
-                </div>
-
-
-                {{-- =================================================
-                     KEMBALI
-                ================================================== --}}
-
-                <a
-                    href="{{ route('landing.berita') }}"
-                    class="news-back">
-
-                    <i class="fas fa-arrow-left"></i>
-
-                    Kembali ke Berita
-
-                </a>
-
-            </article>
-
-
-            {{-- =================================================
-                 SIDEBAR
-                 DATA DARI DATABASE
-            ================================================== --}}
-
-            <aside class="news-sidebar">
-
-                <div class="sidebar-title">
-                    Berita Terbaru
-                </div>
-
-
-                {{-- =================================================
-                     LOOP BERITA DARI DATABASE
-                ================================================== --}}
-
-                @forelse($beritaTerbaru as $index => $item)
-
-                    <div class="sidebar-item">
-
-                        <div class="sidebar-number">
-                            {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+        <div class="detail-header-content">
+            <span class="detail-label">
+                <i class="bi bi-newspaper me-2"></i>
+                Informasi KUA Karang Baru
+            </span>
+
+            <h1>{{ $berita->judul }}</h1>
+
+            <div class="detail-meta">
+                <span>
+                    <i class="bi bi-calendar3 me-1"></i>
+                    {{ $berita->created_at->translatedFormat('d F Y') }}
+                </span>
+
+                <span>
+                    <i class="bi bi-chat-dots me-1"></i>
+                    {{ $komentarBerita->count() }} Komentar
+                </span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+{{-- =====================================================
+     KONTEN DETAIL BERITA
+===================================================== --}}
+
+<section class="detail-berita-section">
+    <div class="container">
+
+        <div class="row g-4">
+
+            {{-- ARTIKEL UTAMA --}}
+            <div class="col-lg-8">
+
+                <article class="artikel-card">
+
+                    {{-- FOTO BERITA --}}
+                    @if($berita->foto)
+                        <div class="artikel-image">
+                            <img
+                                src="{{ asset('foto/' . basename($berita->foto)) }}"
+                                alt="{{ $berita->judul }}"
+                                onerror="this.style.display='none'">
+                        </div>
+                    @endif
+
+
+                    {{-- ISI BERITA --}}
+                    <div class="artikel-content">
+
+                        <div class="artikel-info">
+                            <span>
+                                <i class="bi bi-calendar-event me-1"></i>
+                                {{ $berita->created_at->translatedFormat('d F Y') }}
+                            </span>
+
+                            <span>
+                                <i class="bi bi-building me-1"></i>
+                                KUA Kecamatan Karang Baru
+                            </span>
                         </div>
 
-                        <div class="sidebar-item-content">
+                        <h2>{{ $berita->judul }}</h2>
 
-                            <h4>
+                        <div class="artikel-isi">
+                            {!! $berita->isi !!}
+                        </div>
 
-                                <a
-                                    href="{{ route('berita.detail', $item->slug) }}">
 
-                                    {{ $item->judul }}
+                        {{-- BAGIKAN BERITA --}}
+                        <div class="artikel-share">
 
-                                </a>
+                            <span class="fw-semibold">
+                                Bagikan Berita:
+                            </span>
 
-                            </h4>
+                            <a
+                                href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+                                target="_blank"
+                                rel="noopener"
+                                aria-label="Bagikan ke Facebook">
+                                <i class="bi bi-facebook"></i>
+                            </a>
 
-                            <div class="sidebar-date">
+                            <a
+                                href="https://api.whatsapp.com/send?text={{ urlencode($berita->judul . ' ' . request()->fullUrl()) }}"
+                                target="_blank"
+                                rel="noopener"
+                                aria-label="Bagikan ke WhatsApp">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
 
-                                <i class="far fa-calendar"></i>
+                            <button
+                                type="button"
+                                onclick="salinLinkBerita()"
+                                aria-label="Salin tautan">
+                                <i class="bi bi-link-45deg"></i>
+                            </button>
 
-                                {{ $item->created_at->translatedFormat('d F Y') }}
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                {{-- =================================================
+                     KOMENTAR BERITA
+                ================================================== --}}
+
+                <div class="komentar-card mt-4" id="komentar">
+
+                    <div class="komentar-heading">
+
+                        <div>
+                            <span class="komentar-subtitle">
+                                RUANG DISKUSI
+                            </span>
+
+                            <h3>
+                                Komentar Pembaca
+                            </h3>
+
+                            <p>
+                                Sampaikan pendapat dan tanggapan Anda mengenai berita ini.
+                            </p>
+                        </div>
+
+                        <div class="jumlah-komentar">
+                            <i class="bi bi-chat-dots"></i>
+                            {{ $komentarBerita->count() }}
+                        </div>
+
+                    </div>
+
+
+                    {{-- NOTIFIKASI --}}
+                    @if(session('success'))
+                        <div class="alert alert-success rounded-3">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-warning rounded-3">
+                            <i class="bi bi-exclamation-circle-fill me-2"></i>
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="alert alert-danger rounded-3">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
+                    {{-- FORM KOMENTAR --}}
+                    <div class="form-komentar-area">
+
+                        @if($bolehKomentar)
+
+                            <form
+                                action="{{ route('berita.komentar.store', $berita->slug) }}"
+                                method="POST">
+
+                                @csrf
+
+                                <div class="d-flex gap-3">
+
+                                    <div class="avatar-komentar">
+                                        {{ strtoupper(substr(Auth::user()->nama ?? 'M', 0, 1)) }}
+                                    </div>
+
+                                    <div class="flex-grow-1">
+
+                                        <div class="mb-2">
+                                            <strong>
+                                                {{ Auth::user()->nama }}
+                                            </strong>
+
+                                            <small class="text-muted ms-1">
+                                                Menulis komentar
+                                            </small>
+                                        </div>
+
+                                        <textarea
+                                            name="isi_saran"
+                                            rows="4"
+                                            maxlength="2000"
+                                            class="form-control komentar-textarea @error('isi_saran') is-invalid @enderror"
+                                            placeholder="Tuliskan komentar Anda di sini..."
+                                            required>{{ old('isi_saran') }}</textarea>
+
+                                        @error('isi_saran')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+
+                                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-3">
+
+                                            <small class="text-muted">
+                                                Maksimal 2000 karakter.
+                                            </small>
+
+                                            <button type="submit"
+                                                    class="btn btn-kirim-komentar">
+
+                                                <i class="bi bi-send-fill me-2"></i>
+                                                Kirim Komentar
+
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        @elseif(!Auth::check())
+
+                            <div class="komentar-login-box">
+
+                                <div class="login-komentar-icon">
+                                    <i class="bi bi-person-lock"></i>
+                                </div>
+
+                                <div class="flex-grow-1">
+                                    <h5>Ingin ikut berkomentar?</h5>
+
+                                    <p>
+                                        Silakan login menggunakan akun masyarakat
+                                        yang telah disetujui oleh admin.
+                                    </p>
+
+                                    <a
+                                        href="{{ route('login', ['redirect' => route('berita.detail', $berita->slug) . '#komentar']) }}"
+                                        class="btn btn-kirim-komentar">
+
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                                        Login untuk Berkomentar
+
+                                    </a>
+                                </div>
 
                             </div>
 
+                        @elseif(Auth::user()->role !== 'masyarakat')
+
+                            <div class="komentar-login-box">
+                                <i class="bi bi-info-circle-fill text-primary fs-3"></i>
+
+                                <div>
+                                    <h5>Akses Komentar</h5>
+                                    <p class="mb-0">
+                                        Fitur komentar hanya tersedia untuk akun masyarakat.
+                                    </p>
+                                </div>
+                            </div>
+
+                        @else
+
+                            <div class="komentar-login-box">
+                                <i class="bi bi-clock-history text-warning fs-3"></i>
+
+                                <div>
+                                    <h5>Akun Belum Disetujui</h5>
+                                    <p class="mb-0">
+                                        Anda dapat memberikan komentar setelah akun
+                                        masyarakat disetujui oleh admin.
+                                    </p>
+                                </div>
+                            </div>
+
+                        @endif
+
+                    </div>
+
+
+                    {{-- DAFTAR KOMENTAR --}}
+                    <div class="daftar-komentar">
+
+                        <div class="daftar-komentar-title">
+                            Komentar Pengunjung
                         </div>
 
+                        @forelse($komentarBerita as $komentar)
+
+                            <div class="komentar-item">
+
+                                <div class="avatar-komentar">
+                                    {{ strtoupper(substr($komentar->user->nama ?? 'M', 0, 1)) }}
+                                </div>
+
+                                <div class="komentar-body">
+
+                                    <div class="komentar-user-info">
+
+                                        <strong>
+                                            {{ $komentar->user->nama ?? 'Pengguna' }}
+                                        </strong>
+
+                                        <small>
+                                            {{ $komentar->created_at->diffForHumans() }}
+                                        </small>
+
+                                    </div>
+
+                                    <div class="komentar-text">
+                                        {{ $komentar->isi_saran }}
+                                    </div>
+
+
+                                    {{-- BALASAN ADMIN --}}
+                                    @if($komentar->tanggapan)
+
+                                        <div class="balasan-admin">
+
+                                            <div class="balasan-admin-header">
+                                                <i class="bi bi-patch-check-fill me-1"></i>
+                                                Tanggapan Admin KUA
+                                            </div>
+
+                                            <div class="balasan-admin-text">
+                                                {{ $komentar->tanggapan }}
+                                            </div>
+
+                                        </div>
+
+                                    @endif
+
+                                </div>
+
+                            </div>
+
+                        @empty
+
+                            <div class="komentar-kosong">
+
+                                <div class="komentar-kosong-icon">
+                                    <i class="bi bi-chat-square-text"></i>
+                                </div>
+
+                                <h5>Belum Ada Komentar</h5>
+
+                                <p>
+                                    Jadilah orang pertama yang memberikan komentar
+                                    pada berita ini.
+                                </p>
+
+                            </div>
+
+                        @endforelse
+
                     </div>
-
-                @empty
-
-                    <div style="
-                        padding:20px 0;
-                        color:#94a3b8;
-                        font-size:14px;
-                    ">
-
-                        Belum ada berita lainnya.
-
-                    </div>
-
-                @endforelse
-
-
-                {{-- =================================================
-                     INFO KUA
-                ================================================== --}}
-
-                <div class="sidebar-info">
-
-                    <h4>
-                        KUA Karang Baru
-                    </h4>
-
-                    <p>
-                        Menyediakan informasi dan pelayanan
-                        keagamaan bagi masyarakat Kecamatan
-                        Karang Baru.
-                    </p>
 
                 </div>
 
-            </aside>
+            </div>
+
+
+            {{-- =================================================
+                 SIDEBAR BERITA TERBARU
+            ================================================== --}}
+
+            <div class="col-lg-4">
+
+                <aside class="sidebar-berita">
+
+                    <div class="sidebar-title">
+                        <span></span>
+                        Berita Terbaru
+                    </div>
+
+                    @forelse($beritaTerbaru as $item)
+
+                        <a
+                            href="{{ route('berita.detail', $item->slug) }}"
+                            class="sidebar-berita-item">
+
+                            @if($item->foto)
+                                <img
+                                    src="{{ asset('foto/' . basename($item->foto)) }}"
+                                    alt="{{ $item->judul }}"
+                                    onerror="this.style.display='none'">
+                            @else
+                                <div class="sidebar-image-placeholder">
+                                    <i class="bi bi-newspaper"></i>
+                                </div>
+                            @endif
+
+                            <div class="sidebar-berita-info">
+
+                                <small>
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    {{ $item->created_at->translatedFormat('d M Y') }}
+                                </small>
+
+                                <h6>
+                                    {{ \Illuminate\Support\Str::limit($item->judul, 65) }}
+                                </h6>
+
+                            </div>
+
+                        </a>
+
+                    @empty
+
+                        <p class="text-muted">
+                            Belum ada berita lainnya.
+                        </p>
+
+                    @endforelse
+
+
+                    <div class="sidebar-kontak">
+
+                        <div class="sidebar-kontak-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+
+                        <h5>KUA Kecamatan Karang Baru</h5>
+
+                        <p>
+                            Melayani masyarakat dengan ikhlas,
+                            ramah, dan penuh tanggung jawab.
+                        </p>
+
+                        <a href="{{ route('landing.kontak') }}">
+                            Informasi Kontak
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                    </div>
+
+                </aside>
+
+            </div>
 
         </div>
 
     </div>
+</section>
 
-</div>
 
-
-{{-- =========================================================
-     SCRIPT SHARE
-========================================================= --}}
+{{-- =====================================================
+     JAVASCRIPT
+===================================================== --}}
 
 <script>
-
-function shareFacebook(event) {
-
-    event.preventDefault();
-
-    const url = encodeURIComponent(
-        window.location.href
-    );
-
-    window.open(
-        'https://www.facebook.com/sharer/sharer.php?u=' + url,
-        '_blank',
-        'width=600,height=500'
-    );
-}
-
-
-function shareWhatsApp(event) {
-
-    event.preventDefault();
-
-    const url = encodeURIComponent(
-        window.location.href
-    );
-
-    const text = encodeURIComponent(
-        @json($berita->judul)
-    );
-
-    window.open(
-        'https://wa.me/?text=' + text + '%0A' + url,
-        '_blank'
-    );
-}
-
-
-function copyNewsLink(event) {
-
-    event.preventDefault();
-
-    navigator.clipboard.writeText(
-        window.location.href
-    ).then(function() {
-
-        alert('Tautan berita berhasil disalin.');
-
-    }).catch(function() {
-
-        alert('Gagal menyalin tautan.');
-
-    });
-
-}
-
+    function salinLinkBerita() {
+        navigator.clipboard.writeText(window.location.href)
+            .then(function () {
+                alert('Tautan berita berhasil disalin.');
+            })
+            .catch(function () {
+                alert('Tidak dapat menyalin tautan berita.');
+            });
+    }
 </script>
+
+
+{{-- =====================================================
+     CSS
+===================================================== --}}
+
+<style>
+
+    :root {
+        --kua-green: #28794b;
+        --kua-green-dark: #205f3b;
+        --kua-green-soft: #edf6ef;
+        --kua-text: #34483a;
+        --kua-muted: #7b8b80;
+        --kua-border: #e4ece6;
+    }
+
+    .detail-berita-header {
+        background: linear-gradient(135deg, #eaf5ec, #f4f9f4);
+        padding: 55px 0 65px;
+    }
+
+    .detail-breadcrumb {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--kua-muted);
+        margin-bottom: 30px;
+    }
+
+    .detail-breadcrumb a {
+        color: var(--kua-green);
+        text-decoration: none;
+    }
+
+    .detail-breadcrumb a:hover {
+        text-decoration: underline;
+    }
+
+    .detail-header-content {
+        max-width: 900px;
+    }
+
+    .detail-label {
+        display: inline-block;
+        color: var(--kua-green);
+        background: #dcefe1;
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    .detail-header-content h1 {
+        font-size: clamp(26px, 4vw, 40px);
+        line-height: 1.35;
+        font-weight: 800;
+        color: #244b32;
+        margin-bottom: 20px;
+    }
+
+    .detail-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+        color: #718277;
+        font-size: 13px;
+    }
+
+    .detail-berita-section {
+        padding: 55px 0 80px;
+        background: #f8fbf8;
+    }
+
+    .artikel-card,
+    .komentar-card {
+        background: white;
+        border: 1px solid var(--kua-border);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 5px 25px rgba(35, 75, 48, .045);
+    }
+
+    .artikel-image {
+        width: 100%;
+        height: 420px;
+        background: #eaf2eb;
+        overflow: hidden;
+    }
+
+    .artikel-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .artikel-content {
+        padding: 35px;
+    }
+
+    .artikel-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        color: var(--kua-muted);
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .artikel-content h2 {
+        color: #294b35;
+        font-size: 27px;
+        line-height: 1.4;
+        font-weight: 800;
+        margin-bottom: 25px;
+    }
+
+    .artikel-isi {
+        color: #45574a;
+        font-size: 15px;
+        line-height: 1.95;
+        overflow-wrap: anywhere;
+    }
+
+    .artikel-isi img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+
+    .artikel-isi iframe {
+        max-width: 100%;
+    }
+
+    .artikel-share {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        border-top: 1px solid var(--kua-border);
+        padding-top: 22px;
+        margin-top: 35px;
+        color: #53675a;
+        font-size: 13px;
+    }
+
+    .artikel-share a,
+    .artikel-share button {
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 50%;
+        background: var(--kua-green-soft);
+        color: var(--kua-green);
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .artikel-share a:hover,
+    .artikel-share button:hover {
+        background: var(--kua-green);
+        color: white;
+    }
+
+    /* KOMENTAR */
+
+    .komentar-card {
+        padding: 30px;
+    }
+
+    .komentar-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        border-bottom: 1px solid var(--kua-border);
+        padding-bottom: 22px;
+    }
+
+    .komentar-subtitle {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        color: var(--kua-green);
+    }
+
+    .komentar-heading h3 {
+        font-size: 23px;
+        font-weight: 800;
+        color: #294b35;
+        margin: 7px 0;
+    }
+
+    .komentar-heading p {
+        color: var(--kua-muted);
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .jumlah-komentar {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        border-radius: 14px;
+        background: var(--kua-green-soft);
+        color: var(--kua-green);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        font-weight: 700;
+    }
+
+    .form-komentar-area {
+        padding: 25px 0;
+        border-bottom: 1px solid var(--kua-border);
+    }
+
+    .avatar-komentar {
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dcefe1;
+        color: var(--kua-green-dark);
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .komentar-textarea {
+        border: 1px solid #dfe9e1;
+        background: #fbfdfb;
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 13px;
+        resize: vertical;
+    }
+
+    .komentar-textarea:focus {
+        border-color: #73a985;
+        box-shadow: 0 0 0 3px rgba(40, 121, 75, .09);
+    }
+
+    .btn-kirim-komentar {
+        background: var(--kua-green);
+        color: white;
+        border: 0;
+        border-radius: 9px;
+        padding: 10px 17px;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .btn-kirim-komentar:hover {
+        background: var(--kua-green-dark);
+        color: white;
+    }
+
+    .komentar-login-box {
+        display: flex;
+        align-items: flex-start;
+        gap: 17px;
+        background: #f3f8f3;
+        border: 1px solid #e1ede3;
+        border-radius: 13px;
+        padding: 20px;
+    }
+
+    .login-komentar-icon {
+        width: 45px;
+        height: 45px;
+        flex-shrink: 0;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dcefe1;
+        color: var(--kua-green);
+        font-size: 20px;
+    }
+
+    .komentar-login-box h5 {
+        font-size: 15px;
+        font-weight: 800;
+        color: #31543a;
+        margin-bottom: 7px;
+    }
+
+    .komentar-login-box p {
+        color: var(--kua-muted);
+        font-size: 12px;
+        line-height: 1.7;
+        margin-bottom: 13px;
+    }
+
+    .daftar-komentar {
+        padding-top: 25px;
+    }
+
+    .daftar-komentar-title {
+        color: #34523b;
+        font-weight: 800;
+        font-size: 14px;
+        margin-bottom: 22px;
+    }
+
+    .komentar-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+        padding: 18px 0;
+        border-bottom: 1px solid #edf2ee;
+    }
+
+    .komentar-body {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .komentar-user-info {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 9px;
+    }
+
+    .komentar-user-info strong {
+        color: #31513a;
+        font-size: 13px;
+    }
+
+    .komentar-user-info small {
+        color: #94a198;
+        font-size: 11px;
+    }
+
+    .komentar-text {
+        color: #526157;
+        font-size: 13px;
+        line-height: 1.8;
+        white-space: pre-line;
+        overflow-wrap: anywhere;
+    }
+
+    .balasan-admin {
+        margin-top: 15px;
+        padding: 14px;
+        background: #edf7ef;
+        border-left: 3px solid var(--kua-green);
+        border-radius: 8px;
+    }
+
+    .balasan-admin-header {
+        color: var(--kua-green);
+        font-size: 11px;
+        font-weight: 800;
+        margin-bottom: 7px;
+    }
+
+    .balasan-admin-text {
+        color: #46634c;
+        font-size: 12px;
+        line-height: 1.8;
+        white-space: pre-line;
+    }
+
+    .komentar-kosong {
+        text-align: center;
+        padding: 35px 15px;
+    }
+
+    .komentar-kosong-icon {
+        font-size: 38px;
+        color: #a3b7a7;
+        margin-bottom: 12px;
+    }
+
+    .komentar-kosong h5 {
+        color: #3c5943;
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    .komentar-kosong p {
+        color: var(--kua-muted);
+        font-size: 12px;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar-berita {
+        background: white;
+        padding: 25px;
+        border: 1px solid var(--kua-border);
+        border-radius: 18px;
+        box-shadow: 0 5px 25px rgba(35, 75, 48, .045);
+    }
+
+    .sidebar-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 17px;
+        font-weight: 800;
+        color: #31513a;
+        margin-bottom: 22px;
+    }
+
+    .sidebar-title span {
+        width: 4px;
+        height: 22px;
+        border-radius: 5px;
+        background: var(--kua-green);
+    }
+
+    .sidebar-berita-item {
+        display: flex;
+        gap: 13px;
+        padding: 13px 0;
+        border-bottom: 1px solid #edf2ee;
+        text-decoration: none;
+    }
+
+    .sidebar-berita-item img,
+    .sidebar-image-placeholder {
+        width: 90px;
+        height: 75px;
+        flex-shrink: 0;
+        border-radius: 9px;
+        object-fit: cover;
+        background: #eaf3eb;
+    }
+
+    .sidebar-image-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--kua-green);
+        font-size: 25px;
+    }
+
+    .sidebar-berita-info {
+        min-width: 0;
+    }
+
+    .sidebar-berita-info small {
+        color: #89978d;
+        font-size: 10px;
+    }
+
+    .sidebar-berita-info h6 {
+        color: #405b46;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.6;
+        margin-top: 6px;
+        transition: .2s;
+    }
+
+    .sidebar-berita-item:hover h6 {
+        color: var(--kua-green);
+    }
+
+    .sidebar-kontak {
+        background: #edf6ef;
+        border-radius: 13px;
+        padding: 22px;
+        margin-top: 25px;
+    }
+
+    .sidebar-kontak-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #d8ebdc;
+        color: var(--kua-green);
+        font-size: 19px;
+        margin-bottom: 13px;
+    }
+
+    .sidebar-kontak h5 {
+        color: #31543a;
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    .sidebar-kontak p {
+        color: #718277;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .sidebar-kontak a {
+        color: var(--kua-green);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    @media(max-width: 767px) {
+
+        .detail-berita-header {
+            padding: 35px 0 45px;
+        }
+
+        .detail-berita-section {
+            padding: 30px 0 50px;
+        }
+
+        .artikel-image {
+            height: 250px;
+        }
+
+        .artikel-content {
+            padding: 22px;
+        }
+
+        .artikel-content h2 {
+            font-size: 22px;
+        }
+
+        .komentar-card {
+            padding: 20px;
+        }
+
+        .komentar-heading h3 {
+            font-size: 20px;
+        }
+
+    }
+
+</style>
 
 @endsection

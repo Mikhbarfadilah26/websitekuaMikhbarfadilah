@@ -1,25 +1,43 @@
+
 <IfModule mod_rewrite.c>
+
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
 
     RewriteEngine On
 
-    # Handle Authorization Header
+    # ==========================================
+    # PAKSA HALAMAN BERITA MASUK KE LARAVEL
+    # ==========================================
+    # Agar folder public/berita tidak mengambil
+    # alih route halaman /berita
+    RewriteRule ^berita/?$ index.php [END,QSA]
+
+    # ==========================================
+    # HANDLE AUTHORIZATION HEADER
+    # ==========================================
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Handle X-XSRF-Token Header
+    # ==========================================
+    # HANDLE X-XSRF-TOKEN HEADER
+    # ==========================================
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
-    # Redirect Trailing Slashes If Not A Folder...
+    # ==========================================
+    # REDIRECT TRAILING SLASH
+    # ==========================================
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Send Requests To Front Controller...
+    # ==========================================
+    # KIRIM REQUEST KE LARAVEL
+    # ==========================================
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
 </IfModule>

@@ -10,6 +10,20 @@ use Illuminate\Support\Str;
 class ControllerBerita 
 {
     /**
+     * Folder penyimpanan foto berita
+     */
+    private function folderFoto()
+    {
+        $folder = public_path('foto/berita');
+
+        if (!is_dir($folder)) {
+            mkdir($folder, 0755, true);
+        }
+
+        return $folder;
+    }
+
+    /**
      * Menampilkan semua berita
      */
     public function index(Request $request)
@@ -63,10 +77,12 @@ class ControllerBerita
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
 
-            $namaFoto = time() . '_' . Str::slug($request->judul)
-                . '.' . $file->getClientOriginalExtension();
+            $namaFoto = Str::uuid() . '.' . $file->extension();
 
-            $file->move(public_path('berita'), $namaFoto);
+            $file->move(
+                $this->folderFoto(),
+                $namaFoto
+            );
 
             $foto = $namaFoto;
         }
@@ -119,21 +135,25 @@ class ControllerBerita
         ];
 
         if ($request->hasFile('foto')) {
-
-            // Hapus foto lama
-            if (
-                $berita->foto &&
-                file_exists(public_path('berita/' . $berita->foto))
-            ) {
-                unlink(public_path('berita/' . $berita->foto));
-            }
-
             $file = $request->file('foto');
 
-            $namaFoto = time() . '_' . Str::slug($request->judul)
-                . '.' . $file->getClientOriginalExtension();
+            $namaFoto = Str::uuid() . '.' . $file->extension();
 
-            $file->move(public_path('berita'), $namaFoto);
+            $file->move(
+                $this->folderFoto(),
+                $namaFoto
+            );
+
+            // Hapus foto lama setelah foto baru berhasil diunggah
+            if ($berita->foto) {
+                $fotoLama = $this->folderFoto()
+                    . DIRECTORY_SEPARATOR
+                    . basename($berita->foto);
+
+                if (is_file($fotoLama)) {
+                    unlink($fotoLama);
+                }
+            }
 
             $data['foto'] = $namaFoto;
         }
@@ -152,11 +172,14 @@ class ControllerBerita
     {
         $berita = Berita::findOrFail($id);
 
-        if (
-            $berita->foto &&
-            file_exists(public_path('berita/' . $berita->foto))
-        ) {
-            unlink(public_path('berita/' . $berita->foto));
+        if ($berita->foto) {
+            $pathFoto = public_path(
+                'foto/berita/' . basename($berita->foto)
+            );
+
+            if (is_file($pathFoto)) {
+                unlink($pathFoto);
+            }
         }
 
         $berita->delete();

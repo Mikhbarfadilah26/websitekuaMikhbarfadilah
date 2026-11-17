@@ -6,6 +6,6 @@ class ControllerDashboardmasyarakat
 {
     public function index()
     {
-        return view('masyarakat.dashboard');
+        return view('masyarakat.dashboard.dashboard');
     }
 }

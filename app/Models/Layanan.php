@@ -2,51 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Layanan extends Model
 {
-    use HasFactory;
-
-    /*
-    |--------------------------------------------------------------------------
-    | NAMA TABLE
-    |--------------------------------------------------------------------------
-    |
-    | Nama tabel di database adalah "layanan".
-    |
-    */
-
     protected $table = 'layanan';
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | MASS ASSIGNMENT
-    |--------------------------------------------------------------------------
-    */
 
     protected $fillable = [
         'judul',
         'slug',
         'isi',
-        'foto',
+        'gambar',
     ];
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | RELASI KE PERSYARATAN
-    |--------------------------------------------------------------------------
-    |
-    | Satu layanan dapat memiliki banyak persyaratan.
-    |
-    */
-
+    /**
+     * Relasi ke tabel persyaratan
+     */
     public function persyaratan(): HasMany
     {
-        return $this->hasMany(Persyaratan::class, 'layanan_id');
+        return $this->hasMany(Persyaratan::class, 'layanan_id', 'id');
     }
 }

@@ -1,358 +1,373 @@
-<nav class="app-header navbar navbar-expand bg-white border-0 shadow-sm">
 
-<div class="container-fluid px-3 px-lg-4">
+<nav class="app-header navbar navbar-expand clean-kua-navbar">
 
-    {{-- =================================================
-         LEFT
-    ================================================== --}}
-    <ul class="navbar-nav align-items-center">
+    <div class="container-fluid px-3 px-lg-4">
 
-        {{-- SIDEBAR TOGGLE --}}
-        <li class="nav-item me-2">
+        {{-- =================================================
+             LEFT NAVBAR
+        ================================================== --}}
+        <ul class="navbar-nav align-items-center">
 
-            <a class="nav-link d-flex align-items-center justify-content-center admin-menu-toggle"
-                data-lte-toggle="sidebar"
-                href="#"
-                role="button"
-                title="Buka Menu">
+            {{-- SIDEBAR TOGGLE --}}
+            <li class="nav-item me-2">
 
-                <i class="bi bi-list"></i>
+                <a class="nav-link admin-menu-toggle"
+                    data-lte-toggle="sidebar"
+                    href="#"
+                    role="button"
+                    title="Buka Menu">
 
-            </a>
+                    <i class="bi bi-list"></i>
 
-        </li>
+                </a>
 
+            </li>
 
-        {{-- BRAND MINI --}}
-        <li class="nav-item d-none d-lg-flex align-items-center">
+            {{-- BRAND MINI --}}
+            <li class="nav-item d-none d-lg-flex align-items-center">
 
-            <div class="admin-brand-mini">
+                <div class="admin-brand-mini">
 
-                <div class="admin-brand-icon">
-
-                    <i class="bi bi-building"></i>
-
-                </div>
-
-                <div class="admin-brand-text">
-
-                    <span class="brand-title">
-                        KUA Karang Baru
-                    </span>
-
-                    <span class="brand-subtitle">
-                        Admin Panel
-                    </span>
-
-                </div>
-
-            </div>
-
-        </li>
-
-
-        {{-- SEARCH --}}
-        <li class="nav-item ms-lg-4 d-none d-md-block">
-
-            <form action="{{ url('/pencarian') }}"
-                method="GET"
-                class="admin-search">
-
-                <i class="bi bi-search"></i>
-
-                <input
-                    type="search"
-                    name="search"
-                    placeholder="Cari sesuatu..."
-                    value="{{ request('search') }}">
-
-                <span class="search-shortcut">
-                    /
-                </span>
-
-            </form>
-
-        </li>
-
-    </ul>
-
-
-    {{-- =================================================
-         RIGHT
-    ================================================== --}}
-    <ul class="navbar-nav ms-auto align-items-center">
-
-
-        {{-- HOME --}}
-        <li class="nav-item me-1 d-none d-lg-block">
-
-            <a href="{{ url('/admin') }}"
-                class="nav-link admin-top-link"
-                title="Dashboard">
-
-                <i class="bi bi-house"></i>
-
-            </a>
-
-        </li>
-
-
-        {{-- NOTIFICATION --}}
-        <li class="nav-item dropdown me-1">
-
-            <a class="nav-link admin-top-link position-relative"
-                href="#"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                title="Notifikasi">
-
-                <i class="bi bi-bell"></i>
-
-                {{-- NOTIFICATION DOT --}}
-                <span class="notification-dot"></span>
-
-            </a>
-
-
-            <div class="dropdown-menu dropdown-menu-end admin-dropdown notification-dropdown">
-
-                <div class="notification-header">
-
-                    <div>
-
-                        <strong>
-                            Notifikasi
-                        </strong>
-
-                        <small>
-                            Pemberitahuan sistem
-                        </small>
-
+                    <div class="admin-brand-icon">
+                        <i class="bi bi-building"></i>
                     </div>
 
-                    <span class="notification-count">
-                        0
-                    </span>
+                    <div class="admin-brand-text">
 
-                </div>
+                        <span class="brand-title">
+                            KUA Karang Baru
+                        </span>
 
-
-                <div class="dropdown-divider"></div>
-
-
-                <div class="empty-notification">
-
-                    <div class="empty-notification-icon">
-
-                        <i class="bi bi-bell-slash"></i>
-
-                    </div>
-
-                    <strong>
-                        Tidak ada notifikasi
-                    </strong>
-
-                    <span>
-                        Belum ada pemberitahuan baru.
-                    </span>
-
-                </div>
-
-            </div>
-
-        </li>
-
-
-        {{-- PROFILE --}}
-        <li class="nav-item dropdown">
-
-            <a class="nav-link admin-profile"
-                href="#"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-
-                <div class="profile-avatar">
-
-                    <i class="bi bi-person"></i>
-
-                </div>
-
-
-                <div class="profile-info d-none d-md-flex">
-
-                    <span class="profile-name">
-
-                        {{ auth()->user()->nama ?? auth()->user()->name ?? 'Administrator' }}
-
-                    </span>
-
-                    <span class="profile-role">
-
-                        Administrator
-
-                    </span>
-
-                </div>
-
-
-                <i class="bi bi-chevron-down profile-chevron"></i>
-
-            </a>
-
-
-            {{-- PROFILE DROPDOWN --}}
-            <div class="dropdown-menu dropdown-menu-end admin-dropdown profile-dropdown">
-
-                <div class="profile-dropdown-header">
-
-                    <div class="profile-avatar profile-avatar-large">
-
-                        <i class="bi bi-person"></i>
-
-                    </div>
-
-                    <div>
-
-                        <strong>
-
-                            {{ auth()->user()->nama ?? auth()->user()->name ?? 'Administrator' }}
-
-                        </strong>
-
-                        <small>
-
+                        <span class="brand-subtitle">
                             Administrator
-
-                        </small>
+                        </span>
 
                     </div>
 
                 </div>
 
+            </li>
 
-                <div class="dropdown-divider"></div>
+            {{-- SEARCH --}}
+            <li class="nav-item ms-lg-4 d-none d-md-block">
 
+                <form action="{{ url('/pencarian') }}"
+                    method="GET"
+                    class="admin-search">
 
-                <a href="{{ route('admin.akun.index') }}"
-                    class="dropdown-item admin-dropdown-item">
+                    <i class="bi bi-search"></i>
 
-                    <span class="dropdown-item-icon">
+                    <input
+                        type="search"
+                        name="search"
+                        placeholder="Cari sesuatu..."
+                        value="{{ request('search') }}">
 
-                        <i class="bi bi-person"></i>
-
+                    <span class="search-shortcut">
+                        /
                     </span>
-
-                    <span>
-
-                        Akun Saya
-
-                    </span>
-
-                    <i class="bi bi-chevron-right ms-auto"></i>
-
-                </a>
-
-
-                <a href="{{ url('/admin') }}"
-                    class="dropdown-item admin-dropdown-item">
-
-                    <span class="dropdown-item-icon">
-
-                        <i class="bi bi-speedometer2"></i>
-
-                    </span>
-
-                    <span>
-
-                        Dashboard
-
-                    </span>
-
-                    <i class="bi bi-chevron-right ms-auto"></i>
-
-                </a>
-
-
-                <div class="dropdown-divider"></div>
-
-
-                <form action="{{ url('/logout') }}"
-                    method="POST">
-
-                    @csrf
-
-                    <button type="submit"
-                        class="dropdown-item admin-dropdown-item logout-item">
-
-                        <span class="dropdown-item-icon">
-
-                            <i class="bi bi-box-arrow-right"></i>
-
-                        </span>
-
-                        <span>
-
-                            Keluar
-
-                        </span>
-
-                    </button>
 
                 </form>
 
-            </div>
+            </li>
 
-        </li>
+        </ul>
 
-    </ul>
 
-</div>
+        {{-- =================================================
+             RIGHT NAVBAR
+        ================================================== --}}
+        <ul class="navbar-nav ms-auto align-items-center">
 
+            {{-- HOME --}}
+            <li class="nav-item me-1 d-none d-lg-block">
+
+                <a href="{{ route('admin.dashboard') }}"
+                    class="nav-link admin-top-link"
+                    title="Dashboard">
+
+                    <i class="bi bi-house"></i>
+
+                </a>
+
+            </li>
+
+
+            {{-- NOTIFICATION --}}
+            <li class="nav-item dropdown me-1">
+
+                <a class="nav-link admin-top-link position-relative"
+                    href="#"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    title="Notifikasi">
+
+                    <i class="bi bi-bell"></i>
+
+                    @php
+                        try {
+                            $jumlahNotifikasi = \App\Models\Saran::where(
+                                'status',
+                                'baru'
+                            )->count();
+                        } catch (\Throwable $e) {
+                            $jumlahNotifikasi = 0;
+                        }
+                    @endphp
+
+                    @if($jumlahNotifikasi > 0)
+
+                        <span class="notification-dot"></span>
+
+                    @endif
+
+                </a>
+
+                {{-- NOTIFICATION DROPDOWN --}}
+                <div class="dropdown-menu dropdown-menu-end admin-dropdown notification-dropdown">
+
+                    <div class="notification-header">
+
+                        <div>
+                            <strong>Notifikasi</strong>
+
+                            <small>
+                                Pemberitahuan sistem
+                            </small>
+                        </div>
+
+                        <span class="notification-count">
+                            {{ $jumlahNotifikasi }}
+                        </span>
+
+                    </div>
+
+                    <div class="dropdown-divider"></div>
+
+                    @if($jumlahNotifikasi > 0)
+
+                        <a href="{{ route('admin.saran.index', ['status' => 'baru']) }}"
+                            class="notification-item">
+
+                            <div class="notification-icon">
+                                <i class="bi bi-chat-dots"></i>
+                            </div>
+
+                            <div class="notification-content">
+
+                                <strong>
+                                    Pertanyaan baru
+                                </strong>
+
+                                <span>
+                                    Ada {{ $jumlahNotifikasi }} pesan yang belum dibaca.
+                                </span>
+
+                            </div>
+
+                            <i class="bi bi-chevron-right notification-arrow"></i>
+
+                        </a>
+
+                    @else
+
+                        <div class="empty-notification">
+
+                            <div class="empty-notification-icon">
+                                <i class="bi bi-bell-slash"></i>
+                            </div>
+
+                            <strong>
+                                Tidak ada notifikasi
+                            </strong>
+
+                            <span>
+                                Belum ada pemberitahuan baru.
+                            </span>
+
+                        </div>
+
+                    @endif
+
+                </div>
+
+            </li>
+
+
+            {{-- PROFILE --}}
+            <li class="nav-item dropdown">
+
+                <a class="nav-link admin-profile"
+                    href="#"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+
+                    <div class="profile-avatar">
+                        <i class="bi bi-person"></i>
+                    </div>
+
+                    <div class="profile-info d-none d-md-flex">
+
+                        <span class="profile-name">
+                            {{ auth()->user()->nama ?? auth()->user()->name ?? 'Administrator' }}
+                        </span>
+
+                        <span class="profile-role">
+                            Administrator
+                        </span>
+
+                    </div>
+
+                    <i class="bi bi-chevron-down profile-chevron"></i>
+
+                </a>
+
+
+                {{-- PROFILE DROPDOWN --}}
+                <div class="dropdown-menu dropdown-menu-end admin-dropdown profile-dropdown">
+
+                    <div class="profile-dropdown-header">
+
+                        <div class="profile-avatar profile-avatar-large">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                {{ auth()->user()->nama ?? auth()->user()->name ?? 'Administrator' }}
+                            </strong>
+
+                            <small>
+                                Administrator KUA
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="dropdown-divider"></div>
+
+                    {{-- AKUN SAYA --}}
+                    <a href="{{ route('admin.akun.index') }}"
+                        class="dropdown-item admin-dropdown-item">
+
+                        <span class="dropdown-item-icon">
+                            <i class="bi bi-person"></i>
+                        </span>
+
+                        <span>Akun Saya</span>
+
+                        <i class="bi bi-chevron-right ms-auto"></i>
+
+                    </a>
+
+                    {{-- DASHBOARD --}}
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="dropdown-item admin-dropdown-item">
+
+                        <span class="dropdown-item-icon">
+                            <i class="bi bi-speedometer2"></i>
+                        </span>
+
+                        <span>Dashboard</span>
+
+                        <i class="bi bi-chevron-right ms-auto"></i>
+
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    {{-- LOGOUT --}}
+                    <form action="{{ route('logout') }}"
+                        method="POST">
+
+                        @csrf
+
+                        <button type="submit"
+                            class="dropdown-item admin-dropdown-item logout-item">
+
+                            <span class="dropdown-item-icon">
+                                <i class="bi bi-box-arrow-right"></i>
+                            </span>
+
+                            <span>Keluar</span>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </li>
+
+        </ul>
+
+    </div>
 
 </nav>
 
+
+{{-- =========================================================
+     CLEAN GREEN NAVBAR CSS
+========================================================= --}}
+
 <style>
 
-/* =========================================================
-   ADMIN PREMIUM NAVBAR
-========================================================= */
-
-.app-header {
-    min-height: 68px;
-    z-index: 1030;
-    border-bottom: 1px solid rgba(0, 0, 0, .06) !important;
+:root {
+    --kua-green-dark: #285b46;
+    --kua-green: #39765b;
+    --kua-green-medium: #6c9b7d;
+    --kua-green-soft: #eaf2ec;
+    --kua-green-light: #f3f7f3;
+    --kua-green-border: #dce8de;
+    --kua-text: #34483c;
+    --kua-muted: #87968b;
 }
 
+/* =========================================================
+   NAVBAR
+========================================================= */
 
-/* SIDEBAR BUTTON
---------------------------------------------------------- */
+.clean-kua-navbar {
+    min-height: 68px;
+    background: #ffffff !important;
+    border-bottom: 1px solid var(--kua-green-border) !important;
+    box-shadow: 0 2px 10px rgba(40, 91, 70, .035) !important;
+    z-index: 1030;
+}
+
+/* =========================================================
+   SIDEBAR TOGGLE
+========================================================= */
 
 .admin-menu-toggle {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
 
-    border-radius: 12px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
 
-    color: #475569;
+    border-radius: 10px;
 
-    transition:
-        background .2s ease,
-        color .2s ease,
-        transform .2s ease;
+    color: var(--kua-green-dark) !important;
+
+    transition: all .2s ease;
 }
 
 .admin-menu-toggle i {
-    font-size: 22px;
+    font-size: 23px;
 }
 
 .admin-menu-toggle:hover {
-    background: #f1f5f9;
-    color: #2563eb;
+    background: var(--kua-green-soft);
+    color: var(--kua-green) !important;
 }
 
-
-/* MINI BRAND
---------------------------------------------------------- */
+/* =========================================================
+   MINI BRAND
+========================================================= */
 
 .admin-brand-mini {
     display: flex;
@@ -364,22 +379,17 @@
     width: 38px;
     height: 38px;
 
-    border-radius: 11px;
-
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: linear-gradient(
-        135deg,
-        #2563eb,
-        #4f46e5
-    );
+    background: var(--kua-green-soft);
 
-    color: white;
+    color: var(--kua-green-dark);
 
-    box-shadow:
-        0 5px 15px rgba(37, 99, 235, .22);
+    border: 1px solid var(--kua-green-border);
+
+    border-radius: 10px;
 }
 
 .admin-brand-icon i {
@@ -389,58 +399,52 @@
 .admin-brand-text {
     display: flex;
     flex-direction: column;
-    line-height: 1.15;
+    line-height: 1.25;
 }
 
 .brand-title {
+    color: var(--kua-green-dark);
     font-size: 13px;
-    font-weight: 700;
-    color: #172033;
+    font-weight: 600;
 }
 
 .brand-subtitle {
     margin-top: 3px;
+    color: var(--kua-muted);
     font-size: 10px;
-    font-weight: 500;
-    color: #94a3b8;
-    letter-spacing: .3px;
+    font-weight: 400;
 }
 
-
-/* SEARCH
---------------------------------------------------------- */
+/* =========================================================
+   SEARCH
+========================================================= */
 
 .admin-search {
-    width: 280px;
-    height: 42px;
+    width: 270px;
+    height: 40px;
 
     display: flex;
     align-items: center;
-
     gap: 9px;
 
-    padding: 0 10px 0 14px;
+    padding: 0 11px 0 13px;
 
-    background: #f8fafc;
+    background: var(--kua-green-light);
 
-    border: 1px solid #e8edf3;
+    border: 1px solid transparent;
 
-    border-radius: 12px;
+    border-radius: 9px;
 
-    transition:
-        border-color .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+    transition: all .2s ease;
 }
 
-.admin-search i {
-    color: #94a3b8;
-    font-size: 15px;
+.admin-search > i {
+    color: var(--kua-green-medium);
+    font-size: 14px;
 }
 
 .admin-search input {
     flex: 1;
-
     min-width: 0;
 
     border: 0;
@@ -448,117 +452,117 @@
 
     background: transparent;
 
-    color: #334155;
+    color: var(--kua-text);
 
-    font-size: 12px;
+    font-size: 11.5px;
 }
 
 .admin-search input::placeholder {
-    color: #94a3b8;
+    color: #9aa99e;
 }
 
 .admin-search:focus-within {
-    background: white;
-
-    border-color: #bfdbfe;
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, .08);
+    background: #fff;
+    border-color: var(--kua-green-medium);
+    box-shadow: 0 0 0 3px rgba(108, 155, 125, .10);
 }
 
 .search-shortcut {
-    width: 23px;
-    height: 23px;
+    width: 22px;
+    height: 22px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: white;
+    background: #fff;
 
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--kua-green-border);
 
-    border-radius: 6px;
+    border-radius: 5px;
 
-    color: #94a3b8;
+    color: var(--kua-muted);
 
-    font-size: 12px;
+    font-size: 11px;
 }
 
-
-/* TOP BUTTON
---------------------------------------------------------- */
+/* =========================================================
+   TOP LINKS
+========================================================= */
 
 .admin-top-link {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
 
     display: flex !important;
     align-items: center;
     justify-content: center;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    color: #64748b;
+    color: var(--kua-green-dark) !important;
 
-    transition:
-        background .2s ease,
-        color .2s ease;
+    transition: all .2s ease;
 }
 
 .admin-top-link i {
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .admin-top-link:hover {
-    background: #f1f5f9;
-    color: #2563eb;
+    background: var(--kua-green-soft);
+    color: var(--kua-green) !important;
 }
 
-
-/* NOTIFICATION
---------------------------------------------------------- */
+/* =========================================================
+   NOTIFICATION DOT
+========================================================= */
 
 .notification-dot {
     position: absolute;
+    top: 8px;
+    right: 8px;
 
-    top: 9px;
-    right: 9px;
+    width: 7px;
+    height: 7px;
 
-    width: 6px;
-    height: 6px;
-
-    border-radius: 50%;
-
-    background: #ef4444;
+    background: #dc6464;
 
     border: 1.5px solid white;
+
+    border-radius: 50%;
 }
 
-
-/* DROPDOWN
---------------------------------------------------------- */
+/* =========================================================
+   DROPDOWN
+========================================================= */
 
 .admin-dropdown {
-    margin-top: 9px !important;
-
+    margin-top: 10px !important;
     padding: 8px;
 
-    border: 1px solid #edf0f5;
+    border: 1px solid var(--kua-green-border);
 
-    border-radius: 14px;
+    border-radius: 12px;
 
-    box-shadow:
-        0 15px 40px rgba(15, 23, 42, .12);
+    background: #fff;
+
+    box-shadow: 0 12px 35px rgba(40, 91, 70, .10);
 
     min-width: 250px;
 }
 
+.dropdown-divider {
+    border-color: #edf2ed;
+    opacity: 1;
+}
 
-/* NOTIFICATION DROPDOWN */
+/* =========================================================
+   NOTIFICATION DROPDOWN
+========================================================= */
 
 .notification-dropdown {
-    width: 320px;
+    width: 310px;
     padding: 12px;
 }
 
@@ -576,101 +580,59 @@
 }
 
 .notification-header strong {
-    font-size: 13px;
-    color: #1e293b;
+    color: var(--kua-green-dark);
+    font-size: 12.5px;
+    font-weight: 600;
 }
 
 .notification-header small {
-    margin-top: 2px;
-    color: #94a3b8;
+    margin-top: 3px;
+    color: var(--kua-muted);
     font-size: 10px;
 }
 
 .notification-count {
-    min-width: 24px;
-    height: 24px;
+    min-width: 25px;
+    height: 25px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background: var(--kua-green-soft);
 
     border-radius: 7px;
 
-    background: #eff6ff;
-    color: #2563eb;
+    color: var(--kua-green-dark);
 
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
-.empty-notification {
-    padding: 25px 10px;
+/* NOTIFICATION ITEM */
 
+.notification-item {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    gap: 10px;
 
-    text-align: center;
-}
+    padding: 11px 8px;
 
-.empty-notification-icon {
-    width: 48px;
-    height: 48px;
+    border-radius: 9px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 10px;
-
-    border-radius: 14px;
-
-    background: #f8fafc;
-
-    color: #94a3b8;
-}
-
-.empty-notification-icon i {
-    font-size: 20px;
-}
-
-.empty-notification strong {
-    font-size: 12px;
-    color: #475569;
-}
-
-.empty-notification span {
-    margin-top: 4px;
-
-    font-size: 10px;
-
-    color: #94a3b8;
-}
-
-
-/* PROFILE
---------------------------------------------------------- */
-
-.admin-profile {
-    display: flex !important;
-    align-items: center;
-
-    gap: 9px;
-
-    padding: 5px 8px !important;
-
-    border-radius: 13px;
+    color: var(--kua-text);
 
     transition: background .2s ease;
 }
 
-.admin-profile:hover {
-    background: #f8fafc;
+.notification-item:hover {
+    background: var(--kua-green-light);
+    color: var(--kua-green-dark);
 }
 
-.profile-avatar {
-    width: 38px;
-    height: 38px;
+.notification-icon {
+    width: 35px;
+    height: 35px;
 
     flex-shrink: 0;
 
@@ -678,28 +640,125 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 11px;
+    background: var(--kua-green-soft);
 
-    background: linear-gradient(
-        135deg,
-        #2563eb,
-        #4f46e5
-    );
+    border-radius: 9px;
 
-    color: white;
+    color: var(--kua-green);
+}
 
-    box-shadow:
-        0 5px 15px rgba(37, 99, 235, .20);
+.notification-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.notification-content strong {
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.notification-content span {
+    color: var(--kua-muted);
+    font-size: 10px;
+}
+
+.notification-arrow {
+    margin-left: auto;
+    color: var(--kua-muted);
+    font-size: 11px;
+}
+
+/* EMPTY NOTIFICATION */
+
+.empty-notification {
+    padding: 24px 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+.empty-notification-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 10px;
+
+    background: var(--kua-green-light);
+
+    border-radius: 12px;
+
+    color: var(--kua-green-medium);
+}
+
+.empty-notification-icon i {
+    font-size: 19px;
+}
+
+.empty-notification strong {
+    color: var(--kua-green-dark);
+    font-size: 11.5px;
+}
+
+.empty-notification span {
+    margin-top: 4px;
+    color: var(--kua-muted);
+    font-size: 10px;
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.admin-profile {
+    display: flex !important;
+    align-items: center;
+    gap: 9px;
+
+    padding: 5px 8px !important;
+
+    border-radius: 10px;
+
+    transition: background .2s ease;
+}
+
+.admin-profile:hover {
+    background: var(--kua-green-light);
+}
+
+.profile-avatar {
+    width: 37px;
+    height: 37px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--kua-green-soft);
+
+    border: 1px solid var(--kua-green-border);
+
+    border-radius: 10px;
+
+    color: var(--kua-green-dark);
 }
 
 .profile-avatar i {
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .profile-info {
     flex-direction: column;
-
-    line-height: 1.15;
+    line-height: 1.2;
 }
 
 .profile-name {
@@ -709,46 +768,45 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 
-    color: #1e293b;
+    color: var(--kua-green-dark);
 
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 11.5px;
+    font-weight: 600;
 }
 
 .profile-role {
     margin-top: 4px;
 
-    color: #94a3b8;
+    color: var(--kua-muted);
 
     font-size: 10px;
 }
 
 .profile-chevron {
-    color: #94a3b8;
-    font-size: 11px;
+    color: var(--kua-muted);
+    font-size: 10px;
 }
 
-
-/* PROFILE DROPDOWN */
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
 
 .profile-dropdown {
-    width: 280px;
+    width: 270px;
 }
 
 .profile-dropdown-header {
     display: flex;
     align-items: center;
-
     gap: 10px;
 
     padding: 10px 8px 12px;
 }
 
 .profile-avatar-large {
-    width: 44px;
-    height: 44px;
-
-    border-radius: 13px;
+    width: 43px;
+    height: 43px;
+    border-radius: 11px;
 }
 
 .profile-dropdown-header > div:last-child {
@@ -757,83 +815,76 @@
 }
 
 .profile-dropdown-header strong {
-    color: #1e293b;
-    font-size: 12px;
+    color: var(--kua-green-dark);
+    font-size: 11.5px;
+    font-weight: 600;
 }
 
 .profile-dropdown-header small {
-    margin-top: 3px;
-
-    color: #94a3b8;
-
+    margin-top: 4px;
+    color: var(--kua-muted);
     font-size: 10px;
 }
 
-
-/* DROPDOWN ITEMS */
+/* DROPDOWN ITEM */
 
 .admin-dropdown-item {
     display: flex;
-
     align-items: center;
-
     gap: 10px;
 
     margin: 2px 0;
-
     padding: 9px 10px !important;
 
-    border-radius: 9px;
+    border-radius: 8px;
 
-    color: #475569;
+    color: var(--kua-text);
 
-    font-size: 12px;
+    font-size: 11.5px;
 
-    transition:
-        background .2s ease,
-        color .2s ease;
+    transition: all .2s ease;
 }
 
 .admin-dropdown-item:hover {
-    background: #f1f5f9;
-
-    color: #2563eb;
+    background: var(--kua-green-light);
+    color: var(--kua-green-dark);
 }
 
 .dropdown-item-icon {
-    width: 30px;
-    height: 30px;
+    width: 29px;
+    height: 29px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    background: var(--kua-green-soft);
+
     border-radius: 8px;
 
-    background: #f8fafc;
-
-    color: #64748b;
+    color: var(--kua-green);
 }
 
 .admin-dropdown-item:hover .dropdown-item-icon {
-    background: #eff6ff;
-    color: #2563eb;
+    background: #dcebdd;
+    color: var(--kua-green-dark);
 }
 
+/* LOGOUT */
+
 .logout-item {
-    color: #dc2626 !important;
+    color: #b65d5d !important;
 }
 
 .logout-item:hover {
-    background: #fef2f2 !important;
-    color: #dc2626 !important;
+    background: #fbefef !important;
+    color: #a64242 !important;
 }
 
 .logout-item .dropdown-item-icon {
-    color: #dc2626;
-    background: #fef2f2;
+    background: #fbefef;
+    color: #b65d5d;
 }
-
 
 /* =========================================================
    RESPONSIVE
@@ -841,12 +892,8 @@
 
 @media (max-width: 767.98px) {
 
-    .app-header {
+    .clean-kua-navbar {
         min-height: 60px;
-    }
-
-    .admin-brand-mini {
-        display: none;
     }
 
     .admin-profile {
@@ -858,7 +905,11 @@
     }
 
     .admin-dropdown {
-        margin-right: 6px !important;
+        margin-right: 5px !important;
+    }
+
+    .notification-dropdown {
+        width: 280px;
     }
 
 }

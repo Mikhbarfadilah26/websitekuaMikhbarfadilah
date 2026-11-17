@@ -1,15 +1,15 @@
-<aside class="app-sidebar bg-dark shadow"
+<aside class="app-sidebar kua-sidebar shadow"
     data-bs-theme="dark">
 
-    {{-- =================================================
-         BRAND
-    ================================================== --}}
+    {{-- BRAND --}}
     <div class="sidebar-brand">
         <a href="{{ route('admin.dashboard') }}"
             class="brand-link">
 
-            <span class="brand-image opacity-75">
-                <i class="bi bi-building-fill fs-4"></i>
+            <span class="brand-image">
+                <img src="{{ asset('foto/landing/7.png') }}"
+                    alt="Logo KUA"
+                    style="width: 35px; height: 35px; object-fit: contain;">
             </span>
 
             <span class="brand-text fw-semibold">
@@ -19,10 +19,7 @@
         </a>
     </div>
 
-
-    {{-- =================================================
-         SIDEBAR MENU
-    ================================================== --}}
+    {{-- SIDEBAR MENU --}}
     <div class="sidebar-wrapper">
 
         <nav class="mt-2">
@@ -31,132 +28,94 @@
                 data-lte-toggle="treeview"
                 role="menu">
 
-
-                {{-- =================================================
-                     DASHBOARD
-                ================================================== --}}
+                {{-- DASHBOARD --}}
                 <li class="nav-item">
-
                     <a href="{{ route('admin.dashboard') }}"
                         class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-speedometer2"></i>
-
-                        <p>
-                            Dashboard
-                        </p>
+                        <p>Dashboard</p>
 
                     </a>
-
                 </li>
 
-
-                {{-- =================================================
-                     KELOLA DATA
-                ================================================== --}}
+                {{-- KELOLA DATA --}}
                 <li class="nav-header">
                     KELOLA DATA
                 </li>
 
-
-                {{-- =================================================
-                     KELOLA BERITA
-                ================================================== --}}
+                {{-- BERITA --}}
                 <li class="nav-item">
-
                     <a href="{{ route('admin.berita.index') }}"
                         class="nav-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-newspaper"></i>
-
-                        <p>
-                            Kelola Berita
-                        </p>
+                        <p>Kelola Berita</p>
 
                     </a>
-
                 </li>
+                {{-- KELOLA ADMIN --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.admin.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.admin.*') ? 'active' : '' }}">
 
-                {{-- =================================================
-     KELOLA MASYARAKAT
-================================================== --}}
+                        <i class="nav-icon bi bi-person-badge-fill"></i>
+                        <p>Kelola Admin</p>
 
+                    </a>
+                </li>
+                {{-- MASYARAKAT --}}
                 <li class="nav-item">
                     <a href="{{ route('admin.masyarakat.index') }}"
                         class="nav-link {{ request()->is('admin/masyarakat*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-people-fill"></i>
-
-                        <p>
-                            Kelola Masyarakat
-                        </p>
+                        <p>Kelola Masyarakat</p>
 
                     </a>
                 </li>
 
-
-
-                {{-- =================================================
-                     KELOLA LAYANAN
-                ================================================== --}}
+                {{-- LAYANAN --}}
                 <li class="nav-item">
-
                     <a href="{{ route('admin.layanan.index') }}"
                         class="nav-link {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-grid-fill"></i>
-
-                        <p>
-                            Kelola Layanan
-                        </p>
+                        <p>Kelola Layanan</p>
 
                     </a>
-
                 </li>
-                <li class="nav-item">
 
+                {{-- PERSYARATAN --}}
+                <li class="nav-item">
                     <a href="{{ route('admin.persyaratan.index') }}"
                         class="nav-link {{ request()->routeIs('admin.persyaratan.*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-card-checklist"></i>
-
-                        <p>
-                            Kelola Persyaratan
-                        </p>
+                        <p>Kelola Persyaratan</p>
 
                     </a>
-
                 </li>
 
-
-
-                {{-- =================================================
-                     PELAYANAN
-                ================================================== --}}
+                {{-- PELAYANAN --}}
                 <li class="nav-header">
                     PELAYANAN
                 </li>
 
-
-                {{-- =================================================
-                     SARAN & PENGADUAN
-                ================================================== --}}
+                {{-- SARAN DAN PERTANYAAN --}}
                 <li class="nav-item">
-
                     <a href="{{ route('admin.saran.index') }}"
                         class="nav-link {{ request()->routeIs('admin.saran.*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-chat-dots-fill"></i>
 
-                        <p>
-                            Pertanyaan
-                        </p>
+                        <p>Pertanyaan</p>
 
                         @php
                         try {
                         $jumlahSaran = \App\Models\Saran::where(
                         'status',
-                        'belum_dibaca'
+                        'baru'
                         )->count();
                         } catch (\Throwable $e) {
                         $jumlahSaran = 0;
@@ -164,84 +123,51 @@
                         @endphp
 
                         @if($jumlahSaran > 0)
-
                         <span class="badge bg-danger rounded-pill ms-auto">
                             {{ $jumlahSaran }}
                         </span>
-
                         @endif
 
                     </a>
-
                 </li>
 
-
-                {{-- =================================================
-                     LAPORAN
-                ================================================== --}}
+                {{-- LAPORAN --}}
                 <li class="nav-item">
-
                     <a href="{{ route('admin.laporan.index') }}"
                         class="nav-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-bar-chart-fill"></i>
-
-                        <p>
-                            Laporan
-                        </p>
+                        <p>Laporan</p>
 
                     </a>
-
                 </li>
 
-
-                {{-- =================================================
-                     SISTEM
-                ================================================== --}}
+                {{-- SISTEM --}}
                 <li class="nav-header">
                     SISTEM
                 </li>
 
-
-                {{-- =================================================
-                     AKUN SAYA
-                ================================================== --}}
+                {{-- AKUN --}}
                 <li class="nav-item">
-
                     <a href="{{ route('admin.akun.index') }}"
                         class="nav-link {{ request()->routeIs('admin.akun.*') ? 'active' : '' }}">
 
                         <i class="nav-icon bi bi-person-circle"></i>
-
-                        <p>
-                            Akun Saya
-                        </p>
+                        <p>Akun Saya</p>
 
                     </a>
-
                 </li>
 
-
-                {{-- =================================================
-                     LOGOUT
-                ================================================== --}}
+                {{-- LOGOUT --}}
                 <li class="nav-item">
-
                     <a href="{{ route('logout') }}"
                         class="nav-link"
-                        onclick="
-                            event.preventDefault();
-                            document.getElementById('logout-form').submit();
-                        ">
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 
                         <i class="nav-icon bi bi-box-arrow-right"></i>
-
-                        <p>
-                            Logout
-                        </p>
+                        <p>Logout</p>
 
                     </a>
-
                 </li>
 
             </ul>
@@ -252,10 +178,7 @@
 
 </aside>
 
-
-{{-- =================================================
-     FORM LOGOUT
-================================================== --}}
+{{-- FORM LOGOUT --}}
 <form id="logout-form"
     action="{{ route('logout') }}"
     method="POST"

@@ -6,46 +6,45 @@ use App\Http\Controllers\Controller;
 use App\Models\Saran;
 use Illuminate\Http\Request;
 
-class ControllerSaran
+class ControllerSaran 
 {
-    /**
-     * Menampilkan semua saran.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | DAFTAR SARAN, PENGADUAN, DAN KOMENTAR
+    |--------------------------------------------------------------------------
+    */
+
     public function index(Request $request)
     {
-        $query = Saran::with('user')
-            ->latest();
+        $query = Saran::with(['user', 'berita'])->latest();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Pencarian
-        |--------------------------------------------------------------------------
-        */
-
+        // PENCARIAN
         if ($request->filled('search')) {
             $search = $request->search;
 
             $query->where(function ($q) use ($search) {
-
                 $q->where('isi_saran', 'like', '%' . $search . '%')
-
                     ->orWhere('status', 'like', '%' . $search . '%')
-
                     ->orWhereHas('user', function ($userQuery) use ($search) {
                         $userQuery->where('nama', 'like', '%' . $search . '%')
                             ->orWhere('email', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('berita', function ($beritaQuery) use ($search) {
+                        $beritaQuery->where('judul', 'like', '%' . $search . '%');
                     });
             });
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Filter Status
-        |--------------------------------------------------------------------------
-        */
-
+        // FILTER STATUS
         if ($request->filled('status')) {
             $query->where('status', $request->status);
+        }
+
+        // FILTER JENIS
+        if ($request->jenis === 'komentar') {
+            $query->whereNotNull('berita_id');
+        } elseif ($request->jenis === 'saran') {
+            $query->whereNull('berita_id');
         }
 
         $saran = $query->paginate(10)->withQueryString();
@@ -54,19 +53,17 @@ class ControllerSaran
     }
 
 
-    /**
-     * Menampilkan detail saran.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | DETAIL SARAN / KOMENTAR
+    |--------------------------------------------------------------------------
+    */
+
     public function show($id)
     {
-        $saran = Saran::with('user')->findOrFail($id);
+        $saran = Saran::with(['user', 'berita'])->findOrFail($id);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Jika saran masih baru, otomatis menjadi dibaca
-        |--------------------------------------------------------------------------
-        */
-
+        // UBAH STATUS BARU MENJADI DIBACA
         if ($saran->status === 'baru') {
             $saran->update([
                 'status' => 'dibaca',
@@ -77,20 +74,20 @@ class ControllerSaran
     }
 
 
-    /**
-     * Menyimpan balasan Admin.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | BALAS SARAN / KOMENTAR
+    |--------------------------------------------------------------------------
+    */
+
     public function balas(Request $request, $id)
     {
         $request->validate([
-            'tanggapan' => [
-                'required',
-                'string',
-                'min:3',
-            ],
+            'tanggapan' => ['required', 'string', 'min:3', 'max:2000'],
         ], [
             'tanggapan.required' => 'Balasan wajib diisi.',
             'tanggapan.min' => 'Balasan minimal 3 karakter.',
+            'tanggapan.max' => 'Balasan maksimal 2000 karakter.',
         ]);
 
         $saran = Saran::findOrFail($id);
@@ -106,9 +103,12 @@ class ControllerSaran
     }
 
 
-    /**
-     * Menghapus saran.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | HAPUS SARAN / KOMENTAR
+    |--------------------------------------------------------------------------
+    */
+
     public function destroy($id)
     {
         $saran = Saran::findOrFail($id);
@@ -117,6 +117,6 @@ class ControllerSaran
 
         return redirect()
             ->route('admin.saran.index')
-            ->with('success', 'Saran berhasil dihapus.');
+            ->with('success', 'Data berhasil dihapus.');
     }
 }

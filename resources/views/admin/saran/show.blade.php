@@ -1,364 +1,290 @@
+
 @extends('layouts.appadmin')
 
-@section('title', 'Detail Saran & Pengaduan')
+@section('title', 'Detail Saran dan Pengaduan')
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid py-4">
 
-    {{-- =====================================================
-     HEADER
-====================================================== --}}
-    <div class="saran-header shadow-sm">
-
+    {{-- HEADER --}}
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
         <div>
-            <div class="saran-header-title">
-                <i class="bi bi-chat-dots-fill me-2"></i>
-                Detail Saran & Pengaduan
-            </div>
-
-            <div class="saran-header-subtitle">
-                Lihat detail masukan yang disampaikan masyarakat
-            </div>
+            <h3 class="fw-bold mb-1">Detail Saran dan Pengaduan</h3>
+            <p class="text-muted mb-0">
+                Informasi pesan dan tanggapan dari masyarakat.
+            </p>
         </div>
 
         <a href="{{ route('admin.saran.index') }}"
-            class="btn btn-light btn-back">
-
+           class="btn btn-outline-secondary rounded-3">
             <i class="bi bi-arrow-left me-1"></i>
             Kembali
         </a>
-
     </div>
 
 
-    {{-- =====================================================
-     SUCCESS MESSAGE
-====================================================== --}}
+    {{-- NOTIFIKASI --}}
     @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show rounded-3">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            {{ session('success') }}
 
-    <div class="success-popup" id="successPopup">
-
-        <div class="success-icon">
-            <i class="bi bi-check-lg"></i>
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"></button>
         </div>
+    @endif
 
-        <div>
-            <div class="success-title">
-                Berhasil
-            </div>
-
-            <div class="success-text">
-                {{ session('success') }}
-            </div>
+    @if($errors->any())
+        <div class="alert alert-danger rounded-3">
+            <strong>Terjadi kesalahan:</strong>
+            <ul class="mb-0 mt-2">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-
-    </div>
-
     @endif
 
 
-    <div class="row g-4 mt-1">
+    <div class="row g-4">
 
-        {{-- =================================================
-         INFORMASI PENGIRIM
-    ================================================== --}}
+        {{-- INFORMASI PENGIRIM --}}
         <div class="col-lg-4">
 
-            <div class="card detail-card shadow-sm border-0">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
 
-                <div class="card-header-custom">
-
-                    <div class="card-icon">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
-
-                    <div>
-                        <div class="card-title-custom">
-                            Informasi Pengirim
-                        </div>
-
-                        <div class="card-subtitle-custom">
-                            Data pengguna
-                        </div>
-                    </div>
-
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-person-circle text-success me-2"></i>
+                        Informasi Pengirim
+                    </h5>
                 </div>
 
+                <div class="card-body px-4">
 
-                <div class="card-body">
+                    <div class="mb-3">
+                        <small class="text-muted d-block mb-1">
+                            Nama Pengirim
+                        </small>
 
-                    <div class="info-item">
-
-                        <div class="info-label">
-                            <i class="bi bi-person me-2"></i>
-                            Nama
+                        <div class="fw-semibold">
+                            {{ $saran->user->nama ?? 'Pengguna tidak ditemukan' }}
                         </div>
-
-                        <div class="info-value">
-                            {{ optional($saran->user)->nama
-                            ?? optional($saran->user)->name
-                            ?? 'Pengguna' }}
-                        </div>
-
                     </div>
 
+                    <hr>
 
-                    <div class="info-item">
-
-                        <div class="info-label">
-                            <i class="bi bi-envelope me-2"></i>
+                    <div class="mb-3">
+                        <small class="text-muted d-block mb-1">
                             Email
-                        </div>
-
-                        <div class="info-value">
-                            {{ optional($saran->user)->email ?? '-' }}
-                        </div>
-
-                    </div>
-
-
-                    @if(optional($saran->user)->no_hp)
-
-                    <div class="info-item">
-
-                        <div class="info-label">
-                            <i class="bi bi-telephone me-2"></i>
-                            No. HP
-                        </div>
-
-                        <div class="info-value">
-                            {{ $saran->user->no_hp }}
-                        </div>
-
-                    </div>
-
-                    @endif
-
-
-                    <div class="info-item">
-
-                        <div class="info-label">
-                            <i class="bi bi-calendar3 me-2"></i>
-                            Tanggal
-                        </div>
-
-                        <div class="info-value">
-                            {{ $saran->created_at
-                            ? $saran->created_at->format('d F Y, H:i')
-                            : '-' }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- STATUS --}}
-                    <div class="info-item border-0 pb-0">
-
-                        <div class="info-label">
-                            <i class="bi bi-circle-half me-2"></i>
-                            Status
-                        </div>
+                        </small>
 
                         <div>
+                            {{ $saran->user->email ?? '-' }}
+                        </div>
+                    </div>
 
-                            @if($saran->status === 'belum_dibaca')
+                    <hr>
 
-                            <span class="status-badge status-unread">
-                                <i class="bi bi-envelope-fill me-1"></i>
-                                Belum Dibaca
+                    <div class="mb-3">
+                        <small class="text-muted d-block mb-1">
+                            Nomor HP
+                        </small>
+
+                        <div>
+                            {{ $saran->user->no_hp ?? '-' }}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="mb-3">
+                        <small class="text-muted d-block mb-1">
+                            Tanggal Pengiriman
+                        </small>
+
+                        <div>
+                            {{ $saran->created_at->format('d F Y, H:i') }}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="mb-3">
+                        <small class="text-muted d-block mb-2">
+                            Jenis Pesan
+                        </small>
+
+                        @if($saran->berita_id)
+                            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
+                                <i class="bi bi-chat-dots me-1"></i>
+                                Komentar Berita
                             </span>
+                        @else
+                            <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                                <i class="bi bi-chat-left-text me-1"></i>
+                                Saran dan Pengaduan
+                            </span>
+                        @endif
+                    </div>
 
-                            @elseif($saran->status === 'dibaca')
+                    <hr>
 
-                            <span class="status-badge status-read">
-                                <i class="bi bi-envelope-open-fill me-1"></i>
+                    <div>
+                        <small class="text-muted d-block mb-2">
+                            Status Pesan
+                        </small>
+
+                        @if($saran->status === 'baru')
+                            <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill">
+                                Baru
+                            </span>
+                        @elseif($saran->status === 'dibaca')
+                            <span class="badge bg-info-subtle text-info px-3 py-2 rounded-pill">
                                 Dibaca
                             </span>
-
-                            @elseif($saran->status === 'dibalas')
-
-                            <span class="status-badge status-replied">
-                                <i class="bi bi-reply-fill me-1"></i>
-                                Sudah Dibalas
+                        @elseif($saran->status === 'dibalas')
+                            <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                                Dibalas
                             </span>
-
-                            @else
-
-                            <span class="status-badge status-default">
-                                {{ ucfirst(str_replace('_', ' ', $saran->status ?? '-')) }}
+                        @else
+                            <span class="badge bg-secondary px-3 py-2 rounded-pill">
+                                {{ ucfirst($saran->status) }}
                             </span>
-
-                            @endif
-
-                        </div>
-
+                        @endif
                     </div>
 
                 </div>
-
             </div>
 
         </div>
 
 
-        {{-- =================================================
-         DETAIL SARAN
-    ================================================== --}}
+        {{-- ISI PESAN DAN BALASAN --}}
         <div class="col-lg-8">
 
-            <div class="card detail-card shadow-sm border-0">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
 
-                <div class="card-header-custom">
-
-                    <div class="card-icon message-icon">
-                        <i class="bi bi-chat-left-text-fill"></i>
-                    </div>
-
-                    <div>
-                        <div class="card-title-custom">
-                            Isi Saran & Pengaduan
-                        </div>
-
-                        <div class="card-subtitle-custom">
-                            Pesan yang disampaikan oleh masyarakat
-                        </div>
-                    </div>
-
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-envelope-paper text-success me-2"></i>
+                        Isi Pesan
+                    </h5>
                 </div>
 
+                <div class="card-body px-4">
 
-                <div class="card-body">
+                    {{-- JUDUL BERITA --}}
+                    @if($saran->berita)
+                        <div class="mb-4 p-3 rounded-3 bg-light">
+                            <small class="text-muted d-block mb-1">
+                                Komentar pada berita
+                            </small>
 
-                    <div class="message-box">
-
-                        {!! nl2br(e($saran->isi_saran)) !!}
-
-                    </div>
-
-
-                    {{-- =================================================
-                     BALASAN ADMIN
-                ================================================== --}}
-                    @if(!empty($saran->balasan))
-
-                    <div class="reply-section">
-
-                        <div class="reply-heading">
-
-                            <div class="reply-icon">
-                                <i class="bi bi-reply-fill"></i>
+                            <div class="fw-semibold">
+                                {{ $saran->berita->judul }}
                             </div>
-
-                            <div>
-                                <div class="reply-title">
-                                    Balasan Admin
-                                </div>
-
-                                <div class="reply-subtitle">
-                                    Tanggapan dari pihak KUA
-                                </div>
-                            </div>
-
                         </div>
-
-
-                        <div class="reply-box">
-
-                            {!! nl2br(e($saran->balasan)) !!}
-
-                        </div>
-
-                    </div>
-
                     @endif
 
-
-                    {{-- =================================================
-                     FORM BALAS
-                ================================================== --}}
-                    <div class="reply-form-section">
-
-                        <div class="section-title">
-
-                            <i class="bi bi-send-fill me-2"></i>
-                            {{ !empty($saran->balasan)
-                            ? 'Perbarui Balasan'
-                            : 'Balas Saran' }}
-
-                        </div>
-
-
-                        @if($errors->any())
-
-                        <div class="alert alert-danger border-0 shadow-sm">
-
-                            <div class="fw-semibold mb-1">
-                                <i class="bi bi-exclamation-triangle-fill me-1"></i>
-                                Periksa kembali data
-                            </div>
-
-                            <ul class="mb-0 ps-3">
-
-                                @foreach($errors->all() as $error)
-
-                                <li>{{ $error }}</li>
-
-                                @endforeach
-
-                            </ul>
-
-                        </div>
-
-                        @endif
-
-
-                        <form
-                            action="{{ route('admin.saran.balas', $saran->id) }}"
-                            method="POST">
-
-                            @csrf
-
-                            <div class="mb-3">
-
-                                <label
-                                    for="tanggapan"
-                                    class="form-label fw-semibold">
-
-                                    Tanggapan Admin
-
-                                </label>
-
-                                <textarea
-                                    name="tanggapan"
-                                    id="tanggapan"
-                                    rows="6"
-                                    class="form-control"
-                                    placeholder="Tuliskan tanggapan untuk saran atau pengaduan ini..."
-                                    required>{{ old('tanggapan', $saran->balasan ?? '') }}</textarea>
-
-                            </div>
-
-
-                            <div class="d-flex justify-content-end">
-
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary btn-send">
-
-                                    <i class="bi bi-send-fill me-1"></i>
-                                    Kirim Balasan
-
-                                </button>
-
-                            </div>
-
-                        </form>
-
+                    <div class="pesan-box">
+                        {{ $saran->isi_saran }}
                     </div>
 
                 </div>
+            </div>
 
+
+            {{-- BALASAN ADMIN --}}
+            @if($saran->tanggapan)
+
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                    <div class="card-header bg-white border-0 pt-4 px-4">
+                        <h5 class="fw-bold mb-0">
+                            <i class="bi bi-reply-all text-success me-2"></i>
+                            Balasan Admin
+                        </h5>
+                    </div>
+
+                    <div class="card-body px-4 pb-4">
+
+                        <div class="balasan-box">
+                            {{ $saran->tanggapan }}
+                        </div>
+
+                    </div>
+                </div>
+
+            @endif
+
+
+            {{-- FORM BALASAN --}}
+            <div class="card border-0 shadow-sm rounded-4">
+
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-1">
+                        <i class="bi bi-pencil-square text-success me-2"></i>
+                        {{ $saran->tanggapan ? 'Ubah Balasan' : 'Kirim Balasan' }}
+                    </h5>
+
+                    <small class="text-muted">
+                        Tulis tanggapan admin untuk pesan ini.
+                    </small>
+                </div>
+
+                <div class="card-body px-4 pb-4">
+
+                    <form action="{{ route('admin.saran.balas', $saran->id) }}"
+                          method="POST">
+
+                        @csrf
+
+                        <div class="mb-3">
+
+                            <label for="tanggapan" class="form-label fw-semibold">
+                                Tanggapan Admin
+                            </label>
+
+                            <textarea
+                                name="tanggapan"
+                                id="tanggapan"
+                                rows="5"
+                                maxlength="2000"
+                                class="form-control rounded-3 @error('tanggapan') is-invalid @enderror"
+                                placeholder="Tuliskan balasan atau tanggapan admin..."
+                                required>{{ old('tanggapan', $saran->tanggapan) }}</textarea>
+
+                            @error('tanggapan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
+                            <small class="text-muted">
+                                Maksimal 2000 karakter.
+                            </small>
+
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+
+                            <button type="submit"
+                                    class="btn btn-success rounded-3 px-4">
+
+                                <i class="bi bi-send me-1"></i>
+
+                                {{ $saran->tanggapan ? 'Perbarui Balasan' : 'Kirim Balasan' }}
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
 
         </div>
@@ -367,414 +293,54 @@
 
 </div>
 
-{{-- =========================================================
-STYLE
-========================================================= --}}
 
+{{-- CSS --}}
 <style>
-    .saran-header {
-        background: linear-gradient(135deg,
-                #0f172a 0%,
-                #1e3a8a 55%,
-                #2563eb 100%);
 
-        border-radius: 16px;
-        padding: 22px 26px;
-        color: #fff;
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        gap: 20px;
-    }
-
-    .saran-header-title {
-        font-size: 23px;
-        font-weight: 700;
-    }
-
-    .saran-header-subtitle {
-        margin-top: 5px;
-        font-size: 14px;
-        opacity: .85;
-    }
-
-    .btn-back {
-        border: none;
-        border-radius: 10px;
-        padding: 10px 17px;
-        font-weight: 600;
-        white-space: nowrap;
-    }
-
-
-    /* =====================================================
-       SUCCESS POPUP
-    ====================================================== */
-
-    .success-popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-
-        transform: translate(-50%, -50%);
-
-        z-index: 9999;
-
-        min-width: 330px;
-        max-width: 90%;
-
-        padding: 18px 22px;
-
-        background: #fff;
-
+    .pesan-box {
+        background: #f6faf7;
+        border: 1px solid #e4eee7;
         border-radius: 14px;
-
-        box-shadow:
-            0 15px 50px rgba(15, 23, 42, .22);
-
-        display: flex;
-        align-items: center;
-        gap: 14px;
-
-        animation: popupShow .25s ease;
-    }
-
-    .success-icon {
-        width: 43px;
-        height: 43px;
-
-        border-radius: 50%;
-
-        background: #dcfce7;
-        color: #16a34a;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 20px;
-    }
-
-    .success-title {
-        font-weight: 700;
-        color: #166534;
-    }
-
-    .success-text {
-        color: #64748b;
-        font-size: 13px;
-        margin-top: 2px;
-    }
-
-    @keyframes popupShow {
-
-        from {
-            opacity: 0;
-            transform: translate(-50%, -46%);
-        }
-
-        to {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-        }
-
-    }
-
-
-    /* =====================================================
-       CARD
-    ====================================================== */
-
-    .detail-card {
-        border-radius: 16px;
-        overflow: hidden;
-    }
-
-    .card-header-custom {
-        padding: 18px 20px;
-
-        display: flex;
-        align-items: center;
-        gap: 13px;
-
-        border-bottom: 1px solid #eef2f7;
-        background: #fff;
-    }
-
-    .card-icon {
-        width: 43px;
-        height: 43px;
-
-        border-radius: 11px;
-
-        background: #e0ecff;
-        color: #2563eb;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 19px;
-    }
-
-    .message-icon {
-        background: #ede9fe;
-        color: #7c3aed;
-    }
-
-    .card-title-custom {
-        font-size: 16px;
-        font-weight: 700;
-        color: #1e293b;
-    }
-
-    .card-subtitle-custom {
-        font-size: 12px;
-        color: #94a3b8;
-        margin-top: 2px;
-    }
-
-
-    /* =====================================================
-       INFORMATION
-    ====================================================== */
-
-    .info-item {
-        padding: 14px 0;
-        border-bottom: 1px solid #eef2f7;
-    }
-
-    .info-label {
-        font-size: 12px;
-        color: #94a3b8;
-        margin-bottom: 5px;
-    }
-
-    .info-value {
-        color: #1e293b;
-        font-weight: 600;
-        word-break: break-word;
-    }
-
-
-    /* =====================================================
-       STATUS
-    ====================================================== */
-
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-
-        padding: 6px 10px;
-
-        border-radius: 20px;
-
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .status-unread {
-        background: #fee2e2;
-        color: #dc2626;
-    }
-
-    .status-read {
-        background: #fef3c7;
-        color: #b45309;
-    }
-
-    .status-replied {
-        background: #dcfce7;
-        color: #15803d;
-    }
-
-    .status-default {
-        background: #e2e8f0;
-        color: #475569;
-    }
-
-
-    /* =====================================================
-       MESSAGE
-    ====================================================== */
-
-    .message-box {
-        background: #f8fafc;
-
-        border: 1px solid #e2e8f0;
-
-        border-radius: 12px;
-
-        padding: 20px;
-
-        color: #334155;
-
-        line-height: 1.8;
-
+        padding: 22px;
         min-height: 130px;
-    }
-
-
-    /* =====================================================
-       REPLY
-    ====================================================== */
-
-    .reply-section {
-        margin-top: 25px;
-        padding-top: 22px;
-
-        border-top: 1px solid #eef2f7;
-    }
-
-    .reply-heading {
-        display: flex;
-        align-items: center;
-        gap: 11px;
-
-        margin-bottom: 12px;
-    }
-
-    .reply-icon {
-        width: 38px;
-        height: 38px;
-
-        border-radius: 10px;
-
-        background: #dcfce7;
-        color: #16a34a;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .reply-title {
-        font-weight: 700;
-        color: #1e293b;
-    }
-
-    .reply-subtitle {
-        color: #94a3b8;
-        font-size: 12px;
-    }
-
-    .reply-box {
-        background: #f0fdf4;
-
-        border: 1px solid #bbf7d0;
-
-        border-radius: 12px;
-
-        padding: 17px;
-
-        color: #166534;
-
         line-height: 1.8;
+        color: #344b3b;
+        white-space: pre-line;
+        overflow-wrap: anywhere;
     }
 
-
-    /* =====================================================
-       FORM BALAS
-    ====================================================== */
-
-    .reply-form-section {
-        margin-top: 25px;
-        padding-top: 22px;
-
-        border-top: 1px solid #eef2f7;
-    }
-
-    .section-title {
-        font-size: 15px;
-        font-weight: 700;
-
-        color: #1e293b;
-
-        margin-bottom: 14px;
-    }
-
-    textarea.form-control {
-        resize: vertical;
-        line-height: 1.6;
-
-        border-color: #dbe2ea;
-    }
-
-    textarea.form-control:focus {
-        border-color: #2563eb;
-
-        box-shadow:
-            0 0 0 .2rem rgba(37, 99, 235, .10);
-    }
-
-    .btn-send {
-        border: none;
+    .balasan-box {
+        background: #edf8f0;
+        border-left: 4px solid #23834b;
         border-radius: 10px;
-
-        padding: 10px 18px;
-
-        font-weight: 600;
+        padding: 20px;
+        line-height: 1.8;
+        color: #285c3a;
+        white-space: pre-line;
+        overflow-wrap: anywhere;
     }
 
-
-    /* =====================================================
-       RESPONSIVE
-    ====================================================== */
-
-    @media (max-width: 768px) {
-
-        .saran-header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .btn-back {
-            width: 100%;
-        }
-
-        .success-popup {
-            min-width: auto;
-            width: calc(100% - 30px);
-        }
-
+    .card {
+        transition: box-shadow .2s ease;
     }
+
+    .form-control {
+        border-color: #dce7df;
+        padding: 12px 14px;
+    }
+
+    .form-control:focus {
+        border-color: #429b64;
+        box-shadow: 0 0 0 .2rem rgba(66, 155, 100, .12);
+    }
+
+    @media(max-width: 576px) {
+        .pesan-box,
+        .balasan-box {
+            padding: 15px;
+        }
+    }
+
 </style>
-
-{{-- =========================================================
-JAVASCRIPT
-========================================================= --}}
-@if(session('success'))
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        const popup = document.getElementById('successPopup');
-
-        if (popup) {
-
-            setTimeout(function() {
-
-                popup.style.opacity = '0';
-                popup.style.transform = 'translate(-50%, -55%)';
-
-                popup.style.transition =
-                    'opacity .3s ease, transform .3s ease';
-
-                setTimeout(function() {
-
-                    popup.remove();
-
-                }, 300);
-
-            }, 2500);
-
-        }
-
-    });
-</script>
-
-@endif
 
 @endsection

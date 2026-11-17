@@ -1,15 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         @yield('title', 'Dashboard Masyarakat')
     </title>
+
+    {{-- FAVICON LOGO KUA --}}
+    <link rel="icon" type="image/png" href="{{ asset('7.png') }}?v=2">
+    <link rel="shortcut icon" href="{{ asset('7.png') }}?v=2">
 
     {{-- =====================================================
          BOOTSTRAP
@@ -39,7 +43,6 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-
     {{-- =====================================================
          CSS LAYOUT MASYARAKAT
     ====================================================== --}}
@@ -65,7 +68,6 @@
             overflow-x: hidden;
         }
 
-
         /* =====================================================
            NAVBAR
         ====================================================== */
@@ -78,7 +80,6 @@
             height: 70px;
             z-index: 1050;
         }
-
 
         /* =====================================================
            SIDEBAR
@@ -99,7 +100,6 @@
             overflow-x: hidden;
         }
 
-
         /* =====================================================
            MAIN CONTENT
         ====================================================== */
@@ -118,7 +118,6 @@
             background: #f5f7fb;
         }
 
-
         /* =====================================================
            CONTAINER
         ====================================================== */
@@ -130,7 +129,6 @@
             padding: 0;
         }
 
-
         /* =====================================================
            PAGE HEADER
         ====================================================== */
@@ -139,7 +137,6 @@
             color: #111827;
             font-size: 28px;
         }
-
 
         /* =====================================================
            CARD
@@ -164,7 +161,6 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
         }
 
-
         /* =====================================================
            ALERT
         ====================================================== */
@@ -172,7 +168,6 @@
         .alert {
             border-radius: 10px;
         }
-
 
         /* =====================================================
            BUTTON
@@ -182,7 +177,6 @@
             border-radius: 8px;
         }
 
-
         /* =====================================================
            TABLE
         ====================================================== */
@@ -190,7 +184,6 @@
         .table {
             vertical-align: middle;
         }
-
 
         /* =====================================================
            BADGE
@@ -200,7 +193,6 @@
             border-radius: 6px;
         }
 
-
         /* =====================================================
            FOOTER
         ====================================================== */
@@ -208,7 +200,6 @@
         .masyarakat-footer {
             margin-left: 260px !important;
         }
-
 
         /* =====================================================
            MOBILE
@@ -233,24 +224,18 @@
 
         }
 
-
         @media (max-width: 767.98px) {
 
             .masyarakat-sidebar {
                 position: relative !important;
-
                 top: 0 !important;
-
                 width: 100% !important;
-
                 height: auto !important;
             }
 
             .masyarakat-main {
                 margin-left: 0 !important;
-
                 width: 100% !important;
-
                 padding: 90px 15px 30px 15px;
             }
 
@@ -266,160 +251,156 @@
 
 </head>
 
-
 <body>
 
+    {{-- =========================================================
+         NAVBAR
+    ========================================================= --}}
 
-{{-- =========================================================
-     NAVBAR
-========================================================= --}}
-
-@include('layouts.masyarakat.navbar')
-
-
-{{-- =========================================================
-     SIDEBAR
-========================================================= --}}
-
-@include('layouts.masyarakat.sidebar')
+    @include('layouts.masyarakat.navbar')
 
 
-{{-- =========================================================
-     MAIN
-========================================================= --}}
+    {{-- =========================================================
+         SIDEBAR
+    ========================================================= --}}
 
-<main class="masyarakat-main">
-
-    <div class="container-fluid">
+    @include('layouts.masyarakat.sidebar')
 
 
-        {{-- =================================================
-             HEADER
-        ================================================== --}}
+    {{-- =========================================================
+         MAIN
+    ========================================================= --}}
 
-        <div class="mb-4">
+    <main class="masyarakat-main">
 
-            <h3 class="fw-semibold mb-1">
-                @yield('page-title', 'Dashboard')
-            </h3>
+        <div class="container-fluid">
 
-            <small class="text-muted">
-                @yield('breadcrumb', 'Dashboard')
-            </small>
+            {{-- =================================================
+                 HEADER
+            ================================================== --}}
+
+            <div class="mb-4">
+
+                <h3 class="fw-semibold mb-1">
+                    @yield('page-title', 'Dashboard')
+                </h3>
+
+                <small class="text-muted">
+                    @yield('breadcrumb', 'Dashboard')
+                </small>
+
+            </div>
+
+
+            {{-- =================================================
+                 SUCCESS
+            ================================================== --}}
+
+            @if(session('success'))
+
+                <div class="alert alert-success alert-dismissible fade show mb-4">
+
+                    <i class="bi bi-check-circle me-2"></i>
+
+                    {{ session('success') }}
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            @endif
+
+
+            {{-- =================================================
+                 ERROR
+            ================================================== --}}
+
+            @if(session('error'))
+
+                <div class="alert alert-danger alert-dismissible fade show mb-4">
+
+                    <i class="bi bi-exclamation-circle me-2"></i>
+
+                    {{ session('error') }}
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            @endif
+
+
+            {{-- =================================================
+                 VALIDATION ERROR
+            ================================================== --}}
+
+            @if($errors->any())
+
+                <div class="alert alert-danger alert-dismissible fade show mb-4">
+
+                    <strong>
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        Terjadi kesalahan
+                    </strong>
+
+                    <ul class="mb-0 mt-2">
+
+                        @foreach($errors->all() as $error)
+
+                            <li>
+                                {{ $error }}
+                            </li>
+
+                        @endforeach
+
+                    </ul>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            @endif
+
+
+            {{-- =================================================
+                 CONTENT
+            ================================================== --}}
+
+            @yield('content')
 
         </div>
 
-
-        {{-- =================================================
-             SUCCESS
-        ================================================== --}}
-
-        @if(session('success'))
-
-            <div class="alert alert-success alert-dismissible fade show mb-4">
-
-                <i class="bi bi-check-circle me-2"></i>
-
-                {{ session('success') }}
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert">
-                </button>
-
-            </div>
-
-        @endif
+    </main>
 
 
-        {{-- =================================================
-             ERROR
-        ================================================== --}}
+    {{-- =========================================================
+         FOOTER
+    ========================================================= --}}
 
-        @if(session('error'))
-
-            <div class="alert alert-danger alert-dismissible fade show mb-4">
-
-                <i class="bi bi-exclamation-circle me-2"></i>
-
-                {{ session('error') }}
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert">
-                </button>
-
-            </div>
-
-        @endif
+    @include('layouts.masyarakat.footer')
 
 
-        {{-- =================================================
-             VALIDATION ERROR
-        ================================================== --}}
+    {{-- =========================================================
+         BOOTSTRAP JS
+    ========================================================= --}}
 
-        @if($errors->any())
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
 
-            <div class="alert alert-danger alert-dismissible fade show mb-4">
-
-                <strong>
-                    <i class="bi bi-exclamation-triangle me-2"></i>
-                    Terjadi kesalahan
-                </strong>
-
-                <ul class="mb-0 mt-2">
-
-                    @foreach($errors->all() as $error)
-
-                        <li>
-                            {{ $error }}
-                        </li>
-
-                    @endforeach
-
-                </ul>
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert">
-                </button>
-
-            </div>
-
-        @endif
-
-
-        {{-- =================================================
-             CONTENT
-        ================================================== --}}
-
-        @yield('content')
-
-
-    </div>
-
-</main>
-
-
-{{-- =========================================================
-     FOOTER
-========================================================= --}}
-
-@include('layouts.masyarakat.footer')
-
-
-{{-- =========================================================
-     BOOTSTRAP JS
-========================================================= --}}
-
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-</script>
-
-@stack('scripts')
+    @stack('scripts')
 
 </body>
 

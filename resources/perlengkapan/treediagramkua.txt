@@ -1,124 +1,201 @@
-ABSENSISISWASMKIKHBARFADILLAH/
+
+APLIKASIKUA/
 │
 ├── app/
+│   │
 │   ├── Http/
+│   │   │
 │   │   ├── Controllers/
+│   │   │   │
+│   │   │   ├── Landing/
+│   │   │   │   ├── ControllerLanding.php
+│   │   │   │   └── ControllerLayanan.php
+│   │   │   │
 │   │   │   ├── Auth/
 │   │   │   │   ├── ControllerAuthUser.php
-│   │   │   │   ├── ControllerAuthmasyarakat.php
-│   │   │   │   └──  ControllerRegistermasyarakat.php
+│   │   │   │   └── ControllerRegisterUser.php
+│   │   │   │
 │   │   │   ├── Dashboard/
 │   │   │   │   ├── ControllerDashboardAdmin.php
-│   │   │   │   └── ControllerDashboardmasyarakat.php
-│   │   │   ├── Master/
-│   │   │   │   ├── ControllerUser.php
-│   │   │   │   └── ControllerPengumuman.php  
+│   │   │   │   └── ControllerDashboardMasyarakat.php
 │   │   │   │
-│   │   │   ├── Transaksi/
-│   │   │   │   └──ControllerAbsensi.php
+│   │   │   ├── Admin/
+│   │   │   │   ├── ControllerAkun.php
+│   │   │   │   ├── ControllerAdmin.php
+│   │   │   │   ├── ControllerMasyarakat.php
+│   │   │   │   ├── ControllerBerita.php
+│   │   │   │   ├── ControllerLayanan.php
+│   │   │   │   ├── ControllerLaporan.php
+│   │   │   │   ├── ControllerPersyaratan.php
+│   │   │   │   └── ControllerSaran.php
 │   │   │   │
+│   │   │   ├── Masyarakat/
+│   │   │   │   ├── ControllerProfilMasyarakat.php
+│   │   │   │   ├── ControllerBeritaMasyarakat.php
+│   │   │   │   └── ControllerPermohonan.php
 │   │   │   │
-│   │   │   ├── Laporan/
-│   │   │   │   └── ControllerLaporan.php
-│   │   │   │
-│   │   │   │
-│   │   │   ├── Zonamasyarakat/
-│   │   │   │   └── ControllerZonaMasyarakat.php
-│   │   │   │
-│   │   │   │
-│   │   │   └── Landing/
-│   │   │       └── ControllerLanding.php
+│   │   │   └── Saran/
+│   │   │       └── SaranController.php
+│   │   │
 │   │   └── Middleware/
-│   │       ├── MiddlewareSiswa.php
-│   │       └── RoleMiddleware.php
+│   │       └── (Middleware autentikasi dan hak akses)
 │   │
 │   ├── Models/
 │   │   ├── ModelUser.php
-│   │   ├── Model.php
-│   │   ├── ModelJurusan.php
-│   │   ├── ModelKelas.php
-│   │   ├── ModelSiswa.php
-│   │   ├── ModelTahunAjaran.php
-│   │   ├── ModelSemester.php
-│   │   └── ModelAbsensi.php
-│   │   └── ModelRegisterSiswa.php
-│   │   
-│   └── Providers/ ...
+│   │   ├── ModelBerita.php
+│   │   ├── ModelLayanan.php
+│   │   ├── ModelPersyaratan.php
+│   │   └── ModelSaran.php
+│   │
+│   └── Providers/
 │
 ├── database/
+│   │
+│   ├── factories/
+│   │   └── (File factory)
+│   │
 │   ├── migrations/
-│   │   └── kuamigrasi.php
+│   │   ├── 2026_08_30_234921_kuamigrasi.php
+│   │   ├── 2026_09_07_044040_ubah_struktur....php
+│   │   ├── 2026_09_08_035215_add_status_....php
+│   │   ├── 2026_09_14_040648_create_saran....php
+│   │   ├── 2026_09_30_105337_create_persyaratan....php
+│   │   ├── 2026_11_15_112351_add_berita....php
+│   │   ├── 2026_11_15_235026_add_foto....php
+│   │   └── create_beritas_table.php
+│   │
 │   └── seeders/
-│       └── kuaseeder.php
-│       └── DatabaseSeeder.php
+│       ├── BeritaSeeder.php
+│       ├── DatabaseSeeder.php
+│       ├── Kuaseeder.php
+│       ├── PersyaratanSeeder.php
+│       └── SaranSeeder.php
 │
 ├── public/
-│   ├── dist/ (AdminLTE)
-│   ├── plugins
-│   └── index.php
+│   │
+│   ├── dist/
+│   │   └── (File dan folder AdminLTE)
+│   │
+│   ├── plugins/
+│   │   └── (Plugin pendukung website)
+│   │
+│   ├── foto/
+│   │   ├── admin/
+│   │   ├── berita/
+│   │   ├── landing/
+│   │   ├── layanan/
+│   │   └── masyarakat/
+│   │
+│   ├── storage/
+│   │   └── (Symbolic link Laravel Storage)
+│   │
+│   ├── .htaccess
+│   ├── favicon.ico
+│   ├── index.php
+│   └── robots.txt
 │
 ├── resources/
+│   │
 │   ├── views/
+│   │   │
 │   │   ├── layouts/
 │   │   │   ├── admin/
-│   │   │   │   ├── footer.blade.php
+│   │   │   │   ├── navbar.blade.php
 │   │   │   │   ├── sidebar.blade.php
-│   │   │   │   └── navbar.blade.php
+│   │   │   │   └── footer.blade.php
+│   │   │   │
 │   │   │   ├── landing/
-│   │   │   │   ├── footer.blade.php
-│   │   │   │   └── navbar.blade.php
+│   │   │   │   ├── navbar.blade.php
+│   │   │   │   └── footer.blade.php
+│   │   │   │
 │   │   │   ├── masyarakat/
-│   │   │   │   ├── footer.blade.php
+│   │   │   │   ├── navbar.blade.php
 │   │   │   │   ├── sidebar.blade.php
-│   │   │   │   └── navbar.blade.php
+│   │   │   │   └── footer.blade.php
 │   │   │   │
 │   │   │   ├── appadmin.blade.php
-│   │   │   ├── appmasyarakat.blade.php
-│   │   │   └── applanding.blade.php
-│   │   │ 
-│   │   │ 
-│   │   │     
-│   │   ├── admin/
-│   │   │   ├── dashboard/
-│   │   │   │   ├── admin.blade.php
-│   │   │   │
-│   │   │   ├── semester/
-│   │   │   │   ├── index.blade.php
-│   │   │   │   ├── create.blade.php
-│   │   │   │   ├── edit.blade.php
-│   │   │   │   └── show.blade.php
-│   │   │   │
-│   │   │   │
-│   │   │   │
-│   │   │   └── rekapan data absen/ 
-│   │   │       └── index.blade.php
-│   │   │       └── cetakpdf.blade.php
-│   │   │     
-│   │   │
-│   │   ├── Zonamasyarakat/
-│   │   │   ├── dashboard/
-│   │   │       └── dashboardmasyarakat.blade.php
-│   │   │
+│   │   │   ├── applanding.blade.php
+│   │   │   └── appmasyarakat.blade.php
 │   │   │
 │   │   ├── landing/
 │   │   │   ├── home.blade.php
 │   │   │   ├── tentang.blade.php
-│   │   │   ├── kontak.blade.php
+│   │   │   ├── sejarah.blade.php
+│   │   │   ├── visimisi.blade.php
+│   │   │   ├── struktur-organisasi.blade.php
 │   │   │   ├── berita.blade.php
-│   │   │   └── layanan.blade.php
+│   │   │   ├── kontak.blade.php
+│   │   │   ├── persyaratan.blade.php
+│   │   │   ├── pencarian.blade.php
+│   │   │   │
+│   │   │   └── layanan/
+│   │   │       └── show.blade.php
 │   │   │
 │   │   ├── auth/
-│   │   │   ├── loginuser.blade.php
-│   │   │   ├── loginsiswa.blade.php
-│   │   │   └── registersiswa.blade.php
+│   │   │   ├── login.blade.php
+│   │   │   └── register.blade.php
+│   │   │
+│   │   ├── admin/
+│   │   │   ├── dashboard/
+│   │   │   │   └── dashboard.blade.php
+│   │   │   │
+│   │   │   ├── akun/
+│   │   │   ├── admin/
+│   │   │   ├── masyarakat/
+│   │   │   │
+│   │   │   ├── berita/
+│   │   │   │   ├── index.blade.php
+│   │   │   │   ├── create.blade.php
+│   │   │   │   └── edit.blade.php
+│   │   │   │
+│   │   │   ├── layanan/
+│   │   │   │   ├── index.blade.php
+│   │   │   │   ├── create.blade.php
+│   │   │   │   └── edit.blade.php
+│   │   │   │
+│   │   │   ├── persyaratan/
+│   │   │   │   ├── index.blade.php
+│   │   │   │   ├── create.blade.php
+│   │   │   │   └── edit.blade.php
+│   │   │   │
+│   │   │   ├── laporan/
+│   │   │   │   └── index.blade.php
+│   │   │   │
+│   │   │   └── saran/
+│   │   │       ├── index.blade.php
+│   │   │       └── show.blade.php
+│   │   │
+│   │   ├── masyarakat/
+│   │   │   ├── dashboard/
+│   │   │   │   └── dashboard.blade.php
+│   │   │   │
+│   │   │   ├── profil/
+│   │   │   ├── berita/
+│   │   │   └── permohonan/
+│   │   │
 │   │   └── errors/
-│   │       ├── 404.blade.php
 │   │       ├── 403.blade.php
-│           └── 500.blade.php
+│   │       ├── 404.blade.php
+│   │       └── 500.blade.php
+│   │
+│   ├── css/
+│   ├── js/
+│   └── images/
 │
 ├── routes/
 │   └── web.php
 │
 ├── storage/
+│   ├── app/
+│   ├── framework/
+│   └── logs/
+│
 ├── tests/
-└── .env
+│
+├── .env
+├── artisan
+├── composer.json
+├── composer.lock
+├── package.json
+├── package-lock.json
+└── vite.config.js

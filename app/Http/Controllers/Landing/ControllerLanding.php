@@ -6,7 +6,7 @@ use App\Models\Berita;
 use App\Models\Layanan;
 use Illuminate\Http\Request;
 
-class ControllerLanding
+class ControllerLanding 
 {
     /**
      * =========================================================
@@ -15,12 +15,10 @@ class ControllerLanding
      */
     public function index()
     {
-        $berita = Berita::latest()
-            ->take(3)
-            ->get();
+        // Mengambil semua berita dari database
+        $berita = Berita::latest()->get();
 
-        $layanan = Layanan::orderBy('id')
-            ->get();
+        $layanan = Layanan::orderBy('id')->get();
 
         return view('landing.index', compact(
             'berita',
@@ -36,8 +34,7 @@ class ControllerLanding
      */
     public function tentang()
     {
-        $layanan = Layanan::orderBy('id')
-            ->get();
+        $layanan = Layanan::orderBy('id')->get();
 
         return view('landing.tentang', compact(
             'layanan'
@@ -52,8 +49,7 @@ class ControllerLanding
      */
     public function visimisi()
     {
-        $layanan = Layanan::orderBy('id')
-            ->get();
+        $layanan = Layanan::orderBy('id')->get();
 
         return view('landing.visimisi', compact(
             'layanan'
@@ -68,11 +64,10 @@ class ControllerLanding
      */
     public function berita()
     {
-        $berita = Berita::latest()
-            ->get();
+        // Mengambil semua berita
+        $berita = Berita::latest()->get();
 
-        $layanan = Layanan::orderBy('id')
-            ->get();
+        $layanan = Layanan::orderBy('id')->get();
 
         return view('landing.berita', compact(
             'berita',
@@ -88,47 +83,18 @@ class ControllerLanding
      */
     public function detailBerita($slug)
     {
-        /*
-        |--------------------------------------------------------------------------
-        | BERITA YANG SEDANG DIBUKA
-        |--------------------------------------------------------------------------
-        */
-
+        // Berita yang sedang dibuka
         $berita = Berita::where('slug', $slug)
             ->firstOrFail();
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | BERITA TERBARU
-        |--------------------------------------------------------------------------
-        |
-        | Mengambil 4 berita terbaru dan tidak menampilkan
-        | berita yang sedang dibuka.
-        |
-        */
-
+        // Mengambil 4 berita terbaru selain berita yang dibuka
         $beritaTerbaru = Berita::where('id', '!=', $berita->id)
             ->latest('created_at')
             ->take(4)
             ->get();
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | DATA LAYANAN UNTUK NAVBAR / LAYOUT
-        |--------------------------------------------------------------------------
-        */
-
-        $layanan = Layanan::orderBy('id')
-            ->get();
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | HALAMAN DETAIL BERITA
-        |--------------------------------------------------------------------------
-        */
+        // Data layanan untuk navbar/layout
+        $layanan = Layanan::orderBy('id')->get();
 
         return view('landing.detail-berita', compact(
             'berita',
@@ -145,8 +111,7 @@ class ControllerLanding
      */
     public function layanan()
     {
-        $layanan = Layanan::orderBy('id')
-            ->get();
+        $layanan = Layanan::orderBy('id')->get();
 
         return view('landing.layanan', compact(
             'layanan'
@@ -161,42 +126,12 @@ class ControllerLanding
      */
     public function persyaratan()
     {
-        /*
-        |--------------------------------------------------------------------------
-        | AMBIL LAYANAN PENCATATAN NIKAH DAN RUJUK
-        |--------------------------------------------------------------------------
-        |
-        | Berdasarkan database:
-        | ID 1 = Pencatatan Nikah dan Rujuk
-        |
-        | Sekaligus mengambil seluruh persyaratan
-        | yang mempunyai layanan_id = 1.
-        |
-        */
-
+        // Mengambil layanan ID 1 beserta persyaratannya
         $layanan = Layanan::with('persyaratan')
             ->findOrFail(1);
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | DATA LAYANAN
-        |--------------------------------------------------------------------------
-        |
-        | Data ini tetap dikirim apabila navbar/layout kamu
-        | membutuhkan daftar layanan.
-        |
-        */
-
-        $dataLayanan = Layanan::orderBy('id')
-            ->get();
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | HALAMAN PERSYARATAN
-        |--------------------------------------------------------------------------
-        */
+        // Mengambil seluruh data layanan untuk navbar
+        $dataLayanan = Layanan::orderBy('id')->get();
 
         return view('landing.persyaratan', compact(
             'layanan',
@@ -212,8 +147,7 @@ class ControllerLanding
      */
     public function kontak()
     {
-        $layanan = Layanan::orderBy('id')
-            ->get();
+        $layanan = Layanan::orderBy('id')->get();
 
         return view('landing.kontak', compact(
             'layanan'
@@ -228,94 +162,35 @@ class ControllerLanding
      */
     public function pencarian(Request $request)
     {
-        /*
-        |--------------------------------------------------------------------------
-        | AMBIL KATA KUNCI
-        |--------------------------------------------------------------------------
-        */
-
+        // Mengambil kata kunci pencarian
         $keyword = trim($request->get('search', ''));
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | JIKA PENCARIAN KOSONG
-        |--------------------------------------------------------------------------
-        */
-
+        // Jika pencarian kosong
         if ($keyword === '') {
-
             return redirect()->route('landing.index');
-
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | CARI LAYANAN
-        |--------------------------------------------------------------------------
-        |
-        | Pencarian dilakukan pada:
-        | - judul
-        | - isi
-        |
-        */
-
+        // Mencari layanan berdasarkan judul dan isi
         $layanan = Layanan::where(function ($query) use ($keyword) {
-
                 $query->where('judul', 'like', '%' . $keyword . '%')
                     ->orWhere('isi', 'like', '%' . $keyword . '%');
-
             })
             ->orderBy('id')
             ->get();
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | CARI BERITA
-        |--------------------------------------------------------------------------
-        |
-        | Pencarian dilakukan pada:
-        | - judul
-        | - isi
-        |
-        */
-
+        // Mencari berita berdasarkan judul dan isi
         $berita = Berita::where(function ($query) use ($keyword) {
-
                 $query->where('judul', 'like', '%' . $keyword . '%')
                     ->orWhere('isi', 'like', '%' . $keyword . '%');
-
             })
             ->latest()
             ->get();
 
+        // Data layanan untuk navbar
+        $dataLayanan = Layanan::orderBy('id')->get();
 
-        /*
-        |--------------------------------------------------------------------------
-        | DATA LAYANAN UNTUK NAVBAR
-        |--------------------------------------------------------------------------
-        */
-
-        $dataLayanan = Layanan::orderBy('id')
-            ->get();
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | TOTAL HASIL PENCARIAN
-        |--------------------------------------------------------------------------
-        */
-
+        // Menghitung seluruh hasil pencarian
         $totalHasil = $layanan->count() + $berita->count();
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | KIRIM HASIL KE VIEW
-        |--------------------------------------------------------------------------
-        */
 
         return view('landing.pencarian', compact(
             'keyword',

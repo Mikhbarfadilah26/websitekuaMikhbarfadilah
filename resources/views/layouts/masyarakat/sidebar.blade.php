@@ -80,21 +80,16 @@
             {{-- PENGAJUAN --}}
             <li class="nav-item">
 
-                <a
-                    href="#"
-                    class="nav-link">
+                <a href="{{ route('masyarakat.pengajuan.index') }}"
+                    class="nav-link {{ request()->routeIs('masyarakat.pengajuan.*') ? 'active' : '' }}">
 
                     <i class="bi bi-file-earmark-text"></i>
 
-                    <span>
-                        Pengajuan
-                    </span>
+                    <span>Pengajuan</span>
 
                 </a>
 
             </li>
-
-
             {{-- BERITA --}}
             <li class="nav-item">
 
@@ -116,15 +111,12 @@
             {{-- RIWAYAT --}}
             <li class="nav-item">
 
-                <a
-                    href="#"
-                    class="nav-link">
+                <a href="{{ route('masyarakat.riwayat') }}"
+                    class="nav-link {{ request()->routeIs('masyarakat.riwayat') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
 
-                    <span>
-                        Riwayat
-                    </span>
+                    <span>Riwayat</span>
 
                 </a>
 
@@ -223,7 +215,6 @@
 ========================================================= --}}
 
 <style>
-
     /* =========================================================
        SIDEBAR DESKTOP
     ========================================================= */
@@ -693,7 +684,6 @@
         }
 
     }
-
 </style>
 
 
@@ -702,8 +692,7 @@
 ========================================================= --}}
 
 <script>
-
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
 
         const sidebar =
             document.getElementById('masyarakatSidebar');
@@ -719,7 +708,7 @@
            BUKA SIDEBAR
         ===================================================== */
 
-        window.openMasyarakatSidebar = function () {
+        window.openMasyarakatSidebar = function() {
 
             if (!sidebar || !overlay) {
                 return;
@@ -738,7 +727,7 @@
            TUTUP SIDEBAR
         ===================================================== */
 
-        window.closeMasyarakatSidebar = function () {
+        window.closeMasyarakatSidebar = function() {
 
             if (!sidebar || !overlay) {
                 return;
@@ -793,11 +782,11 @@
                 );
 
 
-            sidebarLinks.forEach(function (link) {
+            sidebarLinks.forEach(function(link) {
 
                 link.addEventListener(
                     'click',
-                    function () {
+                    function() {
 
                         if (window.innerWidth <= 767) {
 
@@ -819,7 +808,7 @@
 
         document.addEventListener(
             'keydown',
-            function (event) {
+            function(event) {
 
                 if (event.key === 'Escape') {
 
@@ -837,7 +826,7 @@
 
         window.addEventListener(
             'resize',
-            function () {
+            function() {
 
                 if (window.innerWidth > 767) {
 
@@ -849,7 +838,6 @@
         );
 
     });
-
 </script>
 
 
@@ -858,9 +846,7 @@
 ========================================================= --}}
 
 <style>
-
     body.sidebar-open {
         overflow: hidden;
     }
-
 </style>

@@ -1776,7 +1776,7 @@ body:has(.login-page-kua) .top-navbar-kua {
             <div class="login-logo-wrapper">
 
                 <img
-                    src="{{ asset('7.png') }}"
+                    src="{{ asset('foto/landing/7.png') }}"
                     alt="Logo KUA Karang Baru"
                     class="login-logo"
                 >

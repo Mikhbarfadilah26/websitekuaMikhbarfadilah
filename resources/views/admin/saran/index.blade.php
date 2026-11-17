@@ -1,330 +1,586 @@
+
 @extends('layouts.appadmin')
 
 @section('title', 'Saran & Pengaduan')
 
 @section('content')
 
-<div class="container-fluid">
+@php
+    use Illuminate\Support\Str;
+@endphp
 
-{{-- =====================================================
-     HEADER
-====================================================== --}}
-<div class="saran-header shadow-sm">
+<div class="container-fluid py-4 halaman-saran">
 
-    <div>
-        <div class="saran-header-title">
-            <i class="bi bi-chat-dots-fill me-2"></i>
-            Saran & Pengaduan
-        </div>
+    {{-- =====================================================
+         HEADER
+    ====================================================== --}}
 
-        <div class="saran-header-subtitle">
-            Kelola saran dan pengaduan yang disampaikan masyarakat
-        </div>
-    </div>
+    <div class="header-saran mb-4">
 
-</div>
+        <div class="header-content">
+            <span class="header-label">
+                PUSAT INFORMASI MASYARAKAT
+            </span>
 
+            <h3>Saran & Pengaduan</h3>
 
-{{-- =====================================================
-     SUCCESS POPUP
-====================================================== --}}
-@if(session('success'))
+            <p>
+                Kelola saran, pengaduan, dan komentar berita
+                yang disampaikan oleh masyarakat.
+            </p>
 
-    <div class="success-popup" id="successPopup">
-
-        <div class="success-icon">
-            <i class="bi bi-check-lg"></i>
-        </div>
-
-        <div>
-            <div class="success-title">
-                Berhasil
-            </div>
-
-            <div class="success-text">
-                {{ session('success') }}
+            <div class="header-info">
+                <i class="bi bi-shield-check"></i>
+                Panel Pengelolaan Pesan Masyarakat
             </div>
         </div>
 
+        <div class="header-icon">
+            <i class="bi bi-chat-square-heart"></i>
+        </div>
+
+        <div class="header-decoration header-decoration-one"></div>
+        <div class="header-decoration header-decoration-two"></div>
+
     </div>
 
-@endif
 
+    {{-- =====================================================
+         NOTIFIKASI
+    ====================================================== --}}
 
-{{-- =====================================================
-     CARD TABLE
-====================================================== --}}
-<div class="card saran-card shadow-sm border-0 mt-4">
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            {{ session('success') }}
 
-    <div class="card-body p-0">
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"></button>
+        </div>
+    @endif
 
-        <div class="table-responsive">
 
-            <table class="table saran-table align-middle mb-0">
+    {{-- =====================================================
+         CARD STATISTIK KOMENTAR DAN SARAN
+    ====================================================== --}}
 
-                <thead>
+    <div class="row g-3 mb-4">
 
-                    <tr>
+        {{-- CARD KOMENTAR BERITA --}}
+        <div class="col-lg-6">
 
-                        <th width="70" class="text-center">
-                            No
-                        </th>
+            <div class="summary-card summary-komentar">
 
-                        <th>
-                            Pengirim
-                        </th>
+                <div class="summary-card-content">
 
-                        <th>
-                            Isi Saran / Pengaduan
-                        </th>
+                    <div class="summary-icon">
+                        <i class="bi bi-chat-dots-fill"></i>
+                    </div>
 
-                        <th width="150" class="text-center">
-                            Status
-                        </th>
+                    <div class="summary-info">
+                        <span class="summary-label">
+                            KOMENTAR BERITA
+                        </span>
 
-                        <th width="180" class="text-center">
-                            Tanggal
-                        </th>
+                        <h3>
+                            {{ $saran->getCollection()->whereNotNull('berita_id')->count() }}
+                        </h3>
 
-                        <th width="150" class="text-center">
-                            Aksi
-                        </th>
+                        <p>
+                            Komentar pada berita yang tampil di website.
+                        </p>
+                    </div>
 
-                    </tr>
+                </div>
 
-                </thead>
+                <div class="summary-decoration">
+                    <i class="bi bi-chat-dots"></i>
+                </div>
 
+                <div class="summary-footer">
+                    <span>
+                        <i class="bi bi-newspaper me-1"></i>
+                        Interaksi pembaca berita
+                    </span>
+                </div>
 
-                <tbody>
-
-                    @forelse($saran as $item)
-
-                        <tr>
-
-                            {{-- NO --}}
-                            <td class="text-center">
-
-                                <span class="number-badge">
-                                    {{ $saran->firstItem() + $loop->index }}
-                                </span>
-
-                            </td>
-
-
-                            {{-- PENGIRIM --}}
-                            <td>
-
-                                <div class="sender-box">
-
-                                    <div class="sender-avatar">
-                                        <i class="bi bi-person-fill"></i>
-                                    </div>
-
-                                    <div>
-
-                                        <div class="sender-name">
-
-                                            {{ optional($item->user)->nama
-                                                ?? optional($item->user)->name
-                                                ?? 'Pengguna' }}
-
-                                        </div>
-
-                                        <div class="sender-email">
-
-                                            {{ optional($item->user)->email ?? '-' }}
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            {{-- ISI --}}
-                            <td>
-
-                                <div class="message-preview">
-
-                                    {{ \Illuminate\Support\Str::limit(
-                                        strip_tags($item->isi_saran),
-                                        100
-                                    ) }}
-
-                                </div>
-
-                            </td>
-
-
-                            {{-- STATUS --}}
-                            <td class="text-center">
-
-                                @if($item->status === 'belum_dibaca')
-
-                                    <span class="status-badge status-unread">
-
-                                        <i class="bi bi-envelope-fill me-1"></i>
-
-                                        Belum Dibaca
-
-                                    </span>
-
-                                @elseif($item->status === 'dibaca')
-
-                                    <span class="status-badge status-read">
-
-                                        <i class="bi bi-envelope-open-fill me-1"></i>
-
-                                        Dibaca
-
-                                    </span>
-
-                                @elseif($item->status === 'dibalas')
-
-                                    <span class="status-badge status-replied">
-
-                                        <i class="bi bi-reply-fill me-1"></i>
-
-                                        Dibalas
-
-                                    </span>
-
-                                @else
-
-                                    <span class="status-badge status-default">
-
-                                        {{ ucfirst(
-                                            str_replace(
-                                                '_',
-                                                ' ',
-                                                $item->status ?? '-'
-                                            )
-                                        ) }}
-
-                                    </span>
-
-                                @endif
-
-                            </td>
-
-
-                            {{-- TANGGAL --}}
-                            <td class="text-center">
-
-                                <div class="date-main">
-
-                                    <i class="bi bi-calendar3 me-1"></i>
-
-                                    {{ $item->created_at
-                                        ? $item->created_at->format('d/m/Y')
-                                        : '-' }}
-
-                                </div>
-
-                                <div class="date-time">
-
-                                    {{ $item->created_at
-                                        ? $item->created_at->format('H:i')
-                                        : '' }}
-
-                                </div>
-
-                            </td>
-
-
-                            {{-- =================================================
-                                 AKSI
-                            ================================================== --}}
-                            <td>
-
-                                <div class="action-buttons">
-
-                                    {{-- LIHAT --}}
-                                    <a
-                                        href="{{ route('admin.saran.show', $item->id) }}"
-                                        class="action-btn action-view"
-                                        title="Lihat Detail"
-                                        aria-label="Lihat Detail">
-
-                                        <i class="bi bi-eye-fill"></i>
-
-                                    </a>
-
-
-                                    {{-- HAPUS --}}
-                                    <form
-                                        action="{{ route('admin.saran.destroy', $item->id) }}"
-                                        method="POST"
-                                        class="delete-form">
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button
-                                            type="submit"
-                                            class="action-btn action-delete"
-                                            title="Hapus"
-                                            aria-label="Hapus">
-
-                                            <i class="bi bi-trash3-fill"></i>
-
-                                        </button>
-
-                                    </form>
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-
-                    @empty
-
-                        <tr>
-
-                            <td colspan="6">
-
-                                <div class="empty-state">
-
-                                    <div class="empty-icon">
-
-                                        <i class="bi bi-chat-square-text"></i>
-
-                                    </div>
-
-                                    <div class="empty-title">
-                                        Belum Ada Saran
-                                    </div>
-
-                                    <div class="empty-text">
-                                        Belum ada saran atau pengaduan dari masyarakat.
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
+            </div>
 
         </div>
 
 
-        {{-- =====================================================
-             PAGINATION
-        ====================================================== --}}
+        {{-- CARD SARAN DAN PENGADUAN --}}
+        <div class="col-lg-6">
+
+            <div class="summary-card summary-pengaduan">
+
+                <div class="summary-card-content">
+
+                    <div class="summary-icon">
+                        <i class="bi bi-envelope-paper-fill"></i>
+                    </div>
+
+                    <div class="summary-info">
+                        <span class="summary-label">
+                            SARAN & PENGADUAN
+                        </span>
+
+                        <h3>
+                            {{ $saran->getCollection()->whereNull('berita_id')->count() }}
+                        </h3>
+
+                        <p>
+                            Pesan dan masukan dari masyarakat.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="summary-decoration">
+                    <i class="bi bi-envelope-paper"></i>
+                </div>
+
+                <div class="summary-footer">
+                    <span>
+                        <i class="bi bi-people me-1"></i>
+                        Aspirasi masyarakat
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {{-- =====================================================
+         FILTER DAN PENCARIAN
+    ====================================================== --}}
+
+    <div class="card filter-card border-0 mb-4">
+
+        <div class="card-body p-4">
+
+            <div class="filter-heading mb-3">
+                <div class="filter-heading-icon">
+                    <i class="bi bi-funnel-fill"></i>
+                </div>
+
+                <div>
+                    <h6>Filter dan Pencarian</h6>
+                    <p>Temukan pesan berdasarkan kata kunci, jenis, dan status.</p>
+                </div>
+            </div>
+
+
+            <form action="{{ route('admin.saran.index') }}"
+                  method="GET">
+
+                <div class="row g-3 align-items-end">
+
+                    {{-- PENCARIAN --}}
+                    <div class="col-lg-4 col-md-6">
+
+                        <label class="form-label">
+                            Cari Pesan
+                        </label>
+
+                        <div class="input-group search-group">
+
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Nama, email, isi pesan..."
+                                value="{{ request('search') }}">
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- JENIS --}}
+                    <div class="col-lg-3 col-md-6">
+
+                        <label class="form-label">
+                            Jenis Pesan
+                        </label>
+
+                        <select name="jenis" class="form-select">
+
+                            <option value="">Semua Jenis</option>
+
+                            <option value="saran"
+                                {{ request('jenis') === 'saran' ? 'selected' : '' }}>
+                                Saran dan Pengaduan
+                            </option>
+
+                            <option value="komentar"
+                                {{ request('jenis') === 'komentar' ? 'selected' : '' }}>
+                                Komentar Berita
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    {{-- STATUS --}}
+                    <div class="col-lg-3 col-md-6">
+
+                        <label class="form-label">
+                            Status Pesan
+                        </label>
+
+                        <select name="status" class="form-select">
+
+                            <option value="">Semua Status</option>
+
+                            <option value="baru"
+                                {{ request('status') === 'baru' ? 'selected' : '' }}>
+                                Baru
+                            </option>
+
+                            <option value="dibaca"
+                                {{ request('status') === 'dibaca' ? 'selected' : '' }}>
+                                Dibaca
+                            </option>
+
+                            <option value="dibalas"
+                                {{ request('status') === 'dibalas' ? 'selected' : '' }}>
+                                Dibalas
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    {{-- TOMBOL --}}
+                    <div class="col-lg-2 col-md-6">
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-filter flex-grow-1">
+                                <i class="bi bi-funnel me-1"></i>
+                                Filter
+                            </button>
+
+                            <a href="{{ route('admin.saran.index') }}"
+                               class="btn btn-reset"
+                               title="Reset filter">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    {{-- =====================================================
+         TABEL DATA
+    ====================================================== --}}
+
+    <div class="card table-card border-0">
+
+        <div class="card-header table-card-header">
+
+            <div class="table-heading">
+
+                <div class="table-heading-icon">
+                    <i class="bi bi-inbox-fill"></i>
+                </div>
+
+                <div>
+                    <h5>Daftar Pesan Masyarakat</h5>
+
+                    <p>
+                        Total data ditemukan:
+                        <strong>{{ $saran->total() }}</strong> pesan
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="table-header-badge">
+                <i class="bi bi-database-check me-1"></i>
+                Data Pesan
+            </div>
+
+        </div>
+
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th>Pengirim</th>
+                            <th>Jenis</th>
+                            <th>Judul Berita</th>
+                            <th>Isi Pesan</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @forelse($saran as $index => $item)
+
+                            <tr>
+
+                                {{-- NOMOR --}}
+                                <td class="text-center">
+                                    <span class="number-cell">
+                                        {{ $saran->firstItem() + $index }}
+                                    </span>
+                                </td>
+
+
+                                {{-- PENGIRIM --}}
+                                <td>
+
+                                    <div class="sender-name">
+                                        <div class="sender-avatar">
+                                            <i class="bi bi-person-fill"></i>
+                                        </div>
+
+                                        <div class="sender-information">
+
+                                            <strong>
+                                                {{ $item->user->nama ?? 'Pengguna tidak ditemukan' }}
+                                            </strong>
+
+                                            <small>
+                                                {{ $item->user->email ?? '-' }}
+                                            </small>
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+
+                                {{-- JENIS --}}
+                                <td>
+
+                                    @if($item->berita_id)
+
+                                        <span class="badge badge-komentar">
+                                            <i class="bi bi-chat-dots me-1"></i>
+                                            Komentar
+                                        </span>
+
+                                    @else
+
+                                        <span class="badge badge-saran">
+                                            <i class="bi bi-envelope-paper me-1"></i>
+                                            Saran
+                                        </span>
+
+                                    @endif
+
+                                </td>
+
+
+                                {{-- JUDUL BERITA --}}
+                                <td>
+
+                                    @if($item->berita)
+
+                                        <span class="judul-berita">
+                                            {{ Str::limit($item->berita->judul, 35) }}
+                                        </span>
+
+                                    @elseif($item->berita_id)
+
+                                        <span class="text-muted">
+                                            Berita sudah tidak tersedia
+                                        </span>
+
+                                    @else
+
+                                        <span class="text-muted">-</span>
+
+                                    @endif
+
+                                </td>
+
+
+                                {{-- ISI PESAN --}}
+                                <td>
+
+                                    <div class="isi-pesan">
+                                        {{ Str::limit(strip_tags($item->isi_saran), 90) }}
+                                    </div>
+
+                                </td>
+
+
+                                {{-- STATUS --}}
+                                <td>
+
+                                    @if($item->status === 'baru')
+
+                                        <span class="badge badge-baru">
+                                            <span class="status-dot"></span>
+                                            Baru
+                                        </span>
+
+                                    @elseif($item->status === 'dibaca')
+
+                                        <span class="badge badge-dibaca">
+                                            <span class="status-dot"></span>
+                                            Dibaca
+                                        </span>
+
+                                    @elseif($item->status === 'dibalas')
+
+                                        <span class="badge badge-dibalas">
+                                            <span class="status-dot"></span>
+                                            Dibalas
+                                        </span>
+
+                                    @else
+
+                                        <span class="badge bg-secondary">
+                                            {{ ucfirst($item->status) }}
+                                        </span>
+
+                                    @endif
+
+                                </td>
+
+
+                                {{-- TANGGAL --}}
+                                <td>
+
+                                    <div class="date-cell">
+                                        {{ $item->created_at->format('d/m/Y') }}
+                                    </div>
+
+                                    <small class="time-cell">
+                                        <i class="bi bi-clock me-1"></i>
+                                        {{ $item->created_at->format('H:i') }} WIB
+                                    </small>
+
+                                </td>
+
+
+                                {{-- AKSI --}}
+                                <td>
+
+                                    <div class="action-buttons">
+
+                                        <a href="{{ route('admin.saran.show', $item->id) }}"
+                                           class="btn-action btn-detail"
+                                           title="Lihat detail">
+
+                                            <i class="bi bi-eye-fill"></i>
+
+                                        </a>
+
+
+                                        <form
+                                            action="{{ route('admin.saran.destroy', $item->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Yakin ingin menghapus pesan ini?')">
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit"
+                                                    class="btn-action btn-hapus"
+                                                    title="Hapus data">
+
+                                                <i class="bi bi-trash3-fill"></i>
+
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        @empty
+
+                            <tr>
+
+                                <td colspan="8" class="text-center py-5">
+
+                                    <div class="empty-state">
+
+                                        <div class="empty-icon">
+                                            <i class="bi bi-inbox"></i>
+                                        </div>
+
+                                        <h6>Belum Ada Data</h6>
+
+                                        <p>
+                                            Belum ada saran, pengaduan,
+                                            atau komentar yang ditemukan.
+                                        </p>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        @endforelse
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        {{-- PAGINATION --}}
         @if($saran->hasPages())
 
-            <div class="pagination-wrapper">
+            <div class="card-footer table-card-footer">
 
-                {{ $saran->links() }}
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                    <small>
+                        Menampilkan
+                        <strong>{{ $saran->firstItem() }}</strong>
+                        sampai
+                        <strong>{{ $saran->lastItem() }}</strong>
+                        dari
+                        <strong>{{ $saran->total() }}</strong> data
+                    </small>
+
+                    {{ $saran->links() }}
+
+                </div>
 
             </div>
 
@@ -334,682 +590,752 @@
 
 </div>
 
-</div>
 
-{{-- =========================================================
-STYLE
-========================================================= --}}
+{{-- =====================================================
+     CSS TEMA HIJAU SOFT
+====================================================== --}}
 
 <style>
 
-    /* =====================================================
-       HEADER
-    ====================================================== */
+    :root {
+        --saran-dark: #285b46;
+        --saran-green: #39765b;
+        --saran-medium: #6c9b7d;
+        --saran-soft: #eaf2ec;
+        --saran-light: #f3f7f3;
+        --saran-border: #dce8de;
+        --saran-text: #34483c;
+        --saran-muted: #7b8c80;
+    }
 
-    .saran-header {
+    .halaman-saran {
+        color: var(--saran-text);
+    }
 
-        background: linear-gradient(
-            135deg,
-            #0f172a 0%,
-            #1e3a8a 55%,
-            #2563eb 100%
-        );
+    /* HEADER */
 
-        border-radius: 16px;
-
-        padding: 22px 26px;
-
-        color: #fff;
-
+    .header-saran {
+        position: relative;
         display: flex;
-        align-items: center;
         justify-content: space-between;
-
-    }
-
-    .saran-header-title {
-
-        font-size: 23px;
-        font-weight: 700;
-
-    }
-
-    .saran-header-subtitle {
-
-        margin-top: 5px;
-
-        font-size: 14px;
-
-        opacity: .85;
-
-    }
-
-
-    /* =====================================================
-       SUCCESS POPUP
-    ====================================================== */
-
-    .success-popup {
-
-        position: fixed;
-
-        top: 50%;
-        left: 50%;
-
-        transform: translate(-50%, -50%);
-
-        z-index: 9999;
-
-        min-width: 330px;
-
-        max-width: 90%;
-
-        padding: 18px 22px;
-
-        background: #fff;
-
-        border-radius: 14px;
-
-        box-shadow:
-            0 15px 50px rgba(15, 23, 42, .22);
-
-        display: flex;
-
         align-items: center;
-
-        gap: 14px;
-
-        animation: popupShow .25s ease;
-
+        min-height: 190px;
+        padding: 30px 34px;
+        overflow: hidden;
+        border-radius: 18px;
+        color: #fff;
+        background: linear-gradient(
+            120deg,
+            #285b46 0%,
+            #39765b 55%,
+            #638e70 100%
+        );
+        box-shadow: 0 8px 22px rgba(40, 91, 70, .12);
     }
 
-    .success-icon {
+    .header-content {
+        position: relative;
+        z-index: 2;
+    }
 
+    .header-label {
+        display: inline-block;
+        margin-bottom: 9px;
+        color: #dcebe0;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.6px;
+    }
+
+    .header-saran h3 {
+        margin: 0 0 8px;
+        color: #fff;
+        font-size: 25px;
+        font-weight: 750;
+    }
+
+    .header-saran p {
+        margin: 0;
+        color: rgba(255,255,255,.82);
+        font-size: 12px;
+    }
+
+    .header-info {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin-top: 17px;
+        padding: 7px 11px;
+        border: 1px solid rgba(255,255,255,.2);
+        border-radius: 7px;
+        background: rgba(255,255,255,.12);
+        color: white;
+        font-size: 10px;
+    }
+
+    .header-icon {
+        position: relative;
+        z-index: 2;
+        margin-right: 35px;
+        color: rgba(255,255,255,.25);
+        font-size: 82px;
+    }
+
+    .header-decoration {
+        position: absolute;
+        border: 1px solid rgba(255,255,255,.09);
+        border-radius: 50%;
+    }
+
+    .header-decoration-one {
+        width: 210px;
+        height: 210px;
+        right: 100px;
+        top: -100px;
+    }
+
+    .header-decoration-two {
+        width: 150px;
+        height: 150px;
+        right: -30px;
+        bottom: -90px;
+    }
+
+
+    /* SUMMARY CARD */
+
+    .summary-card {
+        position: relative;
+        min-height: 165px;
+        padding: 23px;
+        overflow: hidden;
+        border: 1px solid var(--saran-border);
+        border-radius: 16px;
+        background: #fff;
+        transition: .25s ease;
+    }
+
+    .summary-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(40, 91, 70, .08);
+    }
+
+    .summary-card-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 17px;
+    }
+
+    .summary-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 58px;
+        height: 58px;
+        min-width: 58px;
+        border-radius: 15px;
+        background: var(--saran-soft);
+        color: var(--saran-green);
+        font-size: 25px;
+    }
+
+    .summary-info {
+        min-width: 0;
+    }
+
+    .summary-label {
+        display: block;
+        color: var(--saran-medium);
+        font-size: 9px;
+        font-weight: 750;
+        letter-spacing: 1.2px;
+    }
+
+    .summary-info h3 {
+        margin: 4px 0;
+        color: var(--saran-dark);
+        font-size: 30px;
+        font-weight: 750;
+        line-height: 1.2;
+    }
+
+    .summary-info p {
+        margin: 0;
+        color: var(--saran-muted);
+        font-size: 11px;
+    }
+
+    .summary-decoration {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        color: rgba(57, 118, 91, .06);
+        font-size: 100px;
+    }
+
+    .summary-footer {
+        position: relative;
+        z-index: 2;
+        margin-top: 19px;
+        padding-top: 11px;
+        border-top: 1px solid var(--saran-border);
+        color: var(--saran-muted);
+        font-size: 10px;
+    }
+
+    .summary-footer i {
+        color: var(--saran-medium);
+    }
+
+
+    /* FILTER */
+
+    .filter-card,
+    .table-card {
+        border-radius: 16px !important;
+        background: #fff;
+        box-shadow: 0 4px 18px rgba(40, 91, 70, .045);
+    }
+
+    .filter-card {
+        border: 1px solid var(--saran-border) !important;
+    }
+
+    .filter-heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .filter-heading-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 39px;
+        height: 39px;
+        border-radius: 11px;
+        color: var(--saran-green);
+        background: var(--saran-soft);
+        font-size: 16px;
+    }
+
+    .filter-heading h6 {
+        margin: 0 0 3px;
+        color: var(--saran-dark);
+        font-size: 13px;
+        font-weight: 750;
+    }
+
+    .filter-heading p {
+        margin: 0;
+        color: var(--saran-muted);
+        font-size: 10px;
+    }
+
+    .halaman-saran .form-label {
+        margin-bottom: 7px;
+        color: var(--saran-text);
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .halaman-saran .form-control,
+    .halaman-saran .form-select,
+    .halaman-saran .input-group-text {
+        min-height: 42px;
+        border-color: var(--saran-border);
+        color: var(--saran-text);
+        font-size: 11px;
+    }
+
+    .halaman-saran .form-control,
+    .halaman-saran .form-select {
+        border-radius: 8px;
+    }
+
+    .halaman-saran .input-group-text {
+        display: flex;
+        align-items: center;
+        background: var(--saran-light);
+        color: var(--saran-medium);
+        border-radius: 8px 0 0 8px;
+    }
+
+    .search-group .form-control {
+        border-radius: 0 8px 8px 0;
+    }
+
+    .halaman-saran .form-control:focus,
+    .halaman-saran .form-select:focus {
+        border-color: var(--saran-medium);
+        box-shadow: 0 0 0 .15rem rgba(108, 155, 125, .13);
+    }
+
+    .btn-filter {
+        min-height: 42px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--saran-green);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 650;
+        transition: .2s;
+    }
+
+    .btn-filter:hover {
+        background: var(--saran-dark);
+        color: #fff;
+    }
+
+    .btn-reset {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 43px;
+        min-width: 43px;
+        min-height: 42px;
+        border: 1px solid var(--saran-border);
+        border-radius: 8px;
+        background: var(--saran-light);
+        color: var(--saran-green);
+    }
+
+    .btn-reset:hover {
+        border-color: var(--saran-green);
+        background: var(--saran-soft);
+        color: var(--saran-dark);
+    }
+
+
+    /* TABLE HEADER */
+
+    .table-card {
+        border: 1px solid var(--saran-border) !important;
+        overflow: hidden;
+    }
+
+    .table-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 20px 23px;
+        border: 0;
+        background: #fff;
+    }
+
+    .table-heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .table-heading-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 43px;
         height: 43px;
-
-        min-width: 43px;
-
-        border-radius: 50%;
-
-        background: #dcfce7;
-
-        color: #16a34a;
-
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
-        font-size: 20px;
-
+        border-radius: 12px;
+        color: var(--saran-green);
+        background: var(--saran-soft);
+        font-size: 19px;
     }
 
-    .success-title {
-
-        font-weight: 700;
-
-        color: #166534;
-
+    .table-heading h5 {
+        margin: 0 0 4px;
+        color: var(--saran-dark);
+        font-size: 14px;
+        font-weight: 750;
     }
 
-    .success-text {
-
-        color: #64748b;
-
-        font-size: 13px;
-
-        margin-top: 2px;
-
+    .table-heading p {
+        margin: 0;
+        color: var(--saran-muted);
+        font-size: 10px;
     }
 
-    @keyframes popupShow {
+    .table-heading strong {
+        color: var(--saran-green);
+    }
 
-        from {
-
-            opacity: 0;
-
-            transform: translate(-50%, -46%);
-
-        }
-
-        to {
-
-            opacity: 1;
-
-            transform: translate(-50%, -50%);
-
-        }
-
+    .table-header-badge {
+        padding: 8px 12px;
+        border-radius: 20px;
+        background: var(--saran-light);
+        color: var(--saran-green);
+        font-size: 10px;
+        font-weight: 650;
     }
 
 
-    /* =====================================================
-       CARD
-    ====================================================== */
+    /* TABLE */
 
-    .saran-card {
-
-        border-radius: 16px;
-
-        overflow: hidden;
-
+    .table {
+        min-width: 1050px;
     }
 
-
-    /* =====================================================
-       TABLE
-    ====================================================== */
-
-    .saran-table {
-
-        min-width: 950px;
-
-    }
-
-    .saran-table thead th {
-
-        background: #f8fafc;
-
-        color: #475569;
-
-        font-size: 12px;
-
-        font-weight: 700;
-
-        text-transform: uppercase;
-
+    .table thead th {
+        padding: 15px 13px;
+        border-top: 1px solid var(--saran-border);
+        border-bottom: 1px solid var(--saran-border);
+        background: var(--saran-light);
+        color: var(--saran-dark);
+        font-size: 10px;
+        font-weight: 750;
         letter-spacing: .4px;
-
-        padding: 16px 14px;
-
-        border-bottom: 1px solid #e2e8f0;
-
+        text-transform: uppercase;
         white-space: nowrap;
-
     }
 
-    .saran-table tbody td {
-
-        padding: 15px 14px;
-
-        border-bottom: 1px solid #eef2f7;
-
-        color: #334155;
-
+    .table tbody td {
+        padding: 14px 13px;
+        border-color: #edf2ed;
+        color: var(--saran-text);
+        font-size: 11px;
     }
 
-    .saran-table tbody tr:last-child td {
-
-        border-bottom: none;
-
+    .table tbody tr {
+        transition: .18s ease;
     }
 
-    .saran-table tbody tr {
-
-        transition: background .2s ease;
-
+    .table tbody tr:hover {
+        background: #f8fbf8;
     }
 
-    .saran-table tbody tr:hover {
-
-        background: #f8fafc;
-
-    }
-
-
-    /* =====================================================
-       NUMBER
-    ====================================================== */
-
-    .number-badge {
-
+    .number-cell {
         display: inline-flex;
-
         align-items: center;
         justify-content: center;
-
-        width: 31px;
-        height: 31px;
-
-        border-radius: 9px;
-
-        background: #eff6ff;
-
-        color: #2563eb;
-
-        font-size: 12px;
-
-        font-weight: 700;
-
+        width: 27px;
+        height: 27px;
+        border-radius: 8px;
+        background: var(--saran-soft);
+        color: var(--saran-green);
+        font-size: 10px;
+        font-weight: 750;
     }
 
 
-    /* =====================================================
-       SENDER
-    ====================================================== */
+    /* PENGIRIM */
 
-    .sender-box {
-
+    .sender-name {
         display: flex;
-
         align-items: center;
-
-        gap: 11px;
-
-        min-width: 190px;
-
+        gap: 9px;
+        min-width: 155px;
     }
 
     .sender-avatar {
-
-        width: 40px;
-        height: 40px;
-
-        min-width: 40px;
-
-        border-radius: 50%;
-
-        background: #e0ecff;
-
-        color: #2563eb;
-
         display: flex;
-
         align-items: center;
         justify-content: center;
-
-        font-size: 17px;
-
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        border-radius: 50%;
+        background: var(--saran-soft);
+        color: var(--saran-green);
+        font-size: 15px;
     }
 
-    .sender-name {
-
-        font-weight: 700;
-
-        color: #1e293b;
-
-        font-size: 14px;
-
-        margin-bottom: 2px;
-
+    .sender-information {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
     }
 
-    .sender-email {
+    .sender-information strong {
+        color: var(--saran-text);
+        font-size: 11px;
+    }
 
-        color: #94a3b8;
-
-        font-size: 12px;
-
-        max-width: 190px;
-
-        overflow: hidden;
-
-        text-overflow: ellipsis;
-
-        white-space: nowrap;
-
+    .sender-information small {
+        color: var(--saran-muted);
+        font-size: 9px;
     }
 
 
-    /* =====================================================
-       MESSAGE
-    ====================================================== */
+    /* BADGE */
 
-    .message-preview {
-
-        max-width: 330px;
-
-        line-height: 1.5;
-
-        color: #64748b;
-
-        font-size: 13px;
-
-    }
-
-
-    /* =====================================================
-       STATUS
-    ====================================================== */
-
-    .status-badge {
-
+    .badge {
         display: inline-flex;
-
         align-items: center;
-
-        justify-content: center;
-
+        gap: 4px;
         padding: 7px 10px;
-
         border-radius: 20px;
-
-        font-size: 11px;
-
+        font-size: 9px;
         font-weight: 700;
-
         white-space: nowrap;
-
     }
 
-    .status-unread {
-
-        background: #fee2e2;
-
-        color: #dc2626;
-
+    .badge-komentar {
+        background: #eaf2ec;
+        color: #39765b;
     }
 
-    .status-read {
-
-        background: #fef3c7;
-
-        color: #b45309;
-
+    .badge-saran {
+        background: #edf3e8;
+        color: #66824d;
     }
 
-    .status-replied {
-
-        background: #dcfce7;
-
-        color: #15803d;
-
+    .badge-baru {
+        background: #f8f0da;
+        color: #9b7930;
     }
 
-    .status-default {
-
-        background: #e2e8f0;
-
-        color: #475569;
-
+    .badge-dibaca {
+        background: #e9f0e9;
+        color: #557b60;
     }
 
-
-    /* =====================================================
-       DATE
-    ====================================================== */
-
-    .date-main {
-
-        color: #334155;
-
-        font-size: 13px;
-
-        font-weight: 600;
-
-        white-space: nowrap;
-
+    .badge-dibalas {
+        background: #dceee2;
+        color: #34724e;
     }
 
-    .date-time {
-
-        color: #94a3b8;
-
-        font-size: 11px;
-
-        margin-top: 3px;
-
+    .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
     }
 
 
-    /* =====================================================
-       ACTION BUTTONS
-    ====================================================== */
+    /* PESAN DAN TANGGAL */
+
+    .judul-berita {
+        display: inline-block;
+        max-width: 180px;
+        color: var(--saran-green);
+        font-size: 10px;
+        font-weight: 650;
+    }
+
+    .isi-pesan {
+        max-width: 220px;
+        color: #64766a;
+        font-size: 10px;
+        line-height: 1.7;
+    }
+
+    .date-cell {
+        color: var(--saran-text);
+        font-size: 10px;
+        font-weight: 650;
+    }
+
+    .time-cell {
+        display: inline-block;
+        margin-top: 4px;
+        color: var(--saran-muted);
+        font-size: 9px;
+    }
+
+
+    /* ACTION BUTTON */
 
     .action-buttons {
-
         display: flex;
-
-        align-items: center;
-
         justify-content: center;
-
-        gap: 8px;
-
+        align-items: center;
+        gap: 7px;
     }
 
-    .action-btn {
-
-        width: 38px;
-
-        height: 38px;
-
-        min-width: 38px;
-
-        padding: 0;
-
-        border: none;
-
-        border-radius: 9px;
-
+    .btn-action {
         display: inline-flex;
-
         align-items: center;
-
         justify-content: center;
-
+        width: 32px;
+        height: 32px;
+        border: 0;
+        border-radius: 8px;
         text-decoration: none;
-
         cursor: pointer;
-
-        transition:
-            transform .18s ease,
-            box-shadow .18s ease,
-            background .18s ease;
-
+        transition: .2s ease;
     }
 
-    .action-btn i {
-
-        font-size: 17px;
-
-        line-height: 1;
-
-        display: block;
-
+    .btn-detail {
+        background: var(--saran-soft);
+        color: var(--saran-green);
     }
 
-    /* Mata */
-    .action-view {
-
-        background: #dbeafe;
-
-        color: #2563eb;
-
-    }
-
-    .action-view:hover {
-
-        background: #2563eb;
-
+    .btn-detail:hover {
+        background: var(--saran-green);
         color: #fff;
-
-        transform: translateY(-2px);
-
-        box-shadow:
-            0 5px 12px rgba(37, 99, 235, .25);
-
     }
 
-    /* Tong Sampah */
-    .action-delete {
-
-        background: #fee2e2;
-
-        color: #dc2626;
-
+    .btn-hapus {
+        background: #f8e9e7;
+        color: #b65e51;
     }
 
-    .action-delete:hover {
-
-        background: #dc2626;
-
+    .btn-hapus:hover {
+        background: #b65e51;
         color: #fff;
-
-        transform: translateY(-2px);
-
-        box-shadow:
-            0 5px 12px rgba(220, 38, 38, .25);
-
-    }
-
-    .delete-form {
-
-        margin: 0;
-
-        padding: 0;
-
-        display: inline-flex;
-
     }
 
 
-    /* =====================================================
-       EMPTY STATE
-    ====================================================== */
+    /* EMPTY STATE */
 
     .empty-state {
-
-        padding: 65px 20px;
-
-        text-align: center;
-
+        padding: 15px;
     }
 
     .empty-icon {
-
-        width: 65px;
-        height: 65px;
-
-        margin: 0 auto 15px;
-
-        border-radius: 18px;
-
-        background: #f1f5f9;
-
-        color: #94a3b8;
-
         display: flex;
-
         align-items: center;
         justify-content: center;
-
-        font-size: 29px;
-
+        width: 65px;
+        height: 65px;
+        margin: 0 auto 14px;
+        border-radius: 20px;
+        background: var(--saran-soft);
+        color: var(--saran-medium);
+        font-size: 30px;
     }
 
-    .empty-title {
-
-        color: #334155;
-
-        font-size: 16px;
-
-        font-weight: 700;
-
-    }
-
-    .empty-text {
-
-        color: #94a3b8;
-
+    .empty-state h6 {
+        color: var(--saran-dark);
         font-size: 13px;
+        font-weight: 750;
+    }
 
-        margin-top: 5px;
-
+    .empty-state p {
+        margin: 0;
+        color: var(--saran-muted);
+        font-size: 11px;
     }
 
 
-    /* =====================================================
-       PAGINATION
-    ====================================================== */
+    /* FOOTER DAN PAGINATION */
 
-    .pagination-wrapper {
+    .table-card-footer {
+        padding: 16px 22px;
+        border-top: 1px solid var(--saran-border);
+        background: #fff;
+    }
 
-        padding: 18px 20px;
+    .table-card-footer small {
+        color: var(--saran-muted);
+        font-size: 10px;
+    }
 
-        border-top: 1px solid #eef2f7;
+    .table-card-footer strong {
+        color: var(--saran-green);
+    }
 
+    .pagination {
+        margin: 0;
+        gap: 3px;
+    }
+
+    .pagination .page-link {
         display: flex;
-
-        justify-content: flex-end;
-
+        align-items: center;
+        justify-content: center;
+        min-width: 31px;
+        min-height: 31px;
+        border: 1px solid var(--saran-border);
+        border-radius: 7px !important;
+        color: var(--saran-green);
+        background: #fff;
+        font-size: 10px;
     }
 
-    .pagination-wrapper .pagination {
+    .pagination .page-link:hover {
+        background: var(--saran-soft);
+        border-color: var(--saran-medium);
+    }
 
-        margin-bottom: 0;
-
+    .pagination .active .page-link {
+        border-color: var(--saran-green);
+        background: var(--saran-green);
+        color: #fff;
     }
 
 
-    /* =====================================================
-       RESPONSIVE
-    ====================================================== */
+    /* RESPONSIVE */
 
     @media (max-width: 768px) {
 
-        .saran-header {
+        .header-saran {
+            min-height: 165px;
+            padding: 23px;
+        }
 
+        .header-saran h3 {
+            font-size: 21px;
+        }
+
+        .header-saran p {
+            max-width: 270px;
+            line-height: 1.6;
+        }
+
+        .header-icon {
+            margin-right: 0;
+            font-size: 48px;
+        }
+
+        .summary-card {
+            min-height: 150px;
             padding: 18px;
-
         }
 
-        .saran-header-title {
+        .summary-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            font-size: 21px;
+        }
 
+        .summary-info h3 {
+            font-size: 26px;
+        }
+
+        .filter-card .card-body {
+            padding: 18px !important;
+        }
+
+        .table-card-header {
+            padding: 17px;
+        }
+
+        .table-card-footer {
+            padding: 15px;
+        }
+
+    }
+
+    @media (max-width: 480px) {
+
+        .header-icon {
+            display: none;
+        }
+
+        .header-saran h3 {
             font-size: 19px;
-
         }
 
-        .success-popup {
+        .summary-card-content {
+            gap: 12px;
+        }
 
-            width: calc(100% - 30px);
+        .summary-info p {
+            font-size: 10px;
+        }
 
-            min-width: auto;
-
+        .table-header-badge {
+            display: none;
         }
 
     }
 
 </style>
-
-{{-- =========================================================
-JAVASCRIPT POPUP
-========================================================= --}}
-@if(session('success'))
-
-<script>
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    const popup = document.getElementById('successPopup');
-
-    if (popup) {
-
-        setTimeout(function () {
-
-            popup.style.opacity = '0';
-
-            popup.style.transform =
-                'translate(-50%, -55%)';
-
-            popup.style.transition =
-                'opacity .3s ease, transform .3s ease';
-
-            setTimeout(function () {
-
-                popup.remove();
-
-            }, 300);
-
-        }, 2500);
-
-    }
-
-});
-
-</script>
-
-@endif
 
 @endsection

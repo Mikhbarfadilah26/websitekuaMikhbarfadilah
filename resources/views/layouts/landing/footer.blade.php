@@ -104,24 +104,24 @@
                         </p>
 
                         <p>
-                            <strong>Telepon :</strong>
-                            -
+                            <strong>Telepon :085277714277</strong>
+                            
                         </p>
 
                         <p>
-                            <strong>Email :</strong>
-                            -
+                            <strong>Email :Kuakarangbaru1@gmail.com </strong>
+                            
                         </p>
 
                         <p>
-                            <strong>Website :</strong>
-                            -
+                            <strong>Website : Kantor Urusan Agama Karang Baru,kab.Aceh tamiang </strong>
+                            
                         </p>
 
                         <p class="wa-layanan">
                             <strong>WA Layanan KUA Karang Baru</strong>
                             <br>
-                            -
+                           
                         </p>
 
                         <div class="contact-social">

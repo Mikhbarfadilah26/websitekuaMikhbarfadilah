@@ -1,233 +1,222 @@
+
 @extends('layouts.applanding')
+
+@section('title', 'Persyaratan Pelayanan | KUA Karang Baru')
 
 @section('content')
 
 {{-- =========================================================
-    HERO
+     DAFTAR PERSYARATAN
 ========================================================= --}}
 
-<section class="py-5 bg-light">
+<section class="persyaratan-section">
 
     <div class="container">
 
-        <div class="text-center">
+        {{-- JUDUL HALAMAN --}}
 
-            <span class="badge bg-primary px-3 py-2 mb-3">
-                Pelayanan KUA
+        <div class="section-heading text-center">
+
+            <span class="section-label">
+                INFORMASI ADMINISTRASI
             </span>
 
-            <h1 class="fw-bold mb-3">
-                Persyaratan
-            </h1>
+            <h2>Daftar Persyaratan</h2>
 
-            <p class="text-muted mb-0">
-                Informasi persyaratan pelayanan di Kantor Urusan Agama
+            <p>
+                Pilih jenis pelayanan di bawah ini untuk melihat
+                dokumen yang perlu dipersiapkan.
             </p>
 
         </div>
 
-    </div>
-
-</section>
-
-
-{{-- =========================================================
-    DAFTAR PERSYARATAN
-========================================================= --}}
-
-<section class="py-5">
-
-    <div class="container">
 
         <div class="row justify-content-center">
 
             <div class="col-lg-9">
 
-                <div class="card border-0 shadow-sm">
+                {{-- CARD UTAMA --}}
 
-                    <div class="card-body p-4 p-md-5">
+                <div class="persyaratan-card">
 
-                        {{-- =================================================
-                            JUDUL
-                        ================================================== --}}
+                    <div class="card-heading">
 
-                        <div class="text-center mb-4">
-
-                            <div
-                                class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                                style="width: 60px; height: 60px;">
-
-                                <i class="fas fa-clipboard-check fa-lg"></i>
-
-                            </div>
-
-                            <h3 class="fw-bold mb-2">
-                                Daftar Persyaratan
-                            </h3>
-
-                            <p class="text-muted mb-0">
-                                Pilih jenis pelayanan untuk melihat persyaratannya.
-                            </p>
-
+                        <div class="heading-icon">
+                            <i class="fas fa-clipboard-check"></i>
                         </div>
 
+                        <div>
+                            <h4>Informasi Persyaratan</h4>
 
-                        {{-- =================================================
-                            DROPDOWN PERSYARATAN NIKAH
-                        ================================================== --}}
+                            <p>
+                                Persiapkan dokumen sesuai ketentuan pelayanan.
+                            </p>
+                        </div>
 
-                        <div class="accordion" id="accordionPersyaratan">
-
-                            <div class="accordion-item border rounded-3 mb-3">
-
-                                <h2 class="accordion-header">
-
-                                    <button
-                                        class="accordion-button collapsed fw-semibold"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#persyaratanNikah"
-                                        aria-expanded="false"
-                                        aria-controls="persyaratanNikah">
-
-                                        <i class="fas fa-ring me-3 text-primary"></i>
-
-                                        Persyaratan Nikah
-
-                                    </button>
-
-                                </h2>
+                    </div>
 
 
-                                <div
-                                    id="persyaratanNikah"
-                                    class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionPersyaratan">
+                    {{-- ACCORDION --}}
 
-                                    <div class="accordion-body">
+                    <div class="accordion custom-accordion"
+                         id="accordionPersyaratan">
 
-                                        <div class="mb-4">
+                        <div class="accordion-item">
 
-                                            <h5 class="fw-bold">
-                                                Persyaratan Nikah
+                            <h2 class="accordion-header">
+
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#persyaratanNikah"
+                                    aria-expanded="false"
+                                    aria-controls="persyaratanNikah">
+
+                                    <span class="accordion-icon">
+                                        <i class="fas fa-ring"></i>
+                                    </span>
+
+                                    <span class="accordion-title">
+
+                                        <strong>Persyaratan Nikah</strong>
+
+                                        <small>
+                                            Dokumen administrasi pendaftaran nikah
+                                        </small>
+
+                                    </span>
+
+                                    <span class="accordion-arrow">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </span>
+
+                                </button>
+
+                            </h2>
+
+
+                            <div
+                                id="persyaratanNikah"
+                                class="accordion-collapse collapse"
+                                data-bs-parent="#accordionPersyaratan">
+
+                                <div class="accordion-body">
+
+                                    {{-- INFORMASI --}}
+
+                                    <div class="syarat-intro">
+
+                                        <div class="syarat-intro-icon">
+                                            <i class="fas fa-info-circle"></i>
+                                        </div>
+
+                                        <div>
+
+                                            <h5>
+                                                Persyaratan Pendaftaran Nikah
                                             </h5>
 
-                                            <p class="text-muted small mb-0">
-                                                Silakan lengkapi seluruh persyaratan
-                                                berikut sebelum melakukan pendaftaran nikah.
+                                            <p>
+                                                Silakan lengkapi dokumen berikut
+                                                sebelum melakukan pendaftaran nikah
+                                                di KUA Kecamatan Karang Baru.
                                             </p>
 
                                         </div>
 
-
-                                        {{-- =================================================
-                                            LIST PERSYARATAN
-                                        ================================================== --}}
-
-                                        <div class="persyaratan-list">
-
-                                            @forelse ($layanan->persyaratan as $index => $syarat)
-
-                                                <div class="d-flex mb-3">
-
-                                                    <div class="me-3">
-
-                                                        <span
-                                                            class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center"
-                                                            style="width: 32px; height: 32px;">
-
-                                                            {{ $index + 1 }}
-
-                                                        </span>
-
-                                                    </div>
+                                    </div>
 
 
-                                                    <div class="flex-grow-1">
+                                    {{-- DATA PERSYARATAN DARI DATABASE --}}
 
-                                                        <div class="fw-semibold">
+                                    <div class="persyaratan-list">
 
-                                                            {{ $syarat->nama_persyaratan }}
+                                        @forelse ($layanan->persyaratan as $index => $syarat)
 
-                                                        </div>
+                                            <div class="syarat-item">
 
+                                                <div class="syarat-number">
+                                                    {{ $index + 1 }}
+                                                </div>
 
-                                                        @if ($syarat->keterangan)
+                                                <div class="syarat-content">
 
-                                                            <div class="text-muted small mt-1">
+                                                    <h6>
+                                                        {{ $syarat->nama_persyaratan }}
+                                                    </h6>
 
-                                                                <i class="fas fa-info-circle me-1"></i>
+                                                    @if ($syarat->keterangan)
 
-                                                                {{ $syarat->keterangan }}
+                                                        <p>
+                                                            <i class="fas fa-info-circle"></i>
+                                                            {{ $syarat->keterangan }}
+                                                        </p>
 
-                                                            </div>
-
-                                                        @endif
-
-                                                    </div>
+                                                    @endif
 
                                                 </div>
 
-                                            @empty
-
-                                                <div class="alert alert-warning">
-
-                                                    <i class="fas fa-exclamation-circle me-2"></i>
-
-                                                    Data persyaratan belum tersedia.
-
+                                                <div class="syarat-check">
+                                                    <i class="fas fa-check-circle"></i>
                                                 </div>
 
-                                            @endforelse
+                                            </div>
 
-                                        </div>
+                                        @empty
+
+                                            <div class="empty-state">
+
+                                                <div class="empty-icon">
+                                                    <i class="fas fa-folder-open"></i>
+                                                </div>
+
+                                                <h5>Data Belum Tersedia</h5>
+
+                                                <p>
+                                                    Informasi persyaratan belum
+                                                    ditambahkan oleh administrator.
+                                                </p>
+
+                                            </div>
+
+                                        @endforelse
 
                                     </div>
 
                                 </div>
 
                             </div>
-
-
-                            {{-- =================================================
-                                TEMPAT PERSYARATAN BERIKUTNYA
-                            ================================================== --}}
-
-                            {{-- 
-                            Nanti bisa ditambahkan:
-
-                            <div class="accordion-item border rounded-3 mb-3">
-
-                                <h2 class="accordion-header">
-
-                                    <button
-                                        class="accordion-button collapsed fw-semibold"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#persyaratanBerikutnya">
-
-                                        <i class="fas fa-file-alt me-3 text-primary"></i>
-
-                                        Nama Persyaratan Berikutnya
-
-                                    </button>
-
-                                </h2>
-
-                                <div
-                                    id="persyaratanBerikutnya"
-                                    class="accordion-collapse collapse">
-
-                                    <div class="accordion-body">
-                                        ...
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            --}}
 
                         </div>
+
+                    </div>
+
+                </div>
+
+
+                {{-- INFORMASI TAMBAHAN --}}
+
+                <div class="information-card">
+
+                    <div class="information-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+
+                    <div class="information-content">
+
+                        <h5>Informasi Penting</h5>
+
+                        <p>
+                            Pastikan seluruh dokumen persyaratan telah
+                            dipersiapkan sebelum datang ke Kantor Urusan
+                            Agama Kecamatan Karang Baru.
+                        </p>
+
+                        <p class="mb-0">
+                            Untuk informasi lebih lanjut, silakan
+                            menghubungi petugas pelayanan KUA.
+                        </p>
 
                     </div>
 
@@ -243,50 +232,426 @@
 
 
 {{-- =========================================================
-    INFORMASI
+     CSS TEMA HIJAU SOFT MENYELURUH
 ========================================================= --}}
 
-<section class="py-5 bg-light">
+<style>
 
-    <div class="container">
+    :root {
+        --kua-green: #367b59;
+        --kua-green-dark: #285f43;
+        --kua-bg: #eaf3eb;
+        --kua-bg-soft: #eaf3eb;
+        --kua-border: #d7e6d9;
+        --kua-text: #304b3b;
+        --kua-muted: #718477;
+    }
 
-        <div class="row justify-content-center">
 
-            <div class="col-lg-9">
+    /* BACKGROUND UTAMA */
 
-                <div class="alert alert-info border-0 shadow-sm">
+    .persyaratan-section {
+        padding: 65px 0;
+        background: var(--kua-bg);
+        min-height: 75vh;
+    }
 
-                    <div class="d-flex">
 
-                        <div class="me-3">
+    /* JUDUL */
 
-                            <i class="fas fa-info-circle fa-2x"></i>
+    .section-heading {
+        margin-bottom: 38px;
+    }
 
-                        </div>
+    .section-label {
+        display: inline-block;
+        color: var(--kua-green-dark);
+        background: #dcebdd;
+        padding: 8px 17px;
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.3px;
+    }
 
-                        <div>
+    .section-heading h2 {
+        color: var(--kua-green-dark);
+        font-size: 32px;
+        font-weight: 800;
+        margin: 15px 0 10px;
+    }
 
-                            <h5 class="fw-bold">
-                                Informasi
-                            </h5>
+    .section-heading p {
+        color: var(--kua-muted);
+        font-size: 14px;
+        line-height: 1.8;
+        margin: 0;
+    }
 
-                            <p class="mb-0">
-                                Silakan pilih jenis pelayanan di atas
-                                untuk melihat persyaratan yang diperlukan.
-                            </p>
 
-                        </div>
+    /* CARD UTAMA */
 
-                    </div>
+    .persyaratan-card {
+        background: var(--kua-bg-soft);
+        border: 1px solid var(--kua-border);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 8px 30px rgba(41, 91, 59, 0.05);
+    }
 
-                </div>
+    .card-heading {
+        display: flex;
+        align-items: center;
+        gap: 17px;
+        padding-bottom: 23px;
+        margin-bottom: 23px;
+        border-bottom: 1px solid var(--kua-border);
+    }
 
-            </div>
+    .heading-icon {
+        width: 55px;
+        height: 55px;
+        min-width: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        background: #dcebdd;
+        color: var(--kua-green);
+        font-size: 23px;
+    }
 
-        </div>
+    .card-heading h4 {
+        color: var(--kua-green-dark);
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
 
-    </div>
+    .card-heading p {
+        color: var(--kua-muted);
+        font-size: 13px;
+        margin: 0;
+    }
 
-</section>
+
+    /* ACCORDION */
+
+    .custom-accordion .accordion-item {
+        border: 1px solid var(--kua-border);
+        border-radius: 13px !important;
+        overflow: hidden;
+        margin-bottom: 15px;
+        background: var(--kua-bg);
+    }
+
+    .custom-accordion .accordion-button {
+        padding: 19px;
+        background: var(--kua-bg);
+        color: var(--kua-green-dark);
+        box-shadow: none;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .custom-accordion .accordion-button:not(.collapsed) {
+        background: var(--kua-bg);
+        color: var(--kua-green-dark);
+        box-shadow: none;
+    }
+
+    .custom-accordion .accordion-button::after {
+        display: none;
+    }
+
+    .accordion-icon {
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dcebdd;
+        border-radius: 12px;
+        color: var(--kua-green);
+        font-size: 19px;
+    }
+
+    .accordion-title {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .accordion-title strong {
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    .accordion-title small {
+        color: var(--kua-muted);
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .accordion-arrow {
+        color: var(--kua-green);
+        transition: transform .3s ease;
+    }
+
+    .accordion-button:not(.collapsed) .accordion-arrow {
+        transform: rotate(180deg);
+    }
+
+
+    /* ISI ACCORDION */
+
+    .custom-accordion .accordion-body {
+        padding: 25px;
+        background: var(--kua-bg);
+        border-top: 1px solid var(--kua-border);
+    }
+
+    .syarat-intro {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+        padding: 17px;
+        border-radius: 12px;
+        background: #dfece1;
+        margin-bottom: 20px;
+    }
+
+    .syarat-intro-icon {
+        color: var(--kua-green);
+        font-size: 21px;
+        padding-top: 2px;
+    }
+
+    .syarat-intro h5 {
+        color: var(--kua-green-dark);
+        font-size: 15px;
+        font-weight: 800;
+        margin-bottom: 6px;
+    }
+
+    .syarat-intro p {
+        color: var(--kua-muted);
+        font-size: 13px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+
+    /* DAFTAR PERSYARATAN */
+
+    .persyaratan-list {
+        background: var(--kua-bg);
+        border-radius: 12px;
+    }
+
+    .syarat-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 17px 12px;
+        border-bottom: 1px solid var(--kua-border);
+        transition: background .2s ease;
+    }
+
+    .syarat-item:last-child {
+        border-bottom: none;
+    }
+
+    .syarat-item:hover {
+        background: #e2eee4;
+        border-radius: 10px;
+    }
+
+    .syarat-number {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: #d5e7d8;
+        color: var(--kua-green-dark);
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .syarat-content {
+        flex: 1;
+    }
+
+    .syarat-content h6 {
+        color: var(--kua-text);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.6;
+        margin: 5px 0 0;
+    }
+
+    .syarat-content p {
+        color: var(--kua-muted);
+        font-size: 12px;
+        line-height: 1.7;
+        margin: 7px 0 0;
+    }
+
+    .syarat-content p i {
+        color: var(--kua-green);
+        margin-right: 5px;
+    }
+
+    .syarat-check {
+        color: var(--kua-green);
+        font-size: 17px;
+        padding-top: 7px;
+    }
+
+
+    /* DATA KOSONG */
+
+    .empty-state {
+        text-align: center;
+        padding: 35px 15px;
+    }
+
+    .empty-icon {
+        width: 65px;
+        height: 65px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dcebdd;
+        color: var(--kua-green);
+        font-size: 25px;
+        border-radius: 18px;
+        margin: 0 auto 15px;
+    }
+
+    .empty-state h5 {
+        color: var(--kua-green-dark);
+        font-weight: 800;
+    }
+
+    .empty-state p {
+        color: var(--kua-muted);
+        font-size: 13px;
+        margin: 0;
+    }
+
+
+    /* INFORMASI */
+
+    .information-card {
+        display: flex;
+        gap: 18px;
+        padding: 25px;
+        margin-top: 23px;
+        border: 1px solid var(--kua-border);
+        border-radius: 17px;
+        background: var(--kua-bg);
+        box-shadow: 0 5px 20px rgba(41, 91, 59, 0.04);
+    }
+
+    .information-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        background: #dcebdd;
+        color: var(--kua-green-dark);
+        font-size: 21px;
+    }
+
+    .information-content h5 {
+        color: var(--kua-green-dark);
+        font-size: 16px;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .information-content p {
+        color: var(--kua-muted);
+        font-size: 13px;
+        line-height: 1.8;
+        margin-bottom: 7px;
+    }
+
+
+    /* RESPONSIVE HP */
+
+    @media (max-width: 767px) {
+
+        .persyaratan-section {
+            padding: 45px 0;
+        }
+
+        .section-heading h2 {
+            font-size: 26px;
+        }
+
+        .persyaratan-card {
+            padding: 18px 13px;
+            border-radius: 15px;
+        }
+
+        .card-heading {
+            gap: 12px;
+        }
+
+        .card-heading h4 {
+            font-size: 16px;
+        }
+
+        .custom-accordion .accordion-button {
+            padding: 15px 12px;
+            gap: 10px;
+        }
+
+        .accordion-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+        }
+
+        .accordion-title strong {
+            font-size: 13px;
+        }
+
+        .accordion-title small {
+            font-size: 11px;
+        }
+
+        .custom-accordion .accordion-body {
+            padding: 15px 10px;
+        }
+
+        .syarat-item {
+            gap: 10px;
+            padding: 14px 5px;
+        }
+
+        .syarat-content h6 {
+            font-size: 13px;
+        }
+
+        .information-card {
+            padding: 17px;
+            gap: 12px;
+        }
+
+    }
+
+</style>
 
 @endsection

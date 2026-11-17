@@ -1,115 +1,88 @@
+
 {{-- =========================================================
-NAVBAR KUA KARANG BARU
+     NAVBAR KUA KARANG BARU
+     VERSI FINAL RESPONSIVE - TEMA HIJAU SOFT
 ========================================================= --}}
 
 @php
-use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\DB;
 
-$dataLayananNavbar = DB::table('layanan')
-    ->orderBy('id', 'asc')
-    ->get();
+    $dataLayananNavbar = DB::table('layanan')
+        ->orderBy('id', 'asc')
+        ->get();
+
+    $tampilkanTopbar =
+        request()->routeIs('landing') ||
+        request()->routeIs('landing.beranda');
 @endphp
 
 
 {{-- =========================================================
-CEK HALAMAN BERANDA
-TOP NAVBAR HANYA TAMPIL DI BERANDA
-========================================================= --}}
-
-@php
-
-$tampilkanTopbar =
-    request()->routeIs('landing') ||
-    request()->routeIs('landing.beranda');
-
-@endphp
-
-
-{{-- =========================================================
-TOP NAVBAR / RUNNING TEXT
-HANYA UNTUK BERANDA LANDING
+     TOPBAR BERANDA
 ========================================================= --}}
 
 @if ($tampilkanTopbar)
 
-<div class="top-navbar-kua">
+    <div class="top-navbar-kua">
 
-    {{-- =================================================
-        RUNNING TEXT
-    ================================================== --}}
+        <div class="top-marquee">
 
-    <div class="top-marquee">
+            <div class="top-welcome">
 
-        <div class="top-welcome">
+                <i class="fas fa-mosque me-2"></i>
 
-            <i class="fas fa-mosque me-2"></i>
+                Assalamu'alaikum Warahmatullahi Wabarakatuh.
+                Selamat Datang di Website Layanan KUA Kecamatan Karang Baru.
+                Kami hadir dengan sepenuh hati untuk memberikan pelayanan yang amanah,
+                profesional, ramah, transparan, dan mudah bagi seluruh masyarakat.
+                Semoga setiap pelayanan menjadi jalan kebaikan dan membawa keberkahan
+                bagi kita semua. Mari bersama-sama mewujudkan pelayanan KUA yang
+                santun, cepat, mudah, transparan, dan penuh dengan nilai-nilai Islam.
 
-            Assalamu'alaikum Warahmatullahi Wabarakatuh.
-            Selamat Datang di Website Layanan KUA Kecamatan Karang Baru.
-            Kami hadir dengan sepenuh hati untuk memberikan pelayanan yang amanah,
-            profesional, ramah, transparan, dan mudah bagi seluruh masyarakat.
-            Semoga setiap pelayanan menjadi jalan kebaikan dan membawa keberkahan
-            bagi kita semua. Mari bersama-sama mewujudkan pelayanan KUA yang
-            santun, cepat, mudah, transparan, dan penuh dengan nilai-nilai Islam.
+            </div>
+
+        </div>
+
+        <div class="top-date-kua">
+
+            <i class="far fa-calendar-alt me-2"></i>
+
+            <span id="tanggalKua"></span>
 
         </div>
 
     </div>
 
-
-    {{-- =================================================
-        TANGGAL
-    ================================================== --}}
-
-    <div class="top-date-kua">
-
-        <i class="far fa-calendar-alt me-2"></i>
-
-        <span id="tanggalKua"></span>
-
-    </div>
-
-</div>
-
 @endif
 
 
-
 {{-- =========================================================
-NAVBAR UTAMA
+     NAVBAR UTAMA
 ========================================================= --}}
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-kua
+<nav class="navbar navbar-expand-md navbar-dark navbar-kua
     {{ $tampilkanTopbar ? 'with-topbar' : 'without-topbar' }}">
 
-    <div class="container">
+    <div class="container navbar-container-kua">
 
 
-        {{-- =================================================
-        LOGO + BRAND
-        ================================================== --}}
+        {{-- LOGO DAN BRAND --}}
 
-        <a
-            class="navbar-brand d-flex align-items-center fw-bold"
-            href="{{ route('landing') }}">
+        <a class="navbar-brand navbar-brand-kua"
+           href="{{ route('landing') }}">
 
             <img
-                src="{{ asset('7.png') }}"
+                src="{{ asset('foto/landing/7.png') }}"
                 alt="Logo KUA Karang Baru"
-                class="logo-kua me-2">
+                class="logo-kua">
 
-
-            <div class="brand-text running-brand">
+            <div class="brand-text">
 
                 <div class="running-wrapper">
-
-                    <span>
-                        KUA Karang Baru
-                    </span>
-
+                    <span>KUA Karang Baru</span>
                 </div>
 
-                <small class="d-block">
+                <small>
                     Kantor Urusan Agama Kecamatan Karang Baru
                 </small>
 
@@ -118,142 +91,112 @@ NAVBAR UTAMA
         </a>
 
 
-
-        {{-- =================================================
-        BUTTON MOBILE
-        ================================================== --}}
+        {{-- TOMBOL MOBILE --}}
 
         <button
-            class="navbar-toggler border-0 shadow-none"
+            class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarKua"
             aria-controls="navbarKua"
             aria-expanded="false"
-            aria-label="Toggle navigation">
+            aria-label="Buka menu navigasi">
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
 
+        {{-- MENU NAVIGASI --}}
 
-        {{-- =================================================
-        NAVIGATION MENU
-        ================================================== --}}
+        <div class="collapse navbar-collapse" id="navbarKua">
 
-        <div
-            class="collapse navbar-collapse"
-            id="navbarKua">
-
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto">
 
 
-                {{-- =================================================
-                BERANDA
-                ================================================== --}}
+                {{-- BERANDA --}}
 
                 <li class="nav-item">
 
                     <a
                         href="{{ route('landing.beranda') }}"
-                        class="nav-link">
+                        class="nav-link {{ request()->routeIs('landing.beranda') || request()->routeIs('landing') ? 'active' : '' }}">
 
-                        <i class="fas fa-home me-1"></i>
-
-                        Beranda
+                        <i class="fas fa-home"></i>
+                        <span>Beranda</span>
 
                     </a>
 
                 </li>
 
 
-
-                {{-- =================================================
-                PROFIL
-                ================================================== --}}
+                {{-- PROFIL --}}
 
                 <li class="nav-item dropdown">
 
                     <a
-                        class="nav-link dropdown-toggle"
+                        class="nav-link dropdown-toggle {{ request()->routeIs('landing.sejarah') || request()->routeIs('landing.visimisi') || request()->routeIs('landing.tentang') ? 'active' : '' }}"
                         href="#"
                         id="navbarDropdownProfil"
                         role="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
 
-                        <i class="fas fa-user-shield me-1"></i>
-
-                        Profil
+                        <i class="fas fa-user-shield"></i>
+                        <span>Profil</span>
 
                     </a>
 
-
                     <ul
-                        class="dropdown-menu dropdown-menu-dark shadow-lg border-0 rounded-3 mt-2"
+                        class="dropdown-menu profil-menu"
                         aria-labelledby="navbarDropdownProfil">
 
                         <li>
 
-                            <a
-                                class="dropdown-item py-2 px-3 rounded-2 mb-1 text-light"
-                                href="{{ route('landing.sejarah') }}">
+                            <a class="dropdown-item"
+                               href="{{ route('landing.sejarah') }}">
 
-                                <i class="fas fa-history text-info me-2 small"></i>
-
+                                <i class="fas fa-history me-2"></i>
                                 Sejarah Singkat
 
                             </a>
 
                         </li>
 
-
                         <li>
 
-                            <a
-                                class="dropdown-item py-2 px-3 rounded-2 mb-1 text-light"
-                                href="{{ route('landing.visimisi') }}">
+                            <a class="dropdown-item"
+                               href="{{ route('landing.visimisi') }}">
 
-                                <i class="fas fa-bullseye text-info me-2 small"></i>
-
+                                <i class="fas fa-bullseye me-2"></i>
                                 Visi & Misi
 
                             </a>
 
                         </li>
 
-
                         <li>
 
-                            <a
-                                class="dropdown-item py-2 px-3 rounded-2 mb-1 text-light"
-                                href="{{ route('landing.tentang') }}">
+                            <a class="dropdown-item"
+                               href="{{ route('landing.tentang') }}">
 
-                                <i class="fas fa-info-circle text-info me-2 small"></i>
-
+                                <i class="fas fa-info-circle me-2"></i>
                                 Tentang Kami
 
                             </a>
 
                         </li>
 
-
                         <li>
-
-                            <hr class="dropdown-divider border-secondary opacity-25">
-
+                            <hr class="dropdown-divider">
                         </li>
 
-
                         <li>
 
-                            <a
-                                class="dropdown-item py-2 px-3 rounded-2 text-light"
-                                href="{{ url('/struktur-organisasi') }}">
+                            <a class="dropdown-item"
+                               href="{{ url('/struktur-organisasi') }}">
 
-                                <i class="fas fa-sitemap text-info me-2 small"></i>
-
+                                <i class="fas fa-sitemap me-2"></i>
                                 Struktur Organisasi
 
                             </a>
@@ -265,10 +208,7 @@ NAVBAR UTAMA
                 </li>
 
 
-
-                {{-- =================================================
-                LAYANAN
-                ================================================== --}}
+                {{-- LAYANAN --}}
 
                 <li class="nav-item dropdown layanan-dropdown">
 
@@ -280,17 +220,14 @@ NAVBAR UTAMA
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
 
-                        <i class="fas fa-concierge-bell me-1"></i>
-
-                        Layanan
+                        <i class="fas fa-concierge-bell"></i>
+                        <span>Layanan</span>
 
                     </a>
 
-
                     <div
-                        class="dropdown-menu layanan-menu shadow-lg border-0"
+                        class="dropdown-menu layanan-menu"
                         aria-labelledby="navbarDropdownLayanan">
-
 
                         <div class="layanan-title">
 
@@ -300,42 +237,42 @@ NAVBAR UTAMA
 
                         </div>
 
+                        <div class="dropdown-divider"></div>
 
-                        <div class="dropdown-divider border-secondary opacity-25 my-1"></div>
+                        @forelse ($dataLayananNavbar as $item)
 
+                            <a
+                                class="layanan-item"
+                                href="{{ route('layanan.show', $item->id) }}">
 
-                        @foreach ($dataLayananNavbar as $item)
+                                <i class="fas fa-chevron-right"></i>
 
-                        <a
-                            class="layanan-item"
-                            href="{{ route('layanan.show', $item->id) }}">
+                                <span>{{ $item->judul }}</span>
 
-                            <i class="fas fa-chevron-right"></i>
+                            </a>
 
-                            {{ $item->judul }}
+                        @empty
 
-                        </a>
+                            <span class="layanan-item">
+                                Belum ada layanan tersedia
+                            </span>
 
-                        @endforeach
+                        @endforelse
 
                     </div>
 
                 </li>
 
 
-
-                {{-- =================================================
-                BERITA
-                ================================================== --}}
+                {{-- BERITA --}}
 
                 <li class="nav-item">
 
                     <a
-                        class="nav-link"
+                        class="nav-link {{ request()->routeIs('landing.berita') ? 'active' : '' }}"
                         href="{{ route('landing.berita') }}">
 
-                        <i class="fas fa-newspaper me-1"></i>
-
+                        <i class="fas fa-newspaper"></i>
                         <span>Berita</span>
 
                     </a>
@@ -343,19 +280,15 @@ NAVBAR UTAMA
                 </li>
 
 
-
-                {{-- =================================================
-                PERSYARATAN
-                ================================================== --}}
+                {{-- PERSYARATAN --}}
 
                 <li class="nav-item">
 
                     <a
-                        href="{{ route('landing.persyaratan') }}"
-                        class="nav-link">
+                        class="nav-link {{ request()->routeIs('landing.persyaratan') ? 'active' : '' }}"
+                        href="{{ route('landing.persyaratan') }}">
 
-                        <i class="fas fa-clipboard-check me-1"></i>
-
+                        <i class="fas fa-clipboard-check"></i>
                         <span>Persyaratan</span>
 
                     </a>
@@ -363,10 +296,7 @@ NAVBAR UTAMA
                 </li>
 
 
-
-                {{-- =================================================
-                PENCARIAN
-                ================================================== --}}
+                {{-- PENCARIAN --}}
 
                 <li class="nav-item search-nav-item">
 
@@ -396,10 +326,7 @@ NAVBAR UTAMA
                 </li>
 
 
-
-                {{-- =================================================
-                SARAN & PENGADUAN
-                ================================================== --}}
+                {{-- TANYA --}}
 
                 <li class="nav-item">
 
@@ -407,8 +334,7 @@ NAVBAR UTAMA
                         href="{{ route('landing.saran.create') }}"
                         class="nav-link {{ request()->routeIs('landing.saran.*') ? 'active' : '' }}">
 
-                        <i class="fas fa-comment-dots me-1"></i>
-
+                        <i class="fas fa-comment-dots"></i>
                         <span>Tanya</span>
 
                     </a>
@@ -418,41 +344,27 @@ NAVBAR UTAMA
             </ul>
 
 
+            {{-- TOMBOL LOGIN DAN LOKASI --}}
 
-            {{-- =================================================
-            BUTTON NAVBAR
-            ================================================== --}}
-
-            <div class="d-flex align-items-center gap-2 navbar-buttons flex-nowrap">
-
-
-                {{-- LOGIN --}}
+            <div class="navbar-buttons">
 
                 <a
                     href="{{ route('login') }}"
-                    class="btn btn-login-admin btn-sm rounded-pill px-3">
+                    class="btn btn-login-admin">
 
-                    <i class="fas fa-user-shield me-1"></i>
-
+                    <i class="fas fa-user-shield"></i>
                     <span>Login Role</span>
 
                 </a>
 
-
-
-                {{-- LOKASI --}}
-
                 <a
                     href="https://maps.google.com/?q=KUA+Karang+Baru+Aceh+Tamiang"
                     target="_blank"
-                    class="btn btn-location rounded-pill px-3 d-inline-flex align-items-center gap-2"
-                    title="Lokasi KUA Karang Baru di Google Maps">
+                    rel="noopener noreferrer"
+                    class="btn btn-location">
 
-                    <i class="fas fa-map-marker-alt text-danger"></i>
-
-                    <span class="location-text">
-                        Lokasi
-                    </span>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Lokasi</span>
 
                 </a>
 
@@ -465,393 +377,101 @@ NAVBAR UTAMA
 </nav>
 
 
-
 {{-- =========================================================
-NAVBAR CSS
+     CSS NAVBAR - TEMA HIJAU SOFT
 ========================================================= --}}
 
 <style>
 
 /* =========================================================
-   SEARCH
+   WARNA UTAMA
 ========================================================= */
 
-.search-navbar {
-
-    display: flex;
-
-    align-items: center;
-
-    width: 170px;
-
-    height: 40px;
-
-    background: #ffffff;
-
-    border-radius: 25px;
-
-    padding: 0 6px 0 15px;
-
-    box-shadow:
-        0 3px 10px rgba(0,0,0,.12);
-
+:root {
+    --kua-green: #367b59;
+    --kua-green-dark: #285f43;
+    --kua-green-soft: #eaf3eb;
+    --kua-green-light: #dcebdd;
+    --kua-green-hover: #d2e6d5;
+    --kua-border: #d7e6d9;
 }
-
-.search-input {
-
-    width: 100%;
-
-    height: 100%;
-
-    border: none;
-
-    outline: none;
-
-    background: transparent;
-
-    color: #333;
-
-    font-size: 14px;
-
-}
-
-.search-input::placeholder {
-
-    color: #777;
-
-}
-
-.search-button {
-
-    width: 32px;
-
-    height: 32px;
-
-    border: none;
-
-    background: transparent;
-
-    color: #777;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    cursor: pointer;
-
-    border-radius: 50%;
-
-    transition: .3s;
-
-}
-
-.search-button:hover {
-
-    color: #15803d;
-
-    background: rgba(22,163,74,.10);
-
-}
-
 
 
 /* =========================================================
-   MENU NAVBAR
-========================================================= */
-
-.navbar-kua .navbar-nav {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 3px;
-
-    flex-wrap: nowrap;
-
-}
-
-.navbar-kua .navbar-nav > .nav-item {
-
-    display: flex;
-
-    align-items: center;
-
-}
-
-.navbar-kua .navbar-nav > .nav-item > .nav-link {
-
-    min-width: 105px;
-
-    height: 42px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    padding: 9px 10px !important;
-
-    margin: 0 1px;
-
-    border-radius: 10px;
-
-    white-space: nowrap;
-
-    transform: none !important;
-
-}
-
-.navbar-kua .navbar-nav > .nav-item > .nav-link i {
-
-    width: 18px;
-
-    min-width: 18px;
-
-    text-align: center;
-
-    flex-shrink: 0;
-
-}
-
-.navbar-kua .navbar-nav .search-nav-item {
-
-    margin-left: 5px;
-
-}
-
-.navbar-kua .navbar-nav .search-navbar {
-
-    width: 165px;
-
-    height: 40px;
-
-    flex-shrink: 0;
-
-}
-
-.navbar-kua .navbar-buttons {
-
-    flex-shrink: 0;
-
-    white-space: nowrap;
-
-}
-
-.navbar-kua .navbar-buttons .btn {
-
-    height: 40px;
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    white-space: nowrap;
-
-    margin: 0 !important;
-
-}
-
-.navbar-kua .btn-login-admin {
-
-    min-width: 125px;
-
-}
-
-.navbar-kua .btn-location {
-
-    min-width: 95px;
-
-}
-
-
-
-/* =========================================================
-   TOP RUNNING BAR
-   HIJAU TEMA LOGIN
+   TOPBAR
 ========================================================= */
 
 .top-navbar-kua {
-
     position: fixed;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     height: 42px;
-
-    z-index: 1051;
-
-    background:
-        linear-gradient(
-            90deg,
-            #14532d 0%,
-            #166534 35%,
-            #15803d 65%,
-            #166534 100%
-        );
-
-    color: #ffffff;
-
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.20);
-
+    z-index: 1060;
+    display: flex;
+    align-items: center;
     overflow: hidden;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.10);
-
+    background: linear-gradient(
+        90deg,
+        #285f43,
+        #367b59,
+        #438563,
+        #367b59
+    );
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 3px 12px rgba(41,91,59,.15);
 }
 
-
-
-/* =========================================================
-   RUNNING TEXT
-========================================================= */
-
 .top-marquee {
-
-    position: relative;
-
-    width: 100%;
-
     height: 42px;
-
+    flex: 1;
+    min-width: 0;
     display: flex;
-
     align-items: center;
-
     overflow: hidden;
-
-    padding-right: 210px;
-
+    padding-right: 10px;
 }
 
 .top-welcome {
-
-    position: absolute;
-
-    left: 100%;
-
+    display: inline-block;
     width: max-content;
-
+    flex-shrink: 0;
     white-space: nowrap;
-
-    display: block;
-
     font-size: 13px;
-
-    font-weight: 500;
-
+    font-weight: 600;
     letter-spacing: .2px;
-
-    color: #ffffff;
-
-    animation:
-        topRunningText 35s linear infinite;
-
+    animation: topRunningText 38s linear infinite;
 }
 
 .top-welcome i {
-
-    color: #bbf7d0;
-
+    color: #dcebdd;
 }
-
-
-
-/* =========================================================
-   ANIMASI RUNNING TEXT
-========================================================= */
 
 @keyframes topRunningText {
-
-    from {
-
-        transform:
-            translateX(0);
-
-    }
-
-    to {
-
-        transform:
-            translateX(-120%);
-
-    }
-
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
 }
 
-
-
-/* =========================================================
-   TANGGAL
-========================================================= */
-
 .top-date-kua {
-
-    position: absolute;
-
-    top: 0;
-
-    right: 0;
-
     height: 42px;
-
+    min-width: 215px;
+    padding: 0 15px;
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    padding: 0 18px;
-
-    min-width: 205px;
-
+    flex-shrink: 0;
+    background: rgba(40,95,67,.35);
+    border-left: 1px solid rgba(255,255,255,.15);
+    color: #fff;
     font-size: 12px;
-
     font-weight: 600;
-
-    letter-spacing: .2px;
-
-    color: #ffffff;
-
-    background:
-        rgba(5,46,22,.45);
-
-    border-left:
-        1px solid rgba(255,255,255,.18);
-
-    backdrop-filter: blur(8px);
-
-    -webkit-backdrop-filter: blur(8px);
-
     white-space: nowrap;
-
-    z-index: 10;
-
 }
 
 .top-date-kua i {
-
-    color: #bbf7d0;
-
-    font-size: 13px;
-
+    color: #dcebdd;
 }
-
 
 
 /* =========================================================
@@ -859,833 +479,644 @@ NAVBAR CSS
 ========================================================= */
 
 .navbar-kua {
-
     position: fixed !important;
-
     left: 0;
-
     width: 100%;
-
-    background:
-        rgba(8,18,35,.96) !important;
-
-    backdrop-filter: blur(18px);
-
-    -webkit-backdrop-filter: blur(18px);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 8px 30px rgba(0,0,0,.25);
-
-    padding-top: 10px;
-
-    padding-bottom: 10px;
-
-    transition: all .3s ease;
-
+    z-index: 1050;
+    padding: 10px 0;
+    background: rgba(40,95,67,.98) !important;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 8px 25px rgba(41,91,59,.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    transition: background .3s ease;
 }
-
-
-
-/* TOPBAR ADA */
 
 .navbar-kua.with-topbar {
-
     top: 42px !important;
-
 }
-
-
-
-/* TOPBAR TIDAK ADA */
 
 .navbar-kua.without-topbar {
-
     top: 0 !important;
-
 }
 
-
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.logo-kua {
-
-    width: 48px;
-
-    height: 48px;
-
-    object-fit: contain;
-
-    border-radius: 10px;
-
-    background: transparent !important;
-
-    padding: 0;
-
-    transition: all .3s ease;
-
+.navbar-container-kua {
+    max-width: 1440px;
+    width: calc(100% - 48px);
 }
-
-.navbar-brand:hover .logo-kua {
-
-    transform: scale(1.05);
-
-}
-
 
 
 /* =========================================================
    BRAND
 ========================================================= */
 
-.brand-text {
-
-    min-width: 0;
-
+.navbar-brand-kua {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 18px;
+    padding: 0;
+    gap: 10px;
 }
 
-.running-brand {
+.logo-kua {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+    background: transparent;
+    transition: transform .3s ease;
+}
 
-    width: 190px;
+.navbar-brand-kua:hover .logo-kua {
+    transform: scale(1.05);
+}
 
+.brand-text {
+    width: 205px;
+    min-width: 0;
     overflow: hidden;
-
-    white-space: nowrap;
-
-    position: relative;
-
 }
 
 .running-wrapper {
-
     width: 100%;
-
     overflow: hidden;
-
-    position: relative;
-
+    white-space: nowrap;
 }
 
 .running-wrapper span {
-
     display: inline-block;
-
+    color: #fff;
     font-size: 21px;
-
     font-weight: 700;
-
-    letter-spacing: 1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffffff,
-            #bbf7d0
-        );
-
-    -webkit-background-clip: text;
-
-    -webkit-text-fill-color: transparent;
-
-    animation:
-        runningText 9s linear infinite;
-
+    letter-spacing: .5px;
+    animation: runningText 9s linear infinite;
 }
 
 @keyframes runningText {
-
-    0% {
-
-        transform:
-            translateX(100%);
-
-    }
-
-    100% {
-
-        transform:
-            translateX(-100%);
-
-    }
-
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
 }
 
 .brand-text small {
-
-    font-size: 9px;
-
-    font-weight: 500;
-
-    letter-spacing: .5px;
-
-    color: #94a3b8;
-
+    display: block;
     overflow: hidden;
-
     text-overflow: ellipsis;
-
+    white-space: nowrap;
+    color: #dcebdd;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .3px;
 }
 
 
-
 /* =========================================================
-   MENU
+   MENU NAVIGASI
 ========================================================= */
 
-.navbar-kua .nav-link {
+.navbar-kua .navbar-collapse {
+    min-width: 0;
+    align-items: center;
+}
 
-    color: #cbd5e1 !important;
+.navbar-kua .navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 1px;
+    min-width: 0;
+}
 
-    font-size: 14px;
+.navbar-kua .navbar-nav > .nav-item {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
 
-    font-weight: 500;
-
-    padding: 9px 14px !important;
-
-    margin: 0 2px;
-
-    border-radius: 10px;
-
-    position: relative;
-
-    transition: all .3s ease;
-
+.navbar-kua .navbar-nav > .nav-item > .nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 42px;
+    padding: 8px 9px !important;
+    margin: 0;
+    border-radius: 9px;
+    color: #f0f7f1 !important;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background .25s ease, color .25s ease;
 }
 
 .navbar-kua .nav-link i {
-
-    color: #64748b;
-
-    transition: all .3s ease;
-
+    color: #c5ddca;
+    font-size: 13px;
+    flex-shrink: 0;
 }
 
 .navbar-kua .nav-link:hover {
-
-    color: #ffffff !important;
-
-    background:
-        rgba(255,255,255,.07);
-
-    transform:
-        translateY(-1px);
-
+    color: #fff !important;
+    background: rgba(255,255,255,.12);
 }
 
 .navbar-kua .nav-link:hover i {
-
-    color: #4ade80;
-
+    color: #e0f0e2;
 }
 
 .navbar-kua .nav-link.active {
-
-    color: #ffffff !important;
-
-    background:
-        rgba(22,163,74,.15);
-
+    color: #fff !important;
+    background: rgba(220,237,221,.18);
 }
 
 .navbar-kua .nav-link.active i {
-
-    color: #4ade80;
-
+    color: #dcebdd;
 }
-
-.navbar-kua .nav-link.active::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-
-    bottom: 3px;
-
-    width: 25px;
-
-    height: 2px;
-
-    transform:
-        translateX(-50%);
-
-    border-radius: 20px;
-
-    background: #22c55e;
-
-    box-shadow:
-        0 0 10px #22c55e;
-
-}
-
 
 
 /* =========================================================
-   DROPDOWN PROFIL
+   DROPDOWN PROFIL - HIJAU SOFT
 ========================================================= */
 
-.dropdown-menu .dropdown-item {
+.navbar-kua .profil-menu {
+    min-width: 230px;
+    margin-top: 10px;
+    padding: 9px;
+    background: #eaf3eb !important;
+    border: 1px solid #d7e6d9 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 30px rgba(41,91,59,.13);
+}
 
+.navbar-kua .profil-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 11px 12px;
+    border-radius: 8px;
+    color: #285f43 !important;
+    background: transparent;
     font-size: 13px;
-
-    font-weight: 500;
-
+    font-weight: 600;
     transition: all .2s ease;
-
 }
 
-.dropdown-menu .dropdown-item:hover {
-
-    background:
-        rgba(34,197,94,.15) !important;
-
-    color: #4ade80 !important;
-
-    transform:
-        translateX(4px);
-
+.navbar-kua .profil-menu .dropdown-item i {
+    width: 19px;
+    color: #367b59 !important;
+    font-size: 13px;
 }
 
-.dropdown-menu .dropdown-item:hover i {
-
-    color: #4ade80 !important;
-
+.navbar-kua .profil-menu .dropdown-item:hover {
+    color: #285f43 !important;
+    background: #d5e8d8 !important;
+    padding-left: 17px;
 }
 
+.navbar-kua .profil-menu .dropdown-item:active,
+.navbar-kua .profil-menu .dropdown-item.active {
+    color: #285f43 !important;
+    background: #d5e8d8 !important;
+}
+
+.navbar-kua .profil-menu .dropdown-divider {
+    border-color: #cfdfd2;
+    opacity: 1;
+    margin: 7px 5px;
+}
 
 
 /* =========================================================
-   LAYANAN
+   DROPDOWN LAYANAN - HIJAU SOFT
 ========================================================= */
 
 .layanan-dropdown {
-
     position: relative;
-
 }
 
-.layanan-menu {
-
+.navbar-kua .layanan-menu {
     width: 270px;
-
-    padding: 10px;
-
-    margin-top: 10px !important;
-
-    background: #111c2e !important;
-
-    border-radius: 10px !important;
-
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.25) !important;
-
-    border-top:
-        3px solid #22c55e !important;
-
+    padding: 10px !important;
+    background: #eaf3eb !important;
+    border: 1px solid #d7e6d9 !important;
+    border-top: 3px solid #367b59 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 30px rgba(41,91,59,.13);
 }
 
 .layanan-title {
-
-    color: #ffffff;
-
-    font-weight: 600;
-
-    font-size: 14px;
-
-    padding: 9px 10px;
-
     display: flex;
-
     align-items: center;
-
+    padding: 9px 10px;
+    color: #285f43;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .5px;
 }
 
 .layanan-title i {
+    color: #367b59;
+}
 
-    color: #4ade80;
-
+.navbar-kua .layanan-menu .dropdown-divider {
+    border-color: #cfdfd2;
+    opacity: 1;
 }
 
 .layanan-item {
-
-    color: #ffffff !important;
-
-    padding: 9px 10px;
-
     display: flex;
-
     align-items: center;
-
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    color: #285f43 !important;
     text-decoration: none;
-
-    border-radius: 7px;
-
-    transition: all .2s ease;
-
     font-size: 13px;
-
+    font-weight: 600;
+    transition: all .2s ease;
 }
 
 .layanan-item i {
-
-    margin-right: 10px;
-
+    color: #367b59;
     font-size: 10px;
-
-    color: #4ade80;
-
+    flex-shrink: 0;
 }
 
 .layanan-item:hover {
-
-    background:
-        rgba(34,197,94,.10);
-
-    color: #4ade80 !important;
-
-    transform:
-        translateX(4px);
-
+    color: #285f43 !important;
+    background: #d5e8d8;
+    transform: translateX(3px);
 }
-
-.layanan-dropdown > .nav-link.show {
-
-    color: #4ade80 !important;
-
-    background:
-        rgba(34,197,94,.10) !important;
-
-}
-
-.layanan-dropdown > .nav-link.show i {
-
-    color: #4ade80 !important;
-
-}
-
-.layanan-dropdown .dropdown-toggle::after {
-
-    margin-left: 5px;
-
-    vertical-align: middle;
-
-    border-top-color: #22c55e;
-
-    transition: transform .25s ease;
-
-}
-
-.layanan-dropdown .dropdown-toggle.show::after {
-
-    transform:
-        rotate(180deg);
-
-}
-
-@media (min-width: 992px) {
-
-    .layanan-menu {
-
-        position: absolute;
-
-        left: 50%;
-
-        transform:
-            translateX(-50%);
-
-    }
-
-}
-
 
 
 /* =========================================================
-   LOGIN ROLE
+   SEARCH
 ========================================================= */
 
-.btn-login-admin {
+.search-nav-item {
+    margin-left: 4px;
+}
 
-    background:
-        linear-gradient(
-            135deg,
-            #15803d,
-            #22c55e
-        );
+.search-navbar {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 40px;
+    padding: 0 6px 0 13px;
+    border-radius: 25px;
+    background: #eaf3eb;
+    border: 1px solid #d7e6d9;
+}
 
-    color: #ffffff !important;
+.search-input {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #285f43;
+    font-size: 13px;
+}
 
-    border:
-        1px solid #22c55e !important;
+.search-input::placeholder {
+    color: #77877c;
+}
 
+.search-button {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #367b59;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    color: #285f43;
+    background: #d5e8d8;
+}
+
+
+/* =========================================================
+   LOGIN DAN LOKASI
+========================================================= */
+
+.navbar-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    gap: 8px;
+    margin-left: 12px;
+}
+
+.navbar-buttons .btn {
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 13px;
+    border-radius: 25px;
+    font-size: 12px;
     font-weight: 600;
+    white-space: nowrap;
+    transition: all .25s ease;
+}
 
-    box-shadow:
-        0 5px 18px rgba(22,163,74,.30);
-
-    transition: all .3s ease;
-
+.btn-login-admin {
+    min-width: 125px;
+    color: #fff !important;
+    background: #367b59;
+    border: 1px solid #7eae8a;
 }
 
 .btn-login-admin:hover {
-
-    background:
-        linear-gradient(
-            135deg,
-            #166534,
-            #16a34a
-        );
-
-    color: #ffffff !important;
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 8px 25px rgba(34,197,94,.40);
-
+    color: #285f43 !important;
+    background: #eaf3eb;
+    transform: translateY(-2px);
 }
 
-
-
-/* =========================================================
-   LOKASI
-========================================================= */
-
 .btn-location {
-
-    border:
-        1px solid rgba(255,255,255,.2) !important;
-
-    background:
-        rgba(255,255,255,.05);
-
-    color: #e2e8f0 !important;
-
-    font-size: 13px;
-
-    font-weight: 500;
-
-    transition: all .3s ease;
-
+    min-width: 95px;
+    color: #285f43 !important;
+    background: #eaf3eb;
+    border: 1px solid #d7e6d9;
 }
 
 .btn-location:hover {
-
-    background:
-        rgba(220,53,69,.15);
-
-    border-color:
-        #dc3545 !important;
-
-    color: #ffffff !important;
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 4px 15px rgba(220,53,69,.3);
-
+    color: #285f43 !important;
+    background: #d5e8d8;
+    border-color: #b7d4bd;
 }
 
 
-
 /* =========================================================
-   MOBILE TOGGLER
+   HAMBURGER
 ========================================================= */
 
 .navbar-toggler {
-
-    padding: 6px 8px;
-
+    display: none;
+    padding: 7px 10px;
+    border: 1px solid rgba(255,255,255,.25);
     border-radius: 8px;
-
+    box-shadow: none !important;
 }
 
 .navbar-toggler:focus {
-
-    box-shadow:
-        0 0 0 3px rgba(34,197,94,.20);
-
+    box-shadow: 0 0 0 3px rgba(220,237,221,.2) !important;
 }
 
 
-
 /* =========================================================
-   TABLET / MOBILE
+   LAPTOP MENENGAH
 ========================================================= */
 
-@media (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 1199.98px) {
 
-    .navbar-kua .navbar-nav {
-
-        display: block;
-
+    .navbar-container-kua {
+        flex-wrap: wrap;
     }
 
-    .navbar-kua .navbar-nav > .nav-item {
-
-        display: block;
-
-        width: 100%;
-
+    .navbar-kua .navbar-brand {
+        margin-right: auto;
     }
 
-    .navbar-kua .navbar-nav > .nav-item > .nav-link {
-
-        width: 100%;
-
-        min-width: 0;
-
-        justify-content: flex-start;
-
-        text-align: left;
-
-    }
-
-    .navbar-kua .navbar-nav .search-nav-item {
-
-        margin: 8px 0;
-
-    }
-
-    .navbar-kua .navbar-nav .search-navbar {
-
-        width: 100%;
-
-        height: 42px;
-
-    }
-
-    .navbar-kua {
-
-        padding-top: 8px;
-
-        padding-bottom: 8px;
-
+    .navbar-kua .navbar-toggler {
+        display: none;
     }
 
     .navbar-kua .navbar-collapse {
-
-        margin-top: 15px;
-
-        padding: 15px;
-
-        border-radius: 15px;
-
-        background:
-            rgba(15,30,50,.98);
-
-        border:
-            1px solid rgba(255,255,255,.08);
-
+        display: flex !important;
+        flex: 0 0 100%;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255,255,255,.15);
     }
 
-    .navbar-kua .nav-link {
-
-        margin-bottom: 4px;
-
+    .navbar-kua .navbar-nav {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 4px;
     }
 
-    .navbar-kua .nav-link.active::after {
+    .navbar-kua .navbar-nav > .nav-item > .nav-link {
+        padding: 8px 12px !important;
+    }
 
-        display: none;
-
+    .navbar-kua .search-navbar {
+        width: 190px;
     }
 
     .navbar-buttons {
-
-        margin-top: 15px;
-
-    }
-
-    .navbar-buttons a {
-
-        flex: 1;
-
-        text-align: center;
-
-    }
-
-    .layanan-menu {
-
-        width: 100%;
-
-        margin-top: 5px !important;
-
-        padding: 10px;
-
-        border-radius: 12px !important;
-
-        border-top:
-            2px solid #22c55e !important;
-
-        background:
-            #111c2e !important;
-
-    }
-
-    .layanan-title {
-
-        font-size: 14px;
-
-        margin-bottom: 5px;
-
-    }
-
-    .layanan-item {
-
-        font-size: 14px;
-
-        padding: 8px 5px;
-
+        margin: 10px 0 0;
+        justify-content: flex-start;
     }
 
 }
 
 
-
 /* =========================================================
-   MOBILE
+   LAPTOP LEBAR
 ========================================================= */
 
-@media (max-width: 768px) {
+@media (min-width: 1200px) {
 
-    .top-navbar-kua {
-
-        height: 38px;
-
+    .navbar-container-kua {
+        flex-wrap: nowrap;
     }
 
-    .top-marquee {
-
-        height: 38px;
-
-        padding-right: 160px;
-
+    .navbar-kua .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+        flex-grow: 1;
+        flex-direction: row;
     }
 
-    .top-welcome {
-
-        font-size: 11px;
-
-        animation-duration: 28s;
-
+    .navbar-kua .navbar-nav {
+        flex-wrap: nowrap;
     }
 
-    .top-date-kua {
-
-        height: 38px;
-
-        min-width: 155px;
-
-        padding: 0 10px;
-
-        font-size: 10px;
-
+    .navbar-kua .navbar-toggler {
+        display: none !important;
     }
 
-    .top-date-kua i {
-
-        font-size: 11px;
-
-    }
-
-    .navbar-kua.with-topbar {
-
-        top: 38px !important;
-
-    }
-
-    .navbar-kua.without-topbar {
-
-        top: 0 !important;
-
+    .navbar-kua .navbar-nav > .nav-item > .nav-link {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
     }
 
 }
 
 
-
 /* =========================================================
-   MOBILE KECIL
+   TABLET DAN HP
 ========================================================= */
 
-@media (max-width: 576px) {
+@media (max-width: 767.98px) {
+
+    .navbar-kua {
+        padding: 9px 0;
+    }
+
+    .navbar-container-kua {
+        width: calc(100% - 30px);
+    }
+
+    .navbar-brand-kua {
+        margin-right: 10px;
+        gap: 8px;
+    }
 
     .logo-kua {
-
-        width: 42px;
-
-        height: 42px;
-
+        width: 43px;
+        height: 43px;
     }
 
-    .running-brand {
-
-        width: 155px;
-
+    .brand-text {
+        width: 180px;
     }
 
     .running-wrapper span {
-
         font-size: 18px;
-
     }
 
     .brand-text small {
-
         font-size: 8px;
-
     }
 
-    .navbar-buttons {
+    .navbar-toggler {
+        display: block;
+    }
 
+    .navbar-kua .navbar-collapse {
+        margin-top: 12px;
+        padding: 14px;
+        border: 1px solid #d7e6d9;
+        border-radius: 12px;
+        background: #eaf3eb;
+    }
+
+    .navbar-kua .navbar-nav {
+        display: flex;
         flex-direction: column;
-
+        align-items: stretch;
+        width: 100%;
+        gap: 4px;
     }
 
-    .navbar-buttons a {
-
+    .navbar-kua .navbar-nav > .nav-item {
+        display: block;
         width: 100%;
+    }
 
+    .navbar-kua .navbar-nav > .nav-item > .nav-link {
+        width: 100%;
+        height: 42px;
+        justify-content: flex-start;
+        padding: 8px 12px !important;
+        color: #285f43 !important;
+    }
+
+    .navbar-kua .nav-link i {
+        color: #367b59;
+    }
+
+    .navbar-kua .nav-link:hover,
+    .navbar-kua .nav-link.active {
+        color: #285f43 !important;
+        background: #d5e8d8;
+    }
+
+    .navbar-kua .nav-link:hover i,
+    .navbar-kua .nav-link.active i {
+        color: #285f43;
+    }
+
+    .navbar-kua .search-nav-item {
+        margin: 7px 0;
+    }
+
+    .navbar-kua .search-navbar {
+        width: 100%;
+        height: 42px;
+    }
+
+    .navbar-kua .navbar-buttons {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 12px 0 0;
+    }
+
+    .navbar-kua .navbar-buttons .btn {
+        width: 100%;
+    }
+
+    .navbar-kua .dropdown-menu,
+    .navbar-kua .layanan-menu {
+        width: 100%;
+        margin-top: 3px;
+    }
+
+    .navbar-kua .dropdown-menu {
+        position: static;
     }
 
 }
-
 
 
 /* =========================================================
-   HP SANGAT KECIL
+   HP KECIL
 ========================================================= */
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
 
-    .top-date-kua {
-
-        min-width: 135px;
-
-        padding: 0 7px;
-
-        font-size: 9px;
-
+    .top-navbar-kua,
+    .top-marquee {
+        height: 38px;
     }
 
-    .top-date-kua i {
+    .top-welcome {
+        font-size: 11px;
+        animation-duration: 30s;
+    }
 
-        margin-right: 4px !important;
+    .top-date-kua {
+        height: 38px;
+        min-width: 145px;
+        padding: 0 8px;
+        font-size: 9px;
+    }
 
-        font-size: 10px;
+    .navbar-kua.with-topbar {
+        top: 38px !important;
+    }
 
+    .brand-text {
+        width: 155px;
+    }
+
+    .running-wrapper span {
+        font-size: 17px;
+    }
+
+    .brand-text small {
+        font-size: 7px;
     }
 
 }
-
 
 
 /* =========================================================
@@ -1694,18 +1125,9 @@ NAVBAR CSS
 
 @media (prefers-reduced-motion: reduce) {
 
-    .top-welcome {
-
-        animation: none;
-
-        left: 15px;
-
-    }
-
+    .top-welcome,
     .running-wrapper span {
-
         animation: none;
-
     }
 
 }
@@ -1713,114 +1135,41 @@ NAVBAR CSS
 </style>
 
 
-
 {{-- =========================================================
-JAVASCRIPT TANGGAL
-HANYA DIJALANKAN KALAU TOPBAR ADA
+     JAVASCRIPT TANGGAL
 ========================================================= --}}
 
 @if ($tampilkanTopbar)
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
 
-document.addEventListener(
-    'DOMContentLoaded',
-    function() {
+    const tanggalElement = document.getElementById('tanggalKua');
 
-        const tanggalElement =
-            document.getElementById(
-                'tanggalKua'
-            );
-
-
-        if (!tanggalElement) {
-
-            return;
-
-        }
-
-
-        function tampilkanTanggal() {
-
-            const sekarang =
-                new Date();
-
-
-            const hari = [
-
-                'Minggu',
-                'Senin',
-                'Selasa',
-                'Rabu',
-                'Kamis',
-                'Jumat',
-                'Sabtu'
-
-            ];
-
-
-            const bulan = [
-
-                'Januari',
-                'Februari',
-                'Maret',
-                'April',
-                'Mei',
-                'Juni',
-                'Juli',
-                'Agustus',
-                'September',
-                'Oktober',
-                'November',
-                'Desember'
-
-            ];
-
-
-            const namaHari =
-                hari[
-                    sekarang.getDay()
-                ];
-
-
-            const tanggal =
-                sekarang.getDate();
-
-
-            const namaBulan =
-                bulan[
-                    sekarang.getMonth()
-                ];
-
-
-            const tahun =
-                sekarang.getFullYear();
-
-
-            tanggalElement.textContent =
-
-                namaHari +
-                ', ' +
-                tanggal +
-                ' ' +
-                namaBulan +
-                ' ' +
-                tahun;
-
-        }
-
-
-        tampilkanTanggal();
-
-
-        setInterval(
-            tampilkanTanggal,
-            60000
-        );
-
+    if (!tanggalElement) {
+        return;
     }
-);
 
+    function tampilkanTanggal() {
+
+        const sekarang = new Date();
+
+        const formatTanggal = new Intl.DateTimeFormat('id-ID', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'Asia/Jakarta'
+        });
+
+        tanggalElement.textContent = formatTanggal.format(sekarang);
+    }
+
+    tampilkanTanggal();
+
+    setInterval(tampilkanTanggal, 60000);
+
+});
 </script>
 
 @endif
