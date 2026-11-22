@@ -325,22 +325,6 @@
 
                 </li>
 
-
-                {{-- TANYA --}}
-
-                <li class="nav-item">
-
-                    <a
-                        href="{{ route('landing.saran.create') }}"
-                        class="nav-link {{ request()->routeIs('landing.saran.*') ? 'active' : '' }}">
-
-                        <i class="fas fa-comment-dots"></i>
-                        <span>Tanya</span>
-
-                    </a>
-
-                </li>
-
             </ul>
 
 

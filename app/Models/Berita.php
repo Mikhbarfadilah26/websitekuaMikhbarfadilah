@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Berita extends Model
 {
-    use HasFactory;
+    protected $table = 'beritas';
 
     protected $fillable = [
         'judul',
@@ -15,4 +14,11 @@ class Berita extends Model
         'isi',
         'foto',
     ];
+
+    // Relasi berita dengan komentar
+    // Satu berita memiliki banyak komentar
+    public function komentar()
+    {
+        return $this->hasMany(KomentarBerita::class, 'berita_id', 'id');
+    }
 }

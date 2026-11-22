@@ -1,4 +1,3 @@
-
 @extends('layouts.appadmin')
 
 @section('title', 'Detail Saran dan Pengaduan')
@@ -70,7 +69,7 @@
                         </small>
 
                         <div class="fw-semibold">
-                            {{ $saran->user->nama ?? 'Pengguna tidak ditemukan' }}
+                            {{ $saran->user->nama ?? $saran->user->name ?? 'Pengguna tidak ditemukan' }}
                         </div>
                     </div>
 
@@ -108,26 +107,6 @@
                         <div>
                             {{ $saran->created_at->format('d F Y, H:i') }}
                         </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="mb-3">
-                        <small class="text-muted d-block mb-2">
-                            Jenis Pesan
-                        </small>
-
-                        @if($saran->berita_id)
-                            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
-                                <i class="bi bi-chat-dots me-1"></i>
-                                Komentar Berita
-                            </span>
-                        @else
-                            <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
-                                <i class="bi bi-chat-left-text me-1"></i>
-                                Saran dan Pengaduan
-                            </span>
-                        @endif
                     </div>
 
                     <hr>
@@ -170,27 +149,14 @@
                 <div class="card-header bg-white border-0 pt-4 px-4">
                     <h5 class="fw-bold mb-0">
                         <i class="bi bi-envelope-paper text-success me-2"></i>
-                        Isi Pesan
+                        Isi Pesan / Pertanyaan
                     </h5>
                 </div>
 
                 <div class="card-body px-4">
 
-                    {{-- JUDUL BERITA --}}
-                    @if($saran->berita)
-                        <div class="mb-4 p-3 rounded-3 bg-light">
-                            <small class="text-muted d-block mb-1">
-                                Komentar pada berita
-                            </small>
-
-                            <div class="fw-semibold">
-                                {{ $saran->berita->judul }}
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="pesan-box">
-                        {{ $saran->isi_saran }}
+                        {{ $saran->isi_saran ?? $saran->pesan ?? '-' }}
                     </div>
 
                 </div>
@@ -231,7 +197,7 @@
                     </h5>
 
                     <small class="text-muted">
-                        Tulis tanggapan admin untuk pesan ini.
+                        Tulis tanggapan admin untuk saran atau pertanyaan ini.
                     </small>
                 </div>
 

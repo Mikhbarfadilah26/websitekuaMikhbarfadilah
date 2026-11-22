@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Masyarakat;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ControllerProfilMasyarakat 
 {
@@ -19,9 +20,8 @@ class ControllerProfilMasyarakat
         return view('masyarakat.profil.index', compact('user'));
     }
 
-
     /**
-     * Update profil masyarakat
+     * Update profil masyarakat beserta foto
      */
     public function update(Request $request)
     {
@@ -52,22 +52,62 @@ class ControllerProfilMasyarakat
                 'string',
                 'max:500',
             ],
+
+            'foto' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
         ], [
             'nama.required' => 'Nama wajib diisi.',
+            'nama.max' => 'Nama terlalu panjang.',
 
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email sudah digunakan.',
 
             'no_hp.max' => 'Nomor HP terlalu panjang.',
-
             'alamat.max' => 'Alamat terlalu panjang.',
+
+            'foto.image' => 'File harus berupa gambar.',
+            'foto.mimes' => 'Foto harus berformat JPG, JPEG, PNG, atau WEBP.',
+            'foto.max' => 'Ukuran foto maksimal 2 MB.',
         ]);
 
+        // Simpan data profil
         $user->nama = $validated['nama'];
         $user->email = $validated['email'];
         $user->no_hp = $validated['no_hp'] ?? null;
         $user->alamat = $validated['alamat'] ?? null;
+
+        // Jika pengguna mengupload foto baru
+        if ($request->hasFile('foto')) {
+
+            $fotoBaru = $request->file('foto');
+
+            $namaFile = 'masyarakat_' . $user->id . '_' . time()
+                . '_' . Str::random(8)
+                . '.' . $fotoBaru->getClientOriginalExtension();
+
+            $pathFotoBaru = $fotoBaru->storeAs(
+                'foto/masyarakat',
+                $namaFile,
+                'public'
+            );
+
+            // Hapus foto lama jika foto berada di folder masyarakat
+            if (
+                $user->foto &&
+                str_starts_with($user->foto, 'foto/masyarakat/') &&
+                Storage::disk('public')->exists($user->foto)
+            ) {
+                Storage::disk('public')->delete($user->foto);
+            }
+
+            // Simpan path foto baru ke database
+            $user->foto = $pathFotoBaru;
+        }
 
         $user->save();
 
@@ -76,9 +116,8 @@ class ControllerProfilMasyarakat
             ->with('success', 'Profil berhasil diperbarui.');
     }
 
-
     /**
-     * Update password
+     * Update password masyarakat
      */
     public function password(Request $request)
     {
@@ -102,8 +141,8 @@ class ControllerProfilMasyarakat
 
         $user = Auth::user();
 
+        // Periksa password lama
         if (!Hash::check($request->password_lama, $user->password)) {
-
             return back()
                 ->withErrors([
                     'password_lama' => 'Password lama tidak sesuai.',
@@ -111,6 +150,7 @@ class ControllerProfilMasyarakat
                 ->withInput();
         }
 
+        // Simpan password baru
         $user->password = Hash::make($request->password_baru);
 
         $user->save();

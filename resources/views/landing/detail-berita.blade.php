@@ -1,4 +1,3 @@
-
 @extends('layouts.applanding')
 
 @section('title', $berita->judul . ' | KUA Karang Baru')
@@ -6,12 +5,12 @@
 @section('content')
 
 @php
-    use App\Models\Saran;
+    use App\Models\KomentarBerita;
     use App\Models\Berita;
     use Illuminate\Support\Facades\Auth;
 
-    // Mengambil komentar untuk berita ini
-    $komentarBerita = Saran::with('user')
+    // Mengambil komentar untuk berita ini dari tabel komentar_berita
+    $komentarBerita = KomentarBerita::with('user')
         ->where('berita_id', $berita->id)
         ->latest()
         ->get();
@@ -87,7 +86,7 @@
                     @if($berita->foto)
                         <div class="artikel-image">
                             <img
-                                src="{{ asset('foto/' . basename($berita->foto)) }}"
+                                src="{{ asset('foto/berita/' . basename($berita->foto)) }}"
                                 alt="{{ $berita->judul }}"
                                 onerror="this.style.display='none'">
                         </div>
@@ -185,21 +184,21 @@
 
                     {{-- NOTIFIKASI --}}
                     @if(session('success'))
-                        <div class="alert alert-success rounded-3">
+                        <div class="alert alert-success rounded-3 mt-3">
                             <i class="bi bi-check-circle-fill me-2"></i>
                             {{ session('success') }}
                         </div>
                     @endif
 
                     @if(session('error'))
-                        <div class="alert alert-warning rounded-3">
+                        <div class="alert alert-warning rounded-3 mt-3">
                             <i class="bi bi-exclamation-circle-fill me-2"></i>
                             {{ session('error') }}
                         </div>
                     @endif
 
                     @if($errors->any())
-                        <div class="alert alert-danger rounded-3">
+                        <div class="alert alert-danger rounded-3 mt-3">
                             <ul class="mb-0">
                                 @foreach($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -239,14 +238,14 @@
                                         </div>
 
                                         <textarea
-                                            name="isi_saran"
+                                            name="isi_komentar"
                                             rows="4"
                                             maxlength="2000"
-                                            class="form-control komentar-textarea @error('isi_saran') is-invalid @enderror"
+                                            class="form-control komentar-textarea @error('isi_komentar') is-invalid @enderror"
                                             placeholder="Tuliskan komentar Anda di sini..."
-                                            required>{{ old('isi_saran') }}</textarea>
+                                            required>{{ old('isi_komentar') }}</textarea>
 
-                                        @error('isi_saran')
+                                        @error('isi_komentar')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -305,7 +304,9 @@
                         @elseif(Auth::user()->role !== 'masyarakat')
 
                             <div class="komentar-login-box">
-                                <i class="bi bi-info-circle-fill text-primary fs-3"></i>
+                                <div class="login-komentar-icon text-primary bg-primary-subtle">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                </div>
 
                                 <div>
                                     <h5>Akses Komentar</h5>
@@ -318,7 +319,9 @@
                         @else
 
                             <div class="komentar-login-box">
-                                <i class="bi bi-clock-history text-warning fs-3"></i>
+                                <div class="login-komentar-icon text-warning bg-warning-subtle">
+                                    <i class="bi bi-clock-history"></i>
+                                </div>
 
                                 <div>
                                     <h5>Akun Belum Disetujui</h5>
@@ -364,7 +367,7 @@
                                     </div>
 
                                     <div class="komentar-text">
-                                        {{ $komentar->isi_saran }}
+                                        {{ $komentar->isi_komentar }}
                                     </div>
 
 
@@ -437,7 +440,7 @@
 
                             @if($item->foto)
                                 <img
-                                    src="{{ asset('foto/' . basename($item->foto)) }}"
+                                    src="{{ asset('foto/berita/' . basename($item->foto)) }}"
                                     alt="{{ $item->judul }}"
                                     onerror="this.style.display='none'">
                             @else
@@ -518,11 +521,10 @@
 
 
 {{-- =====================================================
-     CSS
+     CSS STYLING (REDESIGNED & MODERN)
 ===================================================== --}}
 
 <style>
-
     :root {
         --kua-green: #28794b;
         --kua-green-dark: #205f3b;
@@ -535,6 +537,7 @@
     .detail-berita-header {
         background: linear-gradient(135deg, #eaf5ec, #f4f9f4);
         padding: 55px 0 65px;
+        border-bottom: 1px solid var(--kua-border);
     }
 
     .detail-breadcrumb {
@@ -544,12 +547,13 @@
         gap: 10px;
         font-size: 13px;
         color: var(--kua-muted);
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
 
     .detail-breadcrumb a {
         color: var(--kua-green);
         text-decoration: none;
+        font-weight: 500;
     }
 
     .detail-breadcrumb a:hover {
@@ -564,31 +568,31 @@
         display: inline-block;
         color: var(--kua-green);
         background: #dcefe1;
-        padding: 8px 15px;
+        padding: 6px 14px;
         border-radius: 30px;
         font-size: 12px;
         font-weight: 700;
-        margin-bottom: 18px;
+        margin-bottom: 15px;
     }
 
     .detail-header-content h1 {
-        font-size: clamp(26px, 4vw, 40px);
+        font-size: clamp(24px, 3.5vw, 38px);
         line-height: 1.35;
         font-weight: 800;
-        color: #244b32;
-        margin-bottom: 20px;
+        color: #20452f;
+        margin-bottom: 18px;
     }
 
     .detail-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 22px;
-        color: #718277;
+        gap: 20px;
+        color: #6c7d72;
         font-size: 13px;
     }
 
     .detail-berita-section {
-        padding: 55px 0 80px;
+        padding: 50px 0 80px;
         background: #f8fbf8;
     }
 
@@ -596,9 +600,9 @@
     .komentar-card {
         background: white;
         border: 1px solid var(--kua-border);
-        border-radius: 18px;
+        border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 5px 25px rgba(35, 75, 48, .045);
+        box-shadow: 0 10px 30px rgba(35, 75, 48, 0.04);
     }
 
     .artikel-image {
@@ -612,10 +616,15 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .artikel-image img:hover {
+        transform: scale(1.02);
     }
 
     .artikel-content {
-        padding: 35px;
+        padding: 40px;
     }
 
     .artikel-info {
@@ -623,33 +632,39 @@
         flex-wrap: wrap;
         gap: 20px;
         color: var(--kua-muted);
-        font-size: 12px;
+        font-size: 13px;
         margin-bottom: 20px;
     }
 
     .artikel-content h2 {
-        color: #294b35;
-        font-size: 27px;
+        color: #244b32;
+        font-size: 26px;
         line-height: 1.4;
         font-weight: 800;
         margin-bottom: 25px;
     }
 
     .artikel-isi {
-        color: #45574a;
-        font-size: 15px;
-        line-height: 1.95;
+        color: #425447;
+        font-size: 16px;
+        line-height: 1.9;
         overflow-wrap: anywhere;
+    }
+
+    .artikel-isi p {
+        margin-bottom: 1.5rem;
     }
 
     .artikel-isi img {
         max-width: 100%;
         height: auto;
         border-radius: 12px;
+        margin: 15px 0;
     }
 
     .artikel-isi iframe {
         max-width: 100%;
+        border-radius: 12px;
     }
 
     .artikel-share {
@@ -658,16 +673,16 @@
         flex-wrap: wrap;
         gap: 12px;
         border-top: 1px solid var(--kua-border);
-        padding-top: 22px;
-        margin-top: 35px;
+        padding-top: 25px;
+        margin-top: 40px;
         color: #53675a;
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .artikel-share a,
     .artikel-share button {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -678,19 +693,20 @@
         text-decoration: none;
         font-size: 16px;
         cursor: pointer;
-        transition: .2s;
+        transition: all 0.25s ease;
     }
 
     .artikel-share a:hover,
     .artikel-share button:hover {
         background: var(--kua-green);
         color: white;
+        transform: translateY(-2px);
     }
 
     /* KOMENTAR */
 
     .komentar-card {
-        padding: 30px;
+        padding: 35px;
     }
 
     .komentar-heading {
@@ -699,21 +715,21 @@
         align-items: center;
         gap: 15px;
         border-bottom: 1px solid var(--kua-border);
-        padding-bottom: 22px;
+        padding-bottom: 24px;
     }
 
     .komentar-subtitle {
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 800;
         letter-spacing: 1.5px;
         color: var(--kua-green);
     }
 
     .komentar-heading h3 {
-        font-size: 23px;
+        font-size: 22px;
         font-weight: 800;
-        color: #294b35;
-        margin: 7px 0;
+        color: #244b32;
+        margin: 6px 0;
     }
 
     .komentar-heading p {
@@ -723,8 +739,8 @@
     }
 
     .jumlah-komentar {
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
         flex-shrink: 0;
         border-radius: 14px;
         background: var(--kua-green-soft);
@@ -734,6 +750,7 @@
         align-items: center;
         gap: 5px;
         font-weight: 700;
+        font-size: 16px;
     }
 
     .form-komentar-area {
@@ -742,8 +759,8 @@
     }
 
     .avatar-komentar {
-        width: 42px;
-        height: 42px;
+        width: 45px;
+        height: 45px;
         flex-shrink: 0;
         border-radius: 50%;
         display: flex;
@@ -753,73 +770,78 @@
         color: var(--kua-green-dark);
         font-size: 16px;
         font-weight: 800;
+        box-shadow: inset 0 0 0 1px rgba(40, 121, 75, 0.15);
     }
 
     .komentar-textarea {
-        border: 1px solid #dfe9e1;
-        background: #fbfdfb;
-        border-radius: 12px;
-        padding: 14px;
-        font-size: 13px;
+        border: 1px solid #d2e3d5;
+        background: #fcfdfc;
+        border-radius: 14px;
+        padding: 15px;
+        font-size: 14px;
         resize: vertical;
+        transition: all 0.2s;
     }
 
     .komentar-textarea:focus {
-        border-color: #73a985;
-        box-shadow: 0 0 0 3px rgba(40, 121, 75, .09);
+        border-color: var(--kua-green);
+        box-shadow: 0 0 0 4px rgba(40, 121, 75, 0.1);
+        background: #fff;
     }
 
     .btn-kirim-komentar {
         background: var(--kua-green);
         color: white;
         border: 0;
-        border-radius: 9px;
-        padding: 10px 17px;
-        font-size: 12px;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 13px;
         font-weight: 700;
         text-decoration: none;
+        transition: all 0.2s;
     }
 
     .btn-kirim-komentar:hover {
         background: var(--kua-green-dark);
         color: white;
+        transform: translateY(-1px);
     }
 
     .komentar-login-box {
         display: flex;
         align-items: flex-start;
-        gap: 17px;
-        background: #f3f8f3;
-        border: 1px solid #e1ede3;
-        border-radius: 13px;
-        padding: 20px;
+        gap: 18px;
+        background: #f1f7f2;
+        border: 1px solid #d9e8dc;
+        border-radius: 16px;
+        padding: 22px;
     }
 
     .login-komentar-icon {
-        width: 45px;
-        height: 45px;
+        width: 48px;
+        height: 48px;
         flex-shrink: 0;
-        border-radius: 12px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: #dcefe1;
         color: var(--kua-green);
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .komentar-login-box h5 {
         font-size: 15px;
         font-weight: 800;
-        color: #31543a;
-        margin-bottom: 7px;
+        color: #244b32;
+        margin-bottom: 6px;
     }
 
     .komentar-login-box p {
         color: var(--kua-muted);
-        font-size: 12px;
-        line-height: 1.7;
-        margin-bottom: 13px;
+        font-size: 13px;
+        line-height: 1.6;
+        margin-bottom: 14px;
     }
 
     .daftar-komentar {
@@ -827,18 +849,22 @@
     }
 
     .daftar-komentar-title {
-        color: #34523b;
+        color: #244b32;
         font-weight: 800;
-        font-size: 14px;
-        margin-bottom: 22px;
+        font-size: 15px;
+        margin-bottom: 20px;
     }
 
     .komentar-item {
         display: flex;
         align-items: flex-start;
-        gap: 13px;
-        padding: 18px 0;
+        gap: 15px;
+        padding: 20px 0;
         border-bottom: 1px solid #edf2ee;
+    }
+
+    .komentar-item:last-child {
+        border-bottom: none;
     }
 
     .komentar-body {
@@ -851,22 +877,22 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 10px;
-        margin-bottom: 9px;
+        margin-bottom: 8px;
     }
 
     .komentar-user-info strong {
-        color: #31513a;
-        font-size: 13px;
+        color: #244b32;
+        font-size: 14px;
     }
 
     .komentar-user-info small {
-        color: #94a198;
-        font-size: 11px;
+        color: #8da194;
+        font-size: 12px;
     }
 
     .komentar-text {
-        color: #526157;
-        font-size: 13px;
+        color: #485c4f;
+        font-size: 14px;
         line-height: 1.8;
         white-space: pre-line;
         overflow-wrap: anywhere;
@@ -874,56 +900,56 @@
 
     .balasan-admin {
         margin-top: 15px;
-        padding: 14px;
+        padding: 16px;
         background: #edf7ef;
-        border-left: 3px solid var(--kua-green);
-        border-radius: 8px;
+        border-left: 3.5px solid var(--kua-green);
+        border-radius: 10px;
     }
 
     .balasan-admin-header {
         color: var(--kua-green);
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 800;
-        margin-bottom: 7px;
+        margin-bottom: 6px;
     }
 
     .balasan-admin-text {
-        color: #46634c;
-        font-size: 12px;
-        line-height: 1.8;
+        color: #3b5441;
+        font-size: 13px;
+        line-height: 1.75;
         white-space: pre-line;
     }
 
     .komentar-kosong {
         text-align: center;
-        padding: 35px 15px;
+        padding: 40px 15px;
     }
 
     .komentar-kosong-icon {
-        font-size: 38px;
-        color: #a3b7a7;
+        font-size: 42px;
+        color: #b0c2b4;
         margin-bottom: 12px;
     }
 
     .komentar-kosong h5 {
-        color: #3c5943;
-        font-size: 15px;
+        color: #2c4d37;
+        font-size: 16px;
         font-weight: 800;
     }
 
     .komentar-kosong p {
         color: var(--kua-muted);
-        font-size: 12px;
+        font-size: 13px;
     }
 
     /* SIDEBAR */
 
     .sidebar-berita {
         background: white;
-        padding: 25px;
+        padding: 28px;
         border: 1px solid var(--kua-border);
-        border-radius: 18px;
-        box-shadow: 0 5px 25px rgba(35, 75, 48, .045);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(35, 75, 48, 0.04);
     }
 
     .sidebar-title {
@@ -932,7 +958,7 @@
         gap: 10px;
         font-size: 17px;
         font-weight: 800;
-        color: #31513a;
+        color: #244b32;
         margin-bottom: 22px;
     }
 
@@ -945,18 +971,23 @@
 
     .sidebar-berita-item {
         display: flex;
-        gap: 13px;
-        padding: 13px 0;
+        gap: 14px;
+        padding: 14px 0;
         border-bottom: 1px solid #edf2ee;
         text-decoration: none;
+        transition: transform 0.2s;
+    }
+
+    .sidebar-berita-item:last-of-type {
+        border-bottom: none;
     }
 
     .sidebar-berita-item img,
     .sidebar-image-placeholder {
-        width: 90px;
+        width: 95px;
         height: 75px;
         flex-shrink: 0;
-        border-radius: 9px;
+        border-radius: 10px;
         object-fit: cover;
         background: #eaf3eb;
     }
@@ -966,25 +997,29 @@
         align-items: center;
         justify-content: center;
         color: var(--kua-green);
-        font-size: 25px;
+        font-size: 24px;
     }
 
     .sidebar-berita-info {
         min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .sidebar-berita-info small {
         color: #89978d;
-        font-size: 10px;
+        font-size: 11px;
     }
 
     .sidebar-berita-info h6 {
-        color: #405b46;
-        font-size: 12px;
+        color: #3b5441;
+        font-size: 13px;
         font-weight: 700;
-        line-height: 1.6;
-        margin-top: 6px;
-        transition: .2s;
+        line-height: 1.5;
+        margin-top: 5px;
+        margin-bottom: 0;
+        transition: color 0.2s;
     }
 
     .sidebar-berita-item:hover h6 {
@@ -993,45 +1028,53 @@
 
     .sidebar-kontak {
         background: #edf6ef;
-        border-radius: 13px;
-        padding: 22px;
-        margin-top: 25px;
+        border-radius: 14px;
+        padding: 24px;
+        margin-top: 28px;
+        border: 1px solid #d9e8dc;
     }
 
     .sidebar-kontak-icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 11px;
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: #d8ebdc;
         color: var(--kua-green);
-        font-size: 19px;
-        margin-bottom: 13px;
+        font-size: 20px;
+        margin-bottom: 14px;
     }
 
     .sidebar-kontak h5 {
-        color: #31543a;
+        color: #244b32;
         font-size: 15px;
         font-weight: 800;
+        margin-bottom: 8px;
     }
 
     .sidebar-kontak p {
-        color: #718277;
-        font-size: 12px;
+        color: #6a7d71;
+        font-size: 13px;
         line-height: 1.7;
+        margin-bottom: 15px;
     }
 
     .sidebar-kontak a {
         color: var(--kua-green);
         text-decoration: none;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .sidebar-kontak a:hover {
+        text-decoration: underline;
     }
 
     @media(max-width: 767px) {
-
         .detail-berita-header {
             padding: 35px 0 45px;
         }
@@ -1045,7 +1088,7 @@
         }
 
         .artikel-content {
-            padding: 22px;
+            padding: 24px;
         }
 
         .artikel-content h2 {
@@ -1053,15 +1096,13 @@
         }
 
         .komentar-card {
-            padding: 20px;
+            padding: 22px;
         }
 
         .komentar-heading h3 {
             font-size: 20px;
         }
-
     }
-
 </style>
 
 @endsection

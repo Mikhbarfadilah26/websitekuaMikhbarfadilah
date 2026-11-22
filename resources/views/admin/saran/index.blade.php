@@ -1,7 +1,6 @@
-
 @extends('layouts.appadmin')
 
-@section('title', 'Saran & Pengaduan')
+@section('title', 'Saran & Pengaduan Masyarakat')
 
 @section('content')
 
@@ -14,9 +13,7 @@
     {{-- =====================================================
          HEADER
     ====================================================== --}}
-
     <div class="header-saran mb-4">
-
         <div class="header-content">
             <span class="header-label">
                 PUSAT INFORMASI MASYARAKAT
@@ -25,13 +22,13 @@
             <h3>Saran & Pengaduan</h3>
 
             <p>
-                Kelola saran, pengaduan, dan komentar berita
+                Kelola saran, pengaduan, dan pertanyaan umum
                 yang disampaikan oleh masyarakat.
             </p>
 
             <div class="header-info">
                 <i class="bi bi-shield-check"></i>
-                Panel Pengelolaan Pesan Masyarakat
+                Panel Pengelolaan Pesan & Aspirasi
             </div>
         </div>
 
@@ -41,14 +38,12 @@
 
         <div class="header-decoration header-decoration-one"></div>
         <div class="header-decoration header-decoration-two"></div>
-
     </div>
 
 
     {{-- =====================================================
          NOTIFIKASI
     ====================================================== --}}
-
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4">
             <i class="bi bi-check-circle-fill me-2"></i>
@@ -62,294 +57,110 @@
 
 
     {{-- =====================================================
-         CARD STATISTIK KOMENTAR DAN SARAN
-    ====================================================== --}}
-
-    <div class="row g-3 mb-4">
-
-        {{-- CARD KOMENTAR BERITA --}}
-        <div class="col-lg-6">
-
-            <div class="summary-card summary-komentar">
-
-                <div class="summary-card-content">
-
-                    <div class="summary-icon">
-                        <i class="bi bi-chat-dots-fill"></i>
-                    </div>
-
-                    <div class="summary-info">
-                        <span class="summary-label">
-                            KOMENTAR BERITA
-                        </span>
-
-                        <h3>
-                            {{ $saran->getCollection()->whereNotNull('berita_id')->count() }}
-                        </h3>
-
-                        <p>
-                            Komentar pada berita yang tampil di website.
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="summary-decoration">
-                    <i class="bi bi-chat-dots"></i>
-                </div>
-
-                <div class="summary-footer">
-                    <span>
-                        <i class="bi bi-newspaper me-1"></i>
-                        Interaksi pembaca berita
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        {{-- CARD SARAN DAN PENGADUAN --}}
-        <div class="col-lg-6">
-
-            <div class="summary-card summary-pengaduan">
-
-                <div class="summary-card-content">
-
-                    <div class="summary-icon">
-                        <i class="bi bi-envelope-paper-fill"></i>
-                    </div>
-
-                    <div class="summary-info">
-                        <span class="summary-label">
-                            SARAN & PENGADUAN
-                        </span>
-
-                        <h3>
-                            {{ $saran->getCollection()->whereNull('berita_id')->count() }}
-                        </h3>
-
-                        <p>
-                            Pesan dan masukan dari masyarakat.
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="summary-decoration">
-                    <i class="bi bi-envelope-paper"></i>
-                </div>
-
-                <div class="summary-footer">
-                    <span>
-                        <i class="bi bi-people me-1"></i>
-                        Aspirasi masyarakat
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    {{-- =====================================================
          FILTER DAN PENCARIAN
     ====================================================== --}}
-
     <div class="card filter-card border-0 mb-4">
-
         <div class="card-body p-4">
-
             <div class="filter-heading mb-3">
                 <div class="filter-heading-icon">
                     <i class="bi bi-funnel-fill"></i>
                 </div>
-
                 <div>
                     <h6>Filter dan Pencarian</h6>
-                    <p>Temukan pesan berdasarkan kata kunci, jenis, dan status.</p>
+                    <p>Temukan pesan berdasarkan kata kunci dan status.</p>
                 </div>
             </div>
 
-
-            <form action="{{ route('admin.saran.index') }}"
-                  method="GET">
-
+            <form action="{{ route('admin.saran.index') }}" method="GET">
                 <div class="row g-3 align-items-end">
 
                     {{-- PENCARIAN --}}
-                    <div class="col-lg-4 col-md-6">
-
-                        <label class="form-label">
-                            Cari Pesan
-                        </label>
-
+                    <div class="col-lg-6 col-md-6">
+                        <label class="form-label">Cari Pesan</label>
                         <div class="input-group search-group">
-
                             <span class="input-group-text">
                                 <i class="bi bi-search"></i>
                             </span>
-
                             <input
                                 type="text"
                                 name="search"
                                 class="form-control"
-                                placeholder="Nama, email, isi pesan..."
+                                placeholder="Nama pengirim atau isi pesan..."
                                 value="{{ request('search') }}">
-
                         </div>
-
                     </div>
-
-
-                    {{-- JENIS --}}
-                    <div class="col-lg-3 col-md-6">
-
-                        <label class="form-label">
-                            Jenis Pesan
-                        </label>
-
-                        <select name="jenis" class="form-select">
-
-                            <option value="">Semua Jenis</option>
-
-                            <option value="saran"
-                                {{ request('jenis') === 'saran' ? 'selected' : '' }}>
-                                Saran dan Pengaduan
-                            </option>
-
-                            <option value="komentar"
-                                {{ request('jenis') === 'komentar' ? 'selected' : '' }}>
-                                Komentar Berita
-                            </option>
-
-                        </select>
-
-                    </div>
-
 
                     {{-- STATUS --}}
-                    <div class="col-lg-3 col-md-6">
-
-                        <label class="form-label">
-                            Status Pesan
-                        </label>
-
+                    <div class="col-lg-4 col-md-6">
+                        <label class="form-label">Status Pesan</label>
                         <select name="status" class="form-select">
-
                             <option value="">Semua Status</option>
-
-                            <option value="baru"
-                                {{ request('status') === 'baru' ? 'selected' : '' }}>
-                                Baru
-                            </option>
-
-                            <option value="dibaca"
-                                {{ request('status') === 'dibaca' ? 'selected' : '' }}>
-                                Dibaca
-                            </option>
-
-                            <option value="dibalas"
-                                {{ request('status') === 'dibalas' ? 'selected' : '' }}>
-                                Dibalas
-                            </option>
-
+                            <option value="baru" {{ request('status') === 'baru' ? 'selected' : '' }}>Baru</option>
+                            <option value="dibaca" {{ request('status') === 'dibaca' ? 'selected' : '' }}>Dibaca</option>
+                            <option value="dibalas" {{ request('status') === 'dibalas' ? 'selected' : '' }}>Dibalas</option>
                         </select>
-
                     </div>
 
-
                     {{-- TOMBOL --}}
-                    <div class="col-lg-2 col-md-6">
-
+                    <div class="col-lg-2 col-md-12">
                         <div class="d-flex gap-2">
-
-                            <button type="submit"
-                                    class="btn btn-filter flex-grow-1">
-                                <i class="bi bi-funnel me-1"></i>
-                                Filter
+                            <button type="submit" class="btn btn-filter flex-grow-1">
+                                <i class="bi bi-funnel me-1"></i> Filter
                             </button>
-
                             <a href="{{ route('admin.saran.index') }}"
                                class="btn btn-reset"
                                title="Reset filter">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                             </a>
-
                         </div>
-
                     </div>
 
                 </div>
-
             </form>
-
         </div>
-
     </div>
 
 
     {{-- =====================================================
-         TABEL DATA
+         TABEL DATA SARAN
     ====================================================== --}}
-
     <div class="card table-card border-0">
-
         <div class="card-header table-card-header">
-
             <div class="table-heading">
-
                 <div class="table-heading-icon">
                     <i class="bi bi-inbox-fill"></i>
                 </div>
-
                 <div>
-                    <h5>Daftar Pesan Masyarakat</h5>
-
+                    <h5>Daftar Saran & Pengaduan</h5>
                     <p>
                         Total data ditemukan:
                         <strong>{{ $saran->total() }}</strong> pesan
                     </p>
                 </div>
-
             </div>
 
             <div class="table-header-badge">
                 <i class="bi bi-database-check me-1"></i>
-                Data Pesan
+                Data Aspirasi
             </div>
-
         </div>
 
-
         <div class="card-body p-0">
-
             <div class="table-responsive">
-
                 <table class="table table-hover align-middle mb-0">
-
                     <thead>
                         <tr>
-                            <th class="text-center">No</th>
-                            <th>Pengirim</th>
-                            <th>Jenis</th>
-                            <th>Judul Berita</th>
-                            <th>Isi Pesan</th>
-                            <th>Status</th>
-                            <th>Tanggal</th>
-                            <th class="text-center">Aksi</th>
+                            <th class="text-center" width="5%">No</th>
+                            <th width="25%">Pengirim</th>
+                            <th width="35%">Isi Pesan / Pertanyaan</th>
+                            <th width="15%">Status</th>
+                            <th width="15%">Tanggal</th>
+                            <th class="text-center" width="10%">Aksi</th>
                         </tr>
                     </thead>
-
                     <tbody>
-
                         @forelse($saran as $index => $item)
-
                             <tr>
-
                                 {{-- NOMOR --}}
                                 <td class="text-center">
                                     <span class="number-cell">
@@ -357,218 +168,107 @@
                                     </span>
                                 </td>
 
-
                                 {{-- PENGIRIM --}}
                                 <td>
-
                                     <div class="sender-name">
                                         <div class="sender-avatar">
                                             <i class="bi bi-person-fill"></i>
                                         </div>
-
                                         <div class="sender-information">
-
                                             <strong>
-                                                {{ $item->user->nama ?? 'Pengguna tidak ditemukan' }}
+                                                {{ $item->user->nama ?? $item->user->name ?? 'Pengguna tidak ditemukan' }}
                                             </strong>
-
                                             <small>
                                                 {{ $item->user->email ?? '-' }}
                                             </small>
-
                                         </div>
                                     </div>
-
                                 </td>
-
-
-                                {{-- JENIS --}}
-                                <td>
-
-                                    @if($item->berita_id)
-
-                                        <span class="badge badge-komentar">
-                                            <i class="bi bi-chat-dots me-1"></i>
-                                            Komentar
-                                        </span>
-
-                                    @else
-
-                                        <span class="badge badge-saran">
-                                            <i class="bi bi-envelope-paper me-1"></i>
-                                            Saran
-                                        </span>
-
-                                    @endif
-
-                                </td>
-
-
-                                {{-- JUDUL BERITA --}}
-                                <td>
-
-                                    @if($item->berita)
-
-                                        <span class="judul-berita">
-                                            {{ Str::limit($item->berita->judul, 35) }}
-                                        </span>
-
-                                    @elseif($item->berita_id)
-
-                                        <span class="text-muted">
-                                            Berita sudah tidak tersedia
-                                        </span>
-
-                                    @else
-
-                                        <span class="text-muted">-</span>
-
-                                    @endif
-
-                                </td>
-
 
                                 {{-- ISI PESAN --}}
                                 <td>
-
                                     <div class="isi-pesan">
-                                        {{ Str::limit(strip_tags($item->isi_saran), 90) }}
+                                        {{ Str::limit(strip_tags($item->isi_saran ?? $item->pesan ?? '-'), 90) }}
                                     </div>
-
                                 </td>
-
 
                                 {{-- STATUS --}}
                                 <td>
-
                                     @if($item->status === 'baru')
-
                                         <span class="badge badge-baru">
-                                            <span class="status-dot"></span>
-                                            Baru
+                                            <span class="status-dot"></span> Baru
                                         </span>
-
                                     @elseif($item->status === 'dibaca')
-
                                         <span class="badge badge-dibaca">
-                                            <span class="status-dot"></span>
-                                            Dibaca
+                                            <span class="status-dot"></span> Dibaca
                                         </span>
-
                                     @elseif($item->status === 'dibalas')
-
                                         <span class="badge badge-dibalas">
-                                            <span class="status-dot"></span>
-                                            Dibalas
+                                            <span class="status-dot"></span> Dibalas
                                         </span>
-
                                     @else
-
                                         <span class="badge bg-secondary">
                                             {{ ucfirst($item->status) }}
                                         </span>
-
                                     @endif
-
                                 </td>
-
 
                                 {{-- TANGGAL --}}
                                 <td>
-
                                     <div class="date-cell">
                                         {{ $item->created_at->format('d/m/Y') }}
                                     </div>
-
                                     <small class="time-cell">
                                         <i class="bi bi-clock me-1"></i>
                                         {{ $item->created_at->format('H:i') }} WIB
                                     </small>
-
                                 </td>
-
 
                                 {{-- AKSI --}}
                                 <td>
-
                                     <div class="action-buttons">
-
                                         <a href="{{ route('admin.saran.show', $item->id) }}"
                                            class="btn-action btn-detail"
                                            title="Lihat detail">
-
                                             <i class="bi bi-eye-fill"></i>
-
                                         </a>
 
-
-                                        <form
-                                            action="{{ route('admin.saran.destroy', $item->id) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus pesan ini?')">
-
+                                        <form action="{{ route('admin.saran.destroy', $item->id) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Yakin ingin menghapus pesan ini?')">
                                             @csrf
                                             @method('DELETE')
-
                                             <button type="submit"
                                                     class="btn-action btn-hapus"
                                                     title="Hapus data">
-
                                                 <i class="bi bi-trash3-fill"></i>
-
                                             </button>
-
                                         </form>
-
                                     </div>
-
                                 </td>
-
                             </tr>
-
                         @empty
-
                             <tr>
-
-                                <td colspan="8" class="text-center py-5">
-
+                                <td colspan="6" class="text-center py-5">
                                     <div class="empty-state">
-
                                         <div class="empty-icon">
                                             <i class="bi bi-inbox"></i>
                                         </div>
-
                                         <h6>Belum Ada Data</h6>
-
-                                        <p>
-                                            Belum ada saran, pengaduan,
-                                            atau komentar yang ditemukan.
-                                        </p>
-
+                                        <p>Belum ada saran atau pengaduan masyarakat yang ditemukan.</p>
                                     </div>
-
                                 </td>
-
                             </tr>
-
                         @endforelse
-
                     </tbody>
-
                 </table>
-
             </div>
-
         </div>
-
 
         {{-- PAGINATION --}}
         @if($saran->hasPages())
-
             <div class="card-footer table-card-footer">
-
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-
                     <small>
                         Menampilkan
                         <strong>{{ $saran->firstItem() }}</strong>
@@ -577,15 +277,10 @@
                         dari
                         <strong>{{ $saran->total() }}</strong> data
                     </small>
-
                     {{ $saran->links() }}
-
                 </div>
-
             </div>
-
         @endif
-
     </div>
 
 </div>
@@ -594,9 +289,7 @@
 {{-- =====================================================
      CSS TEMA HIJAU SOFT
 ====================================================== --}}
-
 <style>
-
     :root {
         --saran-dark: #285b46;
         --saran-green: #39765b;
@@ -613,7 +306,6 @@
     }
 
     /* HEADER */
-
     .header-saran {
         position: relative;
         display: flex;
@@ -624,12 +316,7 @@
         overflow: hidden;
         border-radius: 18px;
         color: #fff;
-        background: linear-gradient(
-            120deg,
-            #285b46 0%,
-            #39765b 55%,
-            #638e70 100%
-        );
+        background: linear-gradient(120deg, #285b46 0%, #39765b 55%, #638e70 100%);
         box-shadow: 0 8px 22px rgba(40, 91, 70, .12);
     }
 
@@ -701,97 +388,7 @@
         bottom: -90px;
     }
 
-
-    /* SUMMARY CARD */
-
-    .summary-card {
-        position: relative;
-        min-height: 165px;
-        padding: 23px;
-        overflow: hidden;
-        border: 1px solid var(--saran-border);
-        border-radius: 16px;
-        background: #fff;
-        transition: .25s ease;
-    }
-
-    .summary-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 24px rgba(40, 91, 70, .08);
-    }
-
-    .summary-card-content {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        gap: 17px;
-    }
-
-    .summary-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 58px;
-        height: 58px;
-        min-width: 58px;
-        border-radius: 15px;
-        background: var(--saran-soft);
-        color: var(--saran-green);
-        font-size: 25px;
-    }
-
-    .summary-info {
-        min-width: 0;
-    }
-
-    .summary-label {
-        display: block;
-        color: var(--saran-medium);
-        font-size: 9px;
-        font-weight: 750;
-        letter-spacing: 1.2px;
-    }
-
-    .summary-info h3 {
-        margin: 4px 0;
-        color: var(--saran-dark);
-        font-size: 30px;
-        font-weight: 750;
-        line-height: 1.2;
-    }
-
-    .summary-info p {
-        margin: 0;
-        color: var(--saran-muted);
-        font-size: 11px;
-    }
-
-    .summary-decoration {
-        position: absolute;
-        right: 20px;
-        top: 10px;
-        color: rgba(57, 118, 91, .06);
-        font-size: 100px;
-    }
-
-    .summary-footer {
-        position: relative;
-        z-index: 2;
-        margin-top: 19px;
-        padding-top: 11px;
-        border-top: 1px solid var(--saran-border);
-        color: var(--saran-muted);
-        font-size: 10px;
-    }
-
-    .summary-footer i {
-        color: var(--saran-medium);
-    }
-
-
-    /* FILTER */
-
+    /* FILTER & CARD */
     .filter-card,
     .table-card {
         border-radius: 16px !important;
@@ -867,12 +464,6 @@
         border-radius: 0 8px 8px 0;
     }
 
-    .halaman-saran .form-control:focus,
-    .halaman-saran .form-select:focus {
-        border-color: var(--saran-medium);
-        box-shadow: 0 0 0 .15rem rgba(108, 155, 125, .13);
-    }
-
     .btn-filter {
         min-height: 42px;
         border: 0;
@@ -908,9 +499,7 @@
         color: var(--saran-dark);
     }
 
-
-    /* TABLE HEADER */
-
+    /* TABLE */
     .table-card {
         border: 1px solid var(--saran-border) !important;
         overflow: hidden;
@@ -971,11 +560,8 @@
         font-weight: 650;
     }
 
-
-    /* TABLE */
-
     .table {
-        min-width: 1050px;
+        min-width: 900px;
     }
 
     .table thead th {
@@ -998,14 +584,6 @@
         font-size: 11px;
     }
 
-    .table tbody tr {
-        transition: .18s ease;
-    }
-
-    .table tbody tr:hover {
-        background: #f8fbf8;
-    }
-
     .number-cell {
         display: inline-flex;
         align-items: center;
@@ -1019,14 +597,11 @@
         font-weight: 750;
     }
 
-
     /* PENGIRIM */
-
     .sender-name {
         display: flex;
         align-items: center;
         gap: 9px;
-        min-width: 155px;
     }
 
     .sender-avatar {
@@ -1046,7 +621,6 @@
         display: flex;
         flex-direction: column;
         gap: 3px;
-        min-width: 0;
     }
 
     .sender-information strong {
@@ -1059,9 +633,7 @@
         font-size: 9px;
     }
 
-
     /* BADGE */
-
     .badge {
         display: inline-flex;
         align-items: center;
@@ -1071,16 +643,6 @@
         font-size: 9px;
         font-weight: 700;
         white-space: nowrap;
-    }
-
-    .badge-komentar {
-        background: #eaf2ec;
-        color: #39765b;
-    }
-
-    .badge-saran {
-        background: #edf3e8;
-        color: #66824d;
     }
 
     .badge-baru {
@@ -1105,22 +667,10 @@
         background: currentColor;
     }
 
-
-    /* PESAN DAN TANGGAL */
-
-    .judul-berita {
-        display: inline-block;
-        max-width: 180px;
-        color: var(--saran-green);
-        font-size: 10px;
-        font-weight: 650;
-    }
-
     .isi-pesan {
-        max-width: 220px;
         color: #64766a;
-        font-size: 10px;
-        line-height: 1.7;
+        font-size: 11px;
+        line-height: 1.6;
     }
 
     .date-cell {
@@ -1136,9 +686,7 @@
         font-size: 9px;
     }
 
-
     /* ACTION BUTTON */
-
     .action-buttons {
         display: flex;
         justify-content: center;
@@ -1179,9 +727,7 @@
         color: #fff;
     }
 
-
     /* EMPTY STATE */
-
     .empty-state {
         padding: 15px;
     }
@@ -1211,9 +757,7 @@
         font-size: 11px;
     }
 
-
-    /* FOOTER DAN PAGINATION */
-
+    /* FOOTER */
     .table-card-footer {
         padding: 16px 22px;
         border-top: 1px solid var(--saran-border);
@@ -1228,114 +772,5 @@
     .table-card-footer strong {
         color: var(--saran-green);
     }
-
-    .pagination {
-        margin: 0;
-        gap: 3px;
-    }
-
-    .pagination .page-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 31px;
-        min-height: 31px;
-        border: 1px solid var(--saran-border);
-        border-radius: 7px !important;
-        color: var(--saran-green);
-        background: #fff;
-        font-size: 10px;
-    }
-
-    .pagination .page-link:hover {
-        background: var(--saran-soft);
-        border-color: var(--saran-medium);
-    }
-
-    .pagination .active .page-link {
-        border-color: var(--saran-green);
-        background: var(--saran-green);
-        color: #fff;
-    }
-
-
-    /* RESPONSIVE */
-
-    @media (max-width: 768px) {
-
-        .header-saran {
-            min-height: 165px;
-            padding: 23px;
-        }
-
-        .header-saran h3 {
-            font-size: 21px;
-        }
-
-        .header-saran p {
-            max-width: 270px;
-            line-height: 1.6;
-        }
-
-        .header-icon {
-            margin-right: 0;
-            font-size: 48px;
-        }
-
-        .summary-card {
-            min-height: 150px;
-            padding: 18px;
-        }
-
-        .summary-icon {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            font-size: 21px;
-        }
-
-        .summary-info h3 {
-            font-size: 26px;
-        }
-
-        .filter-card .card-body {
-            padding: 18px !important;
-        }
-
-        .table-card-header {
-            padding: 17px;
-        }
-
-        .table-card-footer {
-            padding: 15px;
-        }
-
-    }
-
-    @media (max-width: 480px) {
-
-        .header-icon {
-            display: none;
-        }
-
-        .header-saran h3 {
-            font-size: 19px;
-        }
-
-        .summary-card-content {
-            gap: 12px;
-        }
-
-        .summary-info p {
-            font-size: 10px;
-        }
-
-        .table-header-badge {
-            display: none;
-        }
-
-    }
-
 </style>
-
 @endsection

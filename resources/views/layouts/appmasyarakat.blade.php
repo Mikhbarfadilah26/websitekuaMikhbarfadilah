@@ -1,158 +1,190 @@
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-        @yield('title', 'Dashboard Masyarakat')
-    </title>
+    <title>@yield('title', 'Dashboard Masyarakat')</title>
 
-    {{-- FAVICON LOGO KUA --}}
     <link rel="icon" type="image/png" href="{{ asset('7.png') }}?v=2">
-    <link rel="shortcut icon" href="{{ asset('7.png') }}?v=2">
 
-    {{-- =====================================================
-         BOOTSTRAP
-    ====================================================== --}}
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    {{-- Bootstrap --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    {{-- =====================================================
-         BOOTSTRAP ICON
-    ====================================================== --}}
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {{-- Bootstrap Icons --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    {{-- =====================================================
-         GOOGLE FONT
-    ====================================================== --}}
+    {{-- Google Font --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    {{-- =====================================================
-         CSS LAYOUT MASYARAKAT
-    ====================================================== --}}
     <style>
+        :root {
+            --sidebar-width: 260px;
+            --sidebar-mini: 78px;
+            --navbar-height: 72px;
+
+            --blue: #2563eb;
+            --blue-dark: #1d4ed8;
+            --blue-soft: #eaf2ff;
+            --blue-hover: #dceaff;
+
+            --sidebar-bg: #f0f6ff;
+            --sidebar-border: #dce8f8;
+
+            --body-bg: #f4f7fc;
+            --text-main: #1e293b;
+            --text-muted: #718096;
+        }
 
         * {
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
 
-        html,
-        body {
+        html, body {
             margin: 0;
             padding: 0;
-            width: 100%;
             min-height: 100%;
+            width: 100%;
         }
 
         body {
-            background: #f5f7fb;
-            color: #1f2937;
+            background: var(--body-bg);
+            color: var(--text-main);
             font-size: 14px;
             overflow-x: hidden;
         }
 
-        /* =====================================================
-           NAVBAR
-        ====================================================== */
-
-        .masyarakat-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            z-index: 1050;
-        }
-
-        /* =====================================================
+        /* ==============================
            SIDEBAR
-        ====================================================== */
+        ============================== */
 
         .masyarakat-sidebar {
             position: fixed !important;
-
-            top: 70px !important;
+            top: 0 !important;
             left: 0 !important;
 
-            width: 260px !important;
-            height: calc(100vh - 70px) !important;
+            width: var(--sidebar-width) !important;
+            height: 100vh !important;
+
+            background: var(--sidebar-bg) !important;
+            border-right: 1px solid var(--sidebar-border);
 
             z-index: 1040;
-
             overflow-y: auto;
             overflow-x: hidden;
+
+            transition: width .25s ease, transform .25s ease;
         }
 
-        /* =====================================================
+        /* ==============================
+           NAVBAR
+        ============================== */
+
+        .masyarakat-navbar {
+            position: fixed !important;
+            top: 0 !important;
+            left: var(--sidebar-width) !important;
+            right: 0 !important;
+
+            height: var(--navbar-height) !important;
+
+            z-index: 1050;
+            transition: left .25s ease;
+        }
+
+        /* ==============================
            MAIN CONTENT
-        ====================================================== */
+        ============================== */
 
         .masyarakat-main {
-            display: block !important;
-
-            margin-left: 260px !important;
-
-            padding: 100px 30px 40px 30px;
-
-            width: calc(100% - 260px) !important;
+            margin-left: var(--sidebar-width) !important;
+            width: calc(100% - var(--sidebar-width)) !important;
 
             min-height: 100vh;
 
-            background: #f5f7fb;
-        }
+            padding: calc(var(--navbar-height) + 28px) 30px 40px;
 
-        /* =====================================================
-           CONTAINER
-        ====================================================== */
+            transition: margin-left .25s ease, width .25s ease;
+
+            background: var(--body-bg);
+        }
 
         .masyarakat-main .container-fluid {
             width: 100%;
             max-width: none;
-            margin: 0;
             padding: 0;
+            margin: 0;
         }
-
-        /* =====================================================
-           PAGE HEADER
-        ====================================================== */
 
         .masyarakat-main h3 {
-            color: #111827;
-            font-size: 28px;
+            color: #172033;
+            font-size: 27px;
+            font-weight: 700;
         }
 
-        /* =====================================================
+        /* ==============================
+           COLLAPSED DESKTOP
+        ============================== */
+
+        body.sidebar-collapsed {
+            --sidebar-width: var(--sidebar-mini);
+        }
+
+        body.sidebar-collapsed .sidebar-profile {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        body.sidebar-collapsed .sidebar-profile-name,
+        body.sidebar-collapsed .sidebar-profile small,
+        body.sidebar-collapsed .sidebar-title,
+        body.sidebar-collapsed .sidebar-menu .nav-link span,
+        body.sidebar-collapsed .sidebar-footer,
+        body.sidebar-collapsed .sidebar-divider {
+            display: none !important;
+        }
+
+        body.sidebar-collapsed .sidebar-profile-icon {
+            margin: 0 auto;
+        }
+
+        body.sidebar-collapsed .sidebar-menu .nav-link {
+            justify-content: center;
+            padding: 12px 5px;
+        }
+
+        body.sidebar-collapsed .sidebar-menu .nav-link i {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        body.sidebar-collapsed .sidebar-inner {
+            padding: 20px 10px;
+        }
+
+        body.sidebar-collapsed .sidebar-menu form {
+            width: 100%;
+        }
+
+        /* ==============================
            CARD
-        ====================================================== */
+        ============================== */
 
         .content-card {
-            border: none;
-            border-radius: 14px;
-            background: #ffffff;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, .06);
+            background: #fff;
+            border: 1px solid #e9eef6;
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(30, 64, 120, .04);
         }
 
         .stat-card {
             border: none;
-            border-radius: 14px;
-            background: #ffffff;
+            border-radius: 15px;
+            background: #fff;
             transition: .2s ease;
         }
 
@@ -161,126 +193,177 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
         }
 
-        /* =====================================================
+        /* ==============================
            ALERT
-        ====================================================== */
+        ============================== */
 
         .alert {
-            border-radius: 10px;
+            border-radius: 11px;
         }
 
-        /* =====================================================
+        /* ==============================
            BUTTON
-        ====================================================== */
+        ============================== */
 
         .btn {
-            border-radius: 8px;
+            border-radius: 9px;
         }
 
-        /* =====================================================
+        /* ==============================
            TABLE
-        ====================================================== */
+        ============================== */
 
         .table {
             vertical-align: middle;
         }
 
-        /* =====================================================
+        /* ==============================
            BADGE
-        ====================================================== */
+        ============================== */
 
         .badge {
-            border-radius: 6px;
+            border-radius: 7px;
         }
 
-        /* =====================================================
+        /* ==============================
            FOOTER
-        ====================================================== */
+        ============================== */
 
         .masyarakat-footer {
-            margin-left: 260px !important;
+            margin-left: var(--sidebar-width) !important;
+            transition: margin-left .25s ease;
         }
 
-        /* =====================================================
-           MOBILE
-        ====================================================== */
+        /* ==============================
+           OVERLAY
+        ============================== */
+
+        .sidebar-overlay {
+            display: none;
+        }
+
+        /* ==============================
+           RESPONSIVE TABLET
+        ============================== */
 
         @media (max-width: 991.98px) {
-
-            .masyarakat-sidebar {
-                width: 230px !important;
-            }
-
             .masyarakat-main {
-                margin-left: 230px !important;
-                width: calc(100% - 230px) !important;
                 padding-left: 20px;
                 padding-right: 20px;
             }
-
-            .masyarakat-footer {
-                margin-left: 230px !important;
-            }
-
         }
+
+        /* ==============================
+           MOBILE
+        ============================== */
 
         @media (max-width: 767.98px) {
 
             .masyarakat-sidebar {
-                position: relative !important;
                 top: 0 !important;
-                width: 100% !important;
-                height: auto !important;
+                left: 0 !important;
+
+                width: 280px !important;
+                max-width: 85vw;
+                height: 100vh !important;
+
+                transform: translateX(-100%);
+                z-index: 1060;
+
+                box-shadow: none;
+            }
+
+            .masyarakat-sidebar.show {
+                transform: translateX(0);
+                box-shadow: 8px 0 30px rgba(15, 23, 42, .15);
+            }
+
+            .masyarakat-navbar {
+                left: 0 !important;
             }
 
             .masyarakat-main {
                 margin-left: 0 !important;
                 width: 100% !important;
-                padding: 90px 15px 30px 15px;
+
+                padding: 92px 15px 30px;
             }
 
             .masyarakat-footer {
                 margin-left: 0 !important;
             }
 
-        }
+            /* Sidebar tidak ikut mini saat mobile */
+            body.sidebar-collapsed {
+                --sidebar-width: 0px;
+            }
 
+            body.sidebar-collapsed .sidebar-profile-name,
+            body.sidebar-collapsed .sidebar-profile small,
+            body.sidebar-collapsed .sidebar-title,
+            body.sidebar-collapsed .sidebar-menu .nav-link span,
+            body.sidebar-collapsed .sidebar-footer,
+            body.sidebar-collapsed .sidebar-divider {
+                display: block !important;
+            }
+
+            body.sidebar-collapsed .sidebar-menu .nav-link {
+                justify-content: flex-start;
+                padding: 11px 14px;
+            }
+
+            body.sidebar-collapsed .sidebar-profile-icon {
+                margin: 0 auto 10px;
+            }
+
+            body.sidebar-collapsed .sidebar-inner {
+                padding: 18px 15px 25px;
+            }
+
+            .sidebar-overlay {
+                display: block;
+                position: fixed;
+                inset: 0;
+
+                background: rgba(15, 23, 42, .48);
+                z-index: 1055;
+
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity .25s ease;
+            }
+
+            .sidebar-overlay.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            body.sidebar-open {
+                overflow: hidden;
+            }
+        }
     </style>
 
     @stack('styles')
-
 </head>
 
 <body>
 
-    {{-- =========================================================
-         NAVBAR
-    ========================================================= --}}
-
+    {{-- NAVBAR --}}
     @include('layouts.masyarakat.navbar')
 
-
-    {{-- =========================================================
-         SIDEBAR
-    ========================================================= --}}
-
+    {{-- SIDEBAR --}}
     @include('layouts.masyarakat.sidebar')
 
+    {{-- OVERLAY MOBILE --}}
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    {{-- =========================================================
-         MAIN
-    ========================================================= --}}
-
+    {{-- MAIN CONTENT --}}
     <main class="masyarakat-main">
-
         <div class="container-fluid">
 
-            {{-- =================================================
-                 HEADER
-            ================================================== --}}
-
+            {{-- HEADER --}}
             <div class="mb-4">
-
                 <h3 class="fw-semibold mb-1">
                     @yield('page-title', 'Dashboard')
                 </h3>
@@ -288,62 +371,30 @@
                 <small class="text-muted">
                     @yield('breadcrumb', 'Dashboard')
                 </small>
-
             </div>
 
-
-            {{-- =================================================
-                 SUCCESS
-            ================================================== --}}
-
+            {{-- SUCCESS --}}
             @if(session('success'))
-
                 <div class="alert alert-success alert-dismissible fade show mb-4">
-
                     <i class="bi bi-check-circle me-2"></i>
-
                     {{ session('success') }}
 
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert">
-                    </button>
-
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-
             @endif
 
-
-            {{-- =================================================
-                 ERROR
-            ================================================== --}}
-
+            {{-- ERROR --}}
             @if(session('error'))
-
                 <div class="alert alert-danger alert-dismissible fade show mb-4">
-
                     <i class="bi bi-exclamation-circle me-2"></i>
-
                     {{ session('error') }}
 
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert">
-                    </button>
-
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-
             @endif
 
-
-            {{-- =================================================
-                 VALIDATION ERROR
-            ================================================== --}}
-
+            {{-- VALIDATION ERROR --}}
             @if($errors->any())
-
                 <div class="alert alert-danger alert-dismissible fade show mb-4">
 
                     <strong>
@@ -352,56 +403,88 @@
                     </strong>
 
                     <ul class="mb-0 mt-2">
-
                         @foreach($errors->all() as $error)
-
-                            <li>
-                                {{ $error }}
-                            </li>
-
+                            <li>{{ $error }}</li>
                         @endforeach
-
                     </ul>
 
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert">
-                    </button>
-
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-
             @endif
 
-
-            {{-- =================================================
-                 CONTENT
-            ================================================== --}}
-
+            {{-- CONTENT --}}
             @yield('content')
 
         </div>
-
     </main>
 
-
-    {{-- =========================================================
-         FOOTER
-    ========================================================= --}}
-
+    {{-- FOOTER --}}
     @include('layouts.masyarakat.footer')
 
+    {{-- BOOTSTRAP JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    {{-- =========================================================
-         BOOTSTRAP JS
-    ========================================================= --}}
+    {{-- SIDEBAR CONTROL --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+            const sidebar = document.getElementById('masyarakatSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            window.toggleMasyarakatSidebar = function () {
+
+                if (window.innerWidth <= 767) {
+                    sidebar.classList.toggle('show');
+                    overlay.classList.toggle('show');
+                    document.body.classList.toggle('sidebar-open');
+                } else {
+                    document.body.classList.toggle('sidebar-collapsed');
+                }
+            };
+
+            window.openMasyarakatSidebar = function () {
+                if (window.innerWidth <= 767) {
+                    sidebar.classList.add('show');
+                    overlay.classList.add('show');
+                    document.body.classList.add('sidebar-open');
+                }
+            };
+
+            window.closeMasyarakatSidebar = function () {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+                document.body.classList.remove('sidebar-open');
+            };
+
+            if (overlay) {
+                overlay.addEventListener('click', closeMasyarakatSidebar);
+            }
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeMasyarakatSidebar();
+                }
+            });
+
+            sidebar.querySelectorAll('.sidebar-menu a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth <= 767) {
+                        closeMasyarakatSidebar();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 767) {
+                    closeMasyarakatSidebar();
+                    document.body.classList.remove('sidebar-collapsed');
+                }
+            });
+
+        });
     </script>
 
     @stack('scripts')
 
 </body>
-
 </html>

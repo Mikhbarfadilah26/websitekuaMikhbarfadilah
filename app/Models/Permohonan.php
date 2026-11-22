@@ -9,14 +9,7 @@ class Permohonan extends Model
 {
     protected $table = 'permohonan';
 
-    protected $fillable = [
-        'user_id',
-        'layanan_id',
-        'nomor_permohonan',
-        'tanggal_pengajuan',
-        'status',
-        'keterangan',
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'tanggal_pengajuan' => 'date',
@@ -24,7 +17,8 @@ class Permohonan extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        // Diubah dari User::class menjadi ModelUser::class
+        return $this->belongsTo(ModelUser::class, 'user_id');
     }
 
     public function layanan(): BelongsTo
